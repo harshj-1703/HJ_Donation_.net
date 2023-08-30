@@ -1,0 +1,24 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="rmcdonateModelStoreContainer" CdmEntityContainer="rmcdonateEntities">
+    <EntitySetMapping Name="users">
+      <EntityTypeMapping TypeName="rmcdonateModel.user">
+        <MappingFragment StoreEntitySet="users">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="fullname" ColumnName="fullname" />
+          <ScalarProperty Name="dob" ColumnName="dob" />
+          <ScalarProperty Name="address" ColumnName="address" />
+          <ScalarProperty Name="profession" ColumnName="profession" />
+          <ScalarProperty Name="email" ColumnName="email" />
+          <ScalarProperty Name="password" ColumnName="password" />
+          <ScalarProperty Name="mobile_no" ColumnName="mobile_no" />
+          <ScalarProperty Name="profilephoto" ColumnName="profilephoto" />
+          <ScalarProperty Name="createdat" ColumnName="createdat" />
+          <ScalarProperty Name="updatedat" ColumnName="updatedat" />
+          <ScalarProperty Name="lastlogin" ColumnName="lastlogin" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>
