@@ -40,6 +40,8 @@ namespace RMC_Donation.Controllers
                 else
                 {
                     FormsAuthentication.SetAuthCookie(u.fullname, false);
+                    var userProfile = new HttpCookie("userProfile", u.profilephoto);
+                    Response.Cookies.Add(userProfile);
                     return RedirectToAction("Index", "Home");
                 }
             }
@@ -69,21 +71,27 @@ namespace RMC_Donation.Controllers
 
                     string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
 
-                    string targetDirectory = Server.MapPath("~/Uploads/ProfilePhotos");
+                    string targetDirectory1 = Server.MapPath("~/Uploads/ProfilePhotos/");
+                    string targetDirectory = "/Uploads/ProfilePhotos/";
 
-                    if (!Directory.Exists(targetDirectory))
+                    if (!Directory.Exists(targetDirectory1))
                     {
-                        Directory.CreateDirectory(targetDirectory);
+                        Directory.CreateDirectory(targetDirectory1);
                     }
 
-                    string filePath = Path.Combine(targetDirectory, uniqueFileName);
-                    profilePhotoFile.SaveAs(filePath);
+                    //string filePath = Path.Combine(targetDirectory, uniqueFileName);
+                    string filePath = targetDirectory + uniqueFileName;
+                    profilePhotoFile.SaveAs(targetDirectory1 + uniqueFileName);
                     userinfo.profilephoto = filePath;
-
                 }
                 else
                 {
-                    userinfo.profilephoto = Server.MapPath("~/Uploads/ProfilePhotos/NullImages/status1.png");
+                    string targetDirectory1 = Server.MapPath("~/Uploads/ProfilePhotos/NullImages/");
+                    if (!Directory.Exists(targetDirectory1))
+                    {
+                        Directory.CreateDirectory(targetDirectory1);
+                    }
+                    userinfo.profilephoto = "/Uploads/ProfilePhotos/NullImages/status1.png";
                 }
                 userinfo.createdat = DateTime.Now;
                 userinfo.updatedat = DateTime.Now;
