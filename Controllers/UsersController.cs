@@ -42,7 +42,8 @@ namespace RMC_Donation.Controllers
                     FormsAuthentication.SetAuthCookie(u.fullname, false);
                     var userProfile = new HttpCookie("userProfile", u.profilephoto);
                     Response.Cookies.Add(userProfile);
-                    return RedirectToAction("Index", "Home");
+                    Session["user_id"] = u.id;
+                    return RedirectToAction("Index", "Home"); 
                 }
             }
 
@@ -111,5 +112,19 @@ namespace RMC_Donation.Controllers
             FormsAuthentication.SignOut();
             return RedirectToAction("Login");
         }
+
+        public ActionResult UserDetails(int userId)
+        {
+            var userDb = new rmcdonateEntities();
+            var userDetails = userDb.users.SingleOrDefault(user => user.id == userId);
+
+            if (userDetails == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(userDetails);
+        }
+
     }
 }

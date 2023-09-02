@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="rmcdonateItemsEntitiesStoreContainer" CdmEntityContainer="rmcdonateItemsEntity">
+    <EntitySetMapping Name="items">
+      <EntityTypeMapping TypeName="rmcdonateItemsEntities.item">
+        <MappingFragment StoreEntitySet="items">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="catagory" ColumnName="catagory" />
+          <ScalarProperty Name="details" ColumnName="details" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="imageurl1" ColumnName="imageurl1" />
+          <ScalarProperty Name="imageurl2" ColumnName="imageurl2" />
+          <ScalarProperty Name="imageurl3" ColumnName="imageurl3" />
+          <ScalarProperty Name="imageurl4" ColumnName="imageurl4" />
+          <ScalarProperty Name="createdat" ColumnName="createdat" />
+          <ScalarProperty Name="updatedat" ColumnName="updatedat" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

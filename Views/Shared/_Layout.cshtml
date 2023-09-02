@@ -1,6 +1,6 @@
 ﻿@{ 
     bool isLoggedIn = true;
-    if(string.IsNullOrWhiteSpace(User.Identity.Name))
+    if (string.IsNullOrWhiteSpace(User.Identity.Name))
     {
         isLoggedIn = false;
     }
@@ -30,6 +30,7 @@
                     @{
                         if (isLoggedIn)
                         {
+                            <li>@Html.ActionLink("Add Items", "Additems", "Item")</li>
                             <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
                             <li>@Html.ActionLink("Signout", "Signout", "Users")</li>
                             <li><img src="@Request.Cookies["userProfile"].Value" height="50" width="50" alt="UserProfile" /></li>
@@ -46,10 +47,6 @@
     </nav>
     <div class="container body-content">
         @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
     </div>
 
     @Scripts.Render("~/bundles/jquery")

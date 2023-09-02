@@ -130,10 +130,30 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\ItemController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\item.cs">
+      <DependentUpon>ItemEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ItemEDM.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItemEDM.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ItemEDM.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItemEDM.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ItemEDM.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>ItemEDM.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ItemsWithUserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
     <Compile Include="Models\user.cs">
       <DependentUpon>UserEDM.tt</DependentUpon>
@@ -175,6 +195,16 @@
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\ItemEDM.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ItemEDM.edmx</DependentUpon>
+      <LastGenOutput>ItemEDM.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\ItemEDM.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>ItemEDM.edmx</DependentUpon>
+      <LastGenOutput>ItemEDM.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\UserEDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UserEDM.Context.cs</LastGenOutput>
@@ -197,6 +227,13 @@
     </EntityDeploy>
     <Content Include="Models\UserEDM.edmx.diagram">
       <DependentUpon>UserEDM.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\ItemEDM.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>ItemEDM.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\ItemEDM.edmx.diagram">
+      <DependentUpon>ItemEDM.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -225,6 +262,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Users\Login.cshtml" />
     <Content Include="Views\Users\Signup.cshtml" />
+    <Content Include="Views\Item\Additems.cshtml" />
+    <Content Include="Views\Users\UserDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -2,32 +2,99 @@
     ViewBag.Title = "Home Page";
 }
 
-<main>
-    <section class="row" aria-labelledby="aspnetTitle">
-        <h1 id="title">ASP.NET</h1>
-        <p class="lead">ASP.NET is a free web framework for building great Web sites and Web applications using HTML, CSS and JavaScript.</p>
-        <p><a href="https://asp.net" class="btn btn-primary btn-md">Learn more &raquo;</a></p>
-    </section>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+</head>
 
-    <div class="row">
-        <section class="col-md-4" aria-labelledby="gettingStartedTitle">
-            <h2 id="gettingStartedTitle">Getting started</h2>
-            <p>
-                ASP.NET MVC gives you a powerful, patterns-based way to build dynamic websites that
-                enables a clean separation of concerns and gives you full control over markup
-                for enjoyable, agile development.
-            </p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301865">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="librariesTitle">
-            <h2 id="librariesTitle">Get more libraries</h2>
-            <p>NuGet is a free Visual Studio extension that makes it easy to add, remove, and update libraries and tools in Visual Studio projects.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301866">Learn more &raquo;</a></p>
-        </section>
-        <section class="col-md-4" aria-labelledby="hostingTitle">
-            <h2 id="hostingTitle">Web Hosting</h2>
-            <p>You can easily find a web hosting company that offers the right mix of features and price for your applications.</p>
-            <p><a class="btn btn-outline-dark" href="https://go.microsoft.com/fwlink/?LinkId=301867">Learn more &raquo;</a></p>
-        </section>
-    </div>
+<main>
+    <h2>Items</h2>
+
+    <table class="table">
+
+        <thead>
+            <tr>
+                <th>Item Name</th>
+                <th>Category</th>
+                <th>Details</th>
+                <th>Image URL 1</th>
+                <th>Image URL 2</th>
+                <th>Image URL 3</th>
+                <th>Image URL 4</th>
+                <th>Created At</th>
+                <th>Status</th>
+                <th>User Full Name</th>
+                <th>User Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var itemWithUser in Model)
+            {
+                <tr>
+                    <td><a href="@Url.Action("ItemDetails", "Item", new { id = itemWithUser.Item.id })" target="_blank">@itemWithUser.Item.name</a></td>
+                    <td>@itemWithUser.Item.catagory</td>
+                    <td>@itemWithUser.Item.details</td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl1))
+                        {
+                            <img src="@itemWithUser.Item.imageurl1" alt="Image 1" width="100" height="100" />
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl2))
+                        {
+                            <img src="@itemWithUser.Item.imageurl2" alt="Image 2" width="100" height="100" />
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl3))
+                        {
+                            <img src="@itemWithUser.Item.imageurl3" alt="Image 3" width="100" height="100" />
+                        }
+                    </td>
+                    <td>
+                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl4))
+                        {
+                            <img src="@itemWithUser.Item.imageurl4" alt="Image 4" width="100" height="100" />
+                        }
+                    </td>
+                    <td>@itemWithUser.Item.createdat</td>
+                    <td>
+                        <input type="checkbox" @(itemWithUser.Item.status == 1 ? "checked" : "") id="status_@itemWithUser.Item.id" data-id="@itemWithUser.Item.id" />
+                    </td>
+                    <td>
+                        <a href="@Url.Action("UserDetails", "Users", new { userId = itemWithUser.User.id })" target="_blank">@itemWithUser.User.fullname</a>
+                    </td>
+                    <td><a href="mailto:@itemWithUser.User.email" target="_blank">@itemWithUser.User.email</a></td>
+
+                </tr>
+            }
+        </tbody>
+
+
+    </table>
 </main>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Handle checkbox change event
+            $('input[type="checkbox"]').change(function () {
+                var itemId = $(this).data('id');
+                var isChecked = $(this).prop('checked');
+
+                // Send an AJAX request to update the status
+                $.ajax({
+                    url: '/Home/UpdateStatus', // Replace with your actual update action
+                    type: 'POST',
+                    data: { id: itemId, isChecked: isChecked },
+                    success: function (result) {
+                        // Handle success, if needed
+                    },
+                    error: function () {
+                        // Handle error, if needed
+                    }
+                });
+            });
+        });
+    </script>
+}

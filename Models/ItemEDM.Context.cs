@@ -13,10 +13,10 @@ namespace RMC_Donation.Models
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class rmcdonateEntities : DbContext
+    public partial class rmcdonateItemsEntity : DbContext
     {
-        public rmcdonateEntities()
-            : base("name=rmcdonateEntities")
+        public rmcdonateItemsEntity()
+            : base("name=rmcdonateItemsEntity")
         {
         }
     
@@ -25,8 +25,6 @@ namespace RMC_Donation.Models
             throw new UnintentionalCodeFirstException();
         }
     
-        public virtual DbSet<user> users { get; set; }
-
-        public System.Data.Entity.DbSet<RMC_Donation.Models.item> items { get; set; }
+        public virtual DbSet<item> items { get; set; }
     }
 }
