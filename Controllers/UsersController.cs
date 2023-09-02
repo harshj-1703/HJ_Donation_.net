@@ -45,6 +45,26 @@ namespace RMC_Donation.Controllers
                     Session["user_id"] = u.id;
                     return RedirectToAction("Index", "Home"); 
                 }
+                /*else if (u.status == 1)
+                {
+                    FormsAuthentication.SetAuthCookie(u.fullname, false);
+                    // Set the user role to "Admin"
+                    var authTicket = new FormsAuthenticationTicket(1, u.fullname, DateTime.Now, DateTime.Now.AddMinutes(30), false, "Admin");
+                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                    HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                    Response.Cookies.Add(authCookie);
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (u.status == 2)
+                {
+                    FormsAuthentication.SetAuthCookie(u.fullname, false);
+                    // Set the user role to "User"
+                    var authTicket = new FormsAuthenticationTicket(1, u.fullname, DateTime.Now, DateTime.Now.AddMinutes(30), false, "User");
+                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                    HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                    Response.Cookies.Add(authCookie);
+                    return RedirectToAction("Index", "Home");
+                }*/
             }
 
             ModelState.AddModelError("", "Username or password is wrong");

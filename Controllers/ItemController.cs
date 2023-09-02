@@ -140,31 +140,54 @@ namespace RMC_Donation.Controllers
             return View();
         }
 
-        public ActionResult ItemDetails(int itemId)
+        /*public ActionResult ItemDetails(int itemId)
         {
+            if (itemId == null)
+            {
+                return HttpNotFound();
+            }
+
             using (var itemDb = new rmcdonateItemsEntity())
             using (var userDb = new rmcdonateEntities())
             {
-                var itemWithUserDetails = itemDb.items
-                    .Where(item => item.id == itemId)
-                    .Join(
-                        userDb.users,
-                        item => item.user_id,
-                        user => user.id,
-                        (item, user) => new ItemsWithUserViewModel()
-                        {
-                            Item = item,
-                            User = user
-                        })
-                    .SingleOrDefault();
+                var itemDetails = itemDb.items.SingleOrDefault(item => item.id == itemId);
 
-                if (itemWithUserDetails == null)
+                if (itemDetails == null)
                 {
                     return HttpNotFound();
                 }
 
+                var userDetails = userDb.users.SingleOrDefault(user => user.id == itemDetails.user_id);
+
+                if (userDetails == null)
+                {
+                    return HttpNotFound();
+                }
+
+                // Create a view model to hold both item and user details
+                var itemWithUserDetails = new ItemsWithUserViewModel
+                {
+                    Item = itemDetails,
+                    User = userDetails
+                };
+
                 return View(itemWithUserDetails);
             }
+        }*/
+
+        public ActionResult ItemDetails(int itemId)
+        {
+            var itemDb = new rmcdonateItemsEntity();
+            var itemDetails = itemDb.items.SingleOrDefault(item => item.id == itemId);
+
+            if (itemDetails == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(itemDetails);
         }
+
+
     }
 }

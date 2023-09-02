@@ -264,6 +264,7 @@
     <Content Include="Views\Users\Signup.cshtml" />
     <Content Include="Views\Item\Additems.cshtml" />
     <Content Include="Views\Users\UserDetails.cshtml" />
+    <Content Include="Views\Item\ItemDetails.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

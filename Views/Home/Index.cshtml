@@ -30,7 +30,7 @@
             @foreach (var itemWithUser in Model)
             {
                 <tr>
-                    <td><a href="@Url.Action("ItemDetails", "Item", new { id = itemWithUser.Item.id })" target="_blank">@itemWithUser.Item.name</a></td>
+                    <td><a href="@Url.Action("ItemDetails", "Item", new { itemId = itemWithUser.Item.id })">@itemWithUser.Item.name</a></td>
                     <td>@itemWithUser.Item.catagory</td>
                     <td>@itemWithUser.Item.details</td>
                     <td>
@@ -62,7 +62,7 @@
                         <input type="checkbox" @(itemWithUser.Item.status == 1 ? "checked" : "") id="status_@itemWithUser.Item.id" data-id="@itemWithUser.Item.id" />
                     </td>
                     <td>
-                        <a href="@Url.Action("UserDetails", "Users", new { userId = itemWithUser.User.id })" target="_blank">@itemWithUser.User.fullname</a>
+                        <a href="@Url.Action("UserDetails", "Users", new { userId = itemWithUser.User.id })" >@itemWithUser.User.fullname</a>
                     </td>
                     <td><a href="mailto:@itemWithUser.User.email" target="_blank">@itemWithUser.User.email</a></td>
 

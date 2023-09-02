@@ -1,0 +1,101 @@
+﻿@model RMC_Donation.Models.item
+
+@{
+    ViewBag.Title = "ItemDetails";
+}
+
+<h2>ItemDetails</h2>
+<div>
+    <h4>item</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.name)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.name)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.catagory)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.catagory)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.details)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.details)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.user_id)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.user_id)
+        </dd>
+
+        @if (!string.IsNullOrEmpty(Model.imageurl1))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.imageurl1)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.imageurl1)
+            </dd>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.imageurl2))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.imageurl2)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.imageurl2)
+            </dd>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.imageurl3))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.imageurl3)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.imageurl3)
+            </dd>
+        }
+
+        @if (!string.IsNullOrEmpty(Model.imageurl4))
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.imageurl4)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.imageurl4)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.createdat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.createdat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.updatedat)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.updatedat)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.status)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.status)
+        </dd>
+    </dl>
+</div>
