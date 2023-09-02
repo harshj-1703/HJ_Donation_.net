@@ -34,10 +34,7 @@
                             <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
                             <li>@Html.ActionLink("Signout", "Signout", "Users")</li>
                             <li>
-                                @if (Request.Cookies["userProfile"] != null)
-                                {
-                                    <img src="@Request.Cookies["userProfile"]?.Value" height="50" width="50" alt="UserProfile" />
-                                }
+                                <img src="@Request.Cookies["userProfile"].Value" height="50" width="50" alt="UserProfile" />
                             </li>
                         }
                         else

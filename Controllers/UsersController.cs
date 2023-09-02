@@ -37,25 +37,15 @@ namespace RMC_Donation.Controllers
                     ModelState.AddModelError("", "You were removed by Admin");
                     return View();
                 }
-                else
+                /*else
                 {
                     FormsAuthentication.SetAuthCookie(u.fullname, false);
                     var userProfile = new HttpCookie("userProfile", u.profilephoto);
                     Response.Cookies.Add(userProfile);
                     Session["user_id"] = u.id;
                     return RedirectToAction("Index", "Home"); 
-                }
-                /*else if (u.status == 1)
-                {
-                    FormsAuthentication.SetAuthCookie(u.fullname, false);
-                    // Set the user role to "Admin"
-                    var authTicket = new FormsAuthenticationTicket(1, u.fullname, DateTime.Now, DateTime.Now.AddMinutes(30), false, "Admin");
-                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                    HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                    Response.Cookies.Add(authCookie);
-                    return RedirectToAction("Index", "Home");
-                }
-                else if (u.status == 2)
+                }*/
+                else if (u.status == 1)
                 {
                     FormsAuthentication.SetAuthCookie(u.fullname, false);
                     // Set the user role to "User"
@@ -63,10 +53,24 @@ namespace RMC_Donation.Controllers
                     string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
                     HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
                     Response.Cookies.Add(authCookie);
+                    var userProfile = new HttpCookie("userProfile", u.profilephoto);
+                    Response.Cookies.Add(userProfile);
                     return RedirectToAction("Index", "Home");
-                }*/
+                }
+                else if (u.status == 2)
+                {
+                    FormsAuthentication.SetAuthCookie(u.fullname, false);
+                    // Set the user role to "Admin"
+                    var authTicket = new FormsAuthenticationTicket(1, u.fullname, DateTime.Now, DateTime.Now.AddMinutes(30), false, "Admin");
+                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
+                    HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
+                    Response.Cookies.Add(authCookie);
+                    var userProfile = new HttpCookie("userProfile", u.profilephoto);
+                    Response.Cookies.Add(userProfile);
+                    Session["user_id"] = u.id;
+                    return RedirectToAction("Index", "Home");
+                }
             }
-
             ModelState.AddModelError("", "Username or password is wrong");
             return View();
         }
@@ -133,6 +137,7 @@ namespace RMC_Donation.Controllers
             return RedirectToAction("Login");
         }
 
+        [Authorize]
         public ActionResult UserDetails(int userId)
         {
             var userDb = new rmcdonateEntities();
