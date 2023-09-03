@@ -16,7 +16,6 @@ namespace RMC_Donation.Controllers
     public class ItemController : Controller
     {
         rmcdonateItemsEntity itemsEntity = new rmcdonateItemsEntity();
-        // GET: Item
         public ActionResult Additems()
         {
             return View();
@@ -253,7 +252,7 @@ namespace RMC_Donation.Controllers
                     if (!allowedExtensions.Contains(fileExtension.ToLower()))
                     {
                         ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
-                        return View("ItemEditByUser");
+                        return View();
                     }
                     string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
                     string targetDirectory1 = Server.MapPath("~/Uploads/ItemPhotos/");

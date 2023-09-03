@@ -44,34 +44,71 @@
         <div class="form-group">
             @Html.LabelFor(model => model.imageurl1, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.imageurl1, new { htmlAttributes = new { @class = "form-control" } })
+                @if (!string.IsNullOrEmpty(Model.imageurl1))
+                {
+                    <img id="imagePreview1" src="@Url.Content(Model.imageurl1)" alt="Image 1" style="max-width: 200px; max-height: 200px" />
+                }
+                else
+                {
+                    <img id="imagePreview1" src="" alt="Image 1 Preview" style="max-width: 200px; max-height: 200px; display: none" />
+                }
+                <input type="file" name="imageurl1" id="imageurl1" class="form-control" onchange="previewImage(1)" />
                 @Html.ValidationMessageFor(model => model.imageurl1, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <!-- Image 2 -->
         <div class="form-group">
             @Html.LabelFor(model => model.imageurl2, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.imageurl2, new { htmlAttributes = new { @class = "form-control" } })
+                @if (!string.IsNullOrEmpty(Model.imageurl2))
+                {
+                    <img id="imagePreview2" src="@Url.Content(Model.imageurl2)" alt="Image 2" style="max-width: 200px; max-height: 200px" />
+                }
+                else
+                {
+                    <img id="imagePreview2" src="" alt="Image 2 Preview" style="max-width: 200px; max-height: 200px; display: none" />
+                }
+                <input type="file" name="imageurl2" id="imageurl2" class="form-control" onchange="previewImage(2)" />
                 @Html.ValidationMessageFor(model => model.imageurl2, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <!-- Image 3 -->
         <div class="form-group">
             @Html.LabelFor(model => model.imageurl3, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.imageurl3, new { htmlAttributes = new { @class = "form-control" } })
+                @if (!string.IsNullOrEmpty(Model.imageurl3))
+                {
+                    <img id="imagePreview3" src="@Url.Content(Model.imageurl3)" alt="Image 3" style="max-width: 200px; max-height: 200px" />
+                }
+                else
+                {
+                    <img id="imagePreview3" src="" alt="Image 3 Preview" style="max-width: 200px; max-height: 200px; display: none" />
+                }
+                <input type="file" name="imageurl3" id="imageurl3" class="form-control" onchange="previewImage(3)" />
                 @Html.ValidationMessageFor(model => model.imageurl3, "", new { @class = "text-danger" })
             </div>
         </div>
 
+        <!-- Image 4 -->
         <div class="form-group">
             @Html.LabelFor(model => model.imageurl4, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.imageurl4, new { htmlAttributes = new { @class = "form-control" } })
+                @if (!string.IsNullOrEmpty(Model.imageurl4))
+                {
+                    <img id="imagePreview4" src="@Url.Content(Model.imageurl4)" alt="Image 4" style="max-width: 200px; max-height: 200px" />
+                }
+                else
+                {
+                    <img id="imagePreview4" src="" alt="Image 4 Preview" style="max-width: 200px; max-height: 200px; display: none" />
+                }
+                <input type="file" name="imageurl4" id="imageurl4" class="form-control" onchange="previewImage(4)" />
                 @Html.ValidationMessageFor(model => model.imageurl4, "", new { @class = "text-danger" })
             </div>
         </div>
+
+
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
@@ -84,3 +121,28 @@
 <div>
     @Html.ActionLink("Back to List", "Index")
 </div>
+
+@section Scripts{
+    <script>
+        function previewImage(imageNumber) {
+            const fileInput = document.getElementById(`imageurl${imageNumber}`);
+            const imagePreview = document.getElementById(`imagePreview${imageNumber}`);
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block'; // Show the preview
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                // No file selected or browser doesn't support FileReader
+                imagePreview.src = '';
+                imagePreview.style.display = 'none'; // Hide the empty preview
+            }
+        }
+    </script>
+
+}
