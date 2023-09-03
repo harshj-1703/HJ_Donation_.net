@@ -9,6 +9,7 @@ using System.Configuration;
 using System.Net;
 using System.Data.Entity.Validation;
 using System.Data.Entity;
+using System.Web.WebPages;
 
 namespace RMC_Donation.Controllers
 {
@@ -31,7 +32,7 @@ namespace RMC_Donation.Controllers
 
             string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
 
-            if(imageurl1 == null)
+            if (imageurl1 == null)
             {
                 //ModelState.AddModelError("", "One image is required");
                 return View();
@@ -232,7 +233,7 @@ namespace RMC_Donation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ItemEditByUser(item items, HttpPostedFileBase imageurl1, HttpPostedFileBase imageurl2, HttpPostedFileBase imageurl3, HttpPostedFileBase imageurl4, 
+        public ActionResult ItemEditByUser(item items, HttpPostedFileBase imageurl1, HttpPostedFileBase imageurl2, HttpPostedFileBase imageurl3, HttpPostedFileBase imageurl4,
             bool deleteImage1 = false, bool deleteImage2 = false, bool deleteImage3 = false, bool deleteImage4 = false)
         {
             using (var db = new rmcdonateItemsEntity())
@@ -252,6 +253,14 @@ namespace RMC_Donation.Controllers
                 items.imageurl2 = existingImage2;
                 items.imageurl3 = existingImage3;
                 items.imageurl4 = existingImage4;
+
+                ModelState.Remove("imageurl1");
+
+                // Check model state for validation errors
+                if (!ModelState.IsValid)
+                {
+                    return View(items);
+                }
 
                 existingItem.updatedat = DateTime.Now;
                 string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
@@ -358,26 +367,6 @@ namespace RMC_Donation.Controllers
                 existingItem.name = items.name;
                 existingItem.details = items.details;
                 existingItem.catagory = items.catagory;
-
-                if (deleteImage1)
-                {
-                    existingItem.imageurl1 = null;
-                }
-
-                if (deleteImage2)
-                {
-                    existingItem.imageurl2 = null;
-                }
-
-                if (deleteImage3)
-                {
-                    existingItem.imageurl3 = null;
-                }
-
-                if (deleteImage4)
-                {
-                    existingItem.imageurl4 = null;
-                }
 
                 db.SaveChanges();
                 return RedirectToAction("MyItems");
