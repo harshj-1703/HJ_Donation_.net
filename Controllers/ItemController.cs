@@ -231,7 +231,7 @@ namespace RMC_Donation.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken] // Add AntiForgeryToken for security
+        [ValidateAntiForgeryToken]
         public ActionResult ItemEditByUser(item items, HttpPostedFileBase imageurl1, HttpPostedFileBase imageurl2, HttpPostedFileBase imageurl3, HttpPostedFileBase imageurl4)
         {
             using (var db = new rmcdonateItemsEntity())
@@ -241,6 +241,16 @@ namespace RMC_Donation.Controllers
                 {
                     return RedirectToAction("Index", "Home");
                 }
+
+                string existingImage1 = existingItem.imageurl1;
+                string existingImage2 = existingItem.imageurl2;
+                string existingImage3 = existingItem.imageurl3;
+                string existingImage4 = existingItem.imageurl4;
+
+                items.imageurl1 = existingImage1;
+                items.imageurl2 = existingImage2;
+                items.imageurl3 = existingImage3;
+                items.imageurl4 = existingImage4;
 
                 existingItem.updatedat = DateTime.Now;
                 string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
@@ -252,7 +262,7 @@ namespace RMC_Donation.Controllers
                     if (!allowedExtensions.Contains(fileExtension.ToLower()))
                     {
                         ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
-                        return View();
+                        return View(items);
                     }
                     string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
                     string targetDirectory1 = Server.MapPath("~/Uploads/ItemPhotos/");
@@ -274,7 +284,7 @@ namespace RMC_Donation.Controllers
                     if (!allowedExtensions.Contains(fileExtension.ToLower()))
                     {
                         ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
-                        return View();
+                        return View(items);
                     }
 
                     string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
@@ -300,7 +310,7 @@ namespace RMC_Donation.Controllers
                     if (!allowedExtensions.Contains(fileExtension.ToLower()))
                     {
                         ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
-                        return View();
+                        return View(items);
                     }
 
                     string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
@@ -326,7 +336,7 @@ namespace RMC_Donation.Controllers
                     if (!allowedExtensions.Contains(fileExtension.ToLower()))
                     {
                         ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
-                        return View();
+                        return View(items);
                     }
 
                     string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
