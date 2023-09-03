@@ -232,7 +232,8 @@ namespace RMC_Donation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ItemEditByUser(item items, HttpPostedFileBase imageurl1, HttpPostedFileBase imageurl2, HttpPostedFileBase imageurl3, HttpPostedFileBase imageurl4)
+        public ActionResult ItemEditByUser(item items, HttpPostedFileBase imageurl1, HttpPostedFileBase imageurl2, HttpPostedFileBase imageurl3, HttpPostedFileBase imageurl4, 
+            bool deleteImage1 = false, bool deleteImage2 = false, bool deleteImage3 = false, bool deleteImage4 = false)
         {
             using (var db = new rmcdonateItemsEntity())
             {
@@ -357,6 +358,26 @@ namespace RMC_Donation.Controllers
                 existingItem.name = items.name;
                 existingItem.details = items.details;
                 existingItem.catagory = items.catagory;
+
+                if (deleteImage1)
+                {
+                    existingItem.imageurl1 = null;
+                }
+
+                if (deleteImage2)
+                {
+                    existingItem.imageurl2 = null;
+                }
+
+                if (deleteImage3)
+                {
+                    existingItem.imageurl3 = null;
+                }
+
+                if (deleteImage4)
+                {
+                    existingItem.imageurl4 = null;
+                }
 
                 db.SaveChanges();
                 return RedirectToAction("MyItems");

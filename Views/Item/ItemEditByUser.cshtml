@@ -41,18 +41,23 @@
         </div>
     </div>
 
+    <!-- Image 1 -->
     <div class="form-group">
         @Html.LabelFor(model => model.imageurl1, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @if (Model != null && !string.IsNullOrEmpty(Model.imageurl1))
+            @if (!string.IsNullOrEmpty(Model.imageurl1))
             {
                 <img id="imagePreview1" src="@Url.Content(Model.imageurl1)" alt="Image 1" style="max-width: 200px; max-height: 200px" />
+                <div id="deleteImage1">
+                    Delete image 1
+                    <input type="checkbox" name="deleteImage1" id="deleteImage1c" />
+                </div>
             }
             else
             {
                 <img id="imagePreview1" src="" alt="Image 1 Preview" style="max-width: 200px; max-height: 200px; display: none" />
             }
-            <input type="file" name="imageurl1" id="imageurl1" class="form-control" onchange="previewImage(1)" />
+            <input type="file" name="imageurl1" id="imageurl1" class="form-control" onchange="previewImage(1, 'deleteImage1')" />
             @Html.ValidationMessageFor(model => model.imageurl1, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -61,15 +66,19 @@
     <div class="form-group">
         @Html.LabelFor(model => model.imageurl2, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @if (Model != null && !string.IsNullOrEmpty(Model.imageurl2))
+            @if (!string.IsNullOrEmpty(Model.imageurl2))
             {
                 <img id="imagePreview2" src="@Url.Content(Model.imageurl2)" alt="Image 2" style="max-width: 200px; max-height: 200px" />
+                <div id="deleteImage2">
+                    Delete image 2
+                    <input type="checkbox" name="deleteImage2" id="deleteImage2c" />
+                </div>
             }
             else
             {
                 <img id="imagePreview2" src="" alt="Image 2 Preview" style="max-width: 200px; max-height: 200px; display: none" />
             }
-            <input type="file" name="imageurl2" id="imageurl2" class="form-control" onchange="previewImage(2)" />
+            <input type="file" name="imageurl2" id="imageurl2" class="form-control" onchange="previewImage(2, 'deleteImage2')" />
             @Html.ValidationMessageFor(model => model.imageurl2, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -78,15 +87,19 @@
     <div class="form-group">
         @Html.LabelFor(model => model.imageurl3, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @if (Model != null && !string.IsNullOrEmpty(Model.imageurl3))
+            @if (!string.IsNullOrEmpty(Model.imageurl3))
             {
                 <img id="imagePreview3" src="@Url.Content(Model.imageurl3)" alt="Image 3" style="max-width: 200px; max-height: 200px" />
+                <div id="deleteImage3">
+                    Delete image 3
+                    <input type="checkbox" name="deleteImage3" id="deleteImage3c" />
+                </div>
             }
             else
             {
                 <img id="imagePreview3" src="" alt="Image 3 Preview" style="max-width: 200px; max-height: 200px; display: none" />
             }
-            <input type="file" name="imageurl3" id="imageurl3" class="form-control" onchange="previewImage(3)" />
+            <input type="file" name="imageurl3" id="imageurl3" class="form-control" onchange="previewImage(3, 'deleteImage3')" />
             @Html.ValidationMessageFor(model => model.imageurl3, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -95,15 +108,19 @@
     <div class="form-group">
         @Html.LabelFor(model => model.imageurl4, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @if (Model != null && !string.IsNullOrEmpty(Model.imageurl4))
+            @if (!string.IsNullOrEmpty(Model.imageurl4))
             {
                 <img id="imagePreview4" src="@Url.Content(Model.imageurl4)" alt="Image 4" style="max-width: 200px; max-height: 200px" />
+                <div id="deleteImage4">
+                    Delete image 4
+                    <input type="checkbox" name="deleteImage4" id="deleteImage4c" />
+                </div>
             }
             else
             {
                 <img id="imagePreview4" src="" alt="Image 4 Preview" style="max-width: 200px; max-height: 200px; display: none" />
             }
-            <input type="file" name="imageurl4" id="imageurl4" class="form-control" onchange="previewImage(4)" />
+            <input type="file" name="imageurl4" id="imageurl4" class="form-control" onchange="previewImage(4, 'deleteImage4')" />
             @Html.ValidationMessageFor(model => model.imageurl4, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -122,9 +139,10 @@
 
 @section Scripts{
     <script>
-        function previewImage(imageNumber) {
+        function previewImage(imageNumber, deleteCheckboxId) {
             const fileInput = document.getElementById(`imageurl${imageNumber}`);
             const imagePreview = document.getElementById(`imagePreview${imageNumber}`);
+            const deleteCheckbox = document.getElementById(deleteCheckboxId);
 
             if (fileInput.files && fileInput.files[0]) {
                 const reader = new FileReader();
@@ -132,6 +150,7 @@
                 reader.onload = function (e) {
                     imagePreview.src = e.target.result;
                     imagePreview.style.display = 'block'; // Show the preview
+                    deleteCheckbox.style.display = 'none'; // Hide the "Delete" checkbox
                 };
 
                 reader.readAsDataURL(fileInput.files[0]);
@@ -139,6 +158,7 @@
                 // No file selected or browser doesn't support FileReader
                 imagePreview.src = '';
                 imagePreview.style.display = 'none'; // Hide the empty preview
+                deleteCheckbox.style.display = 'block'; // Show the "Delete" checkbox
             }
         }
     </script>
