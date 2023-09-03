@@ -75,8 +75,8 @@
         <div class="form-group">
             @Html.LabelFor(model => model.profilephoto, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                <!--@Html.EditorFor(model => model.profilephoto, new { htmlAttributes = new { @class = "form-control" } })-->
-                <input type="file" name="profilePhotoFile" class="form-control" />
+                <input type="file" name="profilePhotoFile" class="form-control" onchange="previewImage(this, 'profilePhotoPreview')" />
+                <img id="profilePhotoPreview" src="" alt="Profile Photo Preview" style="max-width: 200px; max-height: 200px; display: none" />
                 @Html.ValidationMessageFor(model => model.profilephoto, "", new { @class = "text-danger" })
             </div>
         </div>
@@ -102,5 +102,20 @@
                 yearRange: "1900:" + new Date().getFullYear() // Set a reasonable year range
             });
         });
+    </script>
+    <script>
+        function previewImage(input, imageId) {
+            var imagePreview = document.getElementById(imageId);
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block';
+                };
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 }
