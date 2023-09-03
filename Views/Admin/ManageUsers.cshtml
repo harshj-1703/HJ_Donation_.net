@@ -1,0 +1,125 @@
+﻿@model IEnumerable<RMC_Donation.Models.user>
+
+@{
+    ViewBag.Title = "ManageUsers";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>ManageUsers</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.fullname)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.dob)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.address)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.profession)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.email)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.password)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.mobile_no)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.profilephoto)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.updatedat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.lastlogin)
+        </th>
+        <th>
+            Role
+        </th>
+        <th></th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.fullname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.dob)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.address)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.profession)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.password)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.mobile_no)
+            </td>
+            <td>
+                <img src="@item.profilephoto" alt="User Photo" height="100" width="100" />
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.createdat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.updatedat)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.lastlogin)
+            </td>
+            <td>
+                @if (item.status == 1)
+                {
+                    <input type="checkbox" checked="checked" id="status_@item.id" data-id="@item.id" />
+                }
+                else if (item.status == 2)
+                {
+                    @: Admin
+                }
+                else
+                {
+                    <input type="checkbox" id="status_@item.id" data-id="@item.id" />
+                }
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $('input[type="checkbox"]').change(function () {
+            var itemId = $(this).data('id');
+            var isChecked = $(this).prop('checked');
+
+            $.ajax({
+                url: '/Admin/UpdateUserStatus', 
+                type: 'POST',
+                data: { id: itemId, isChecked: isChecked },
+                success: function (result) {
+                },
+                error: function () {
+                }
+            });
+        });
+    });
+    </script>
+    }

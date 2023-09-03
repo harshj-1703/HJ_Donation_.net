@@ -16,8 +16,8 @@ namespace RMC_Donation.Controllers
         {
             using (var dbContext = new rmcdonateItemsEntity())
             {
-                //var items = dbContext.items.Where(item => item.status != 0).ToList();
-                var items = dbContext.items.ToList();
+                var items = dbContext.items.Where(item => item.status != 0).ToList();
+                //var items = dbContext.items.ToList();
                 var userDb = new rmcdonateEntities();
 
                 // Retrieve users from the second context
@@ -53,22 +53,6 @@ namespace RMC_Donation.Controllers
             ViewBag.Message = "Your contact page.";
 
             return View();
-        }
-
-        [HttpPost]
-        public ActionResult UpdateStatus(int id, bool isChecked)
-        {
-            using (var db = new rmcdonateItemsEntity())
-            {
-                var item = db.items.Find(id);
-
-                if (item != null)
-                {
-                    item.status = isChecked ? 1 : 0;
-                    db.SaveChanges();
-                }
-            }
-            return RedirectToAction("Index");
         }
 
     }

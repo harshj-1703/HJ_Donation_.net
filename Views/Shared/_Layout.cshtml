@@ -4,6 +4,12 @@
     {
         isLoggedIn = false;
     }
+
+    bool isAdmin = false;
+    if (Session["user_role"] == "Admin")
+    {
+        isAdmin = true;
+    }
 }
 <!DOCTYPE html>
 <html>
@@ -30,12 +36,17 @@
                     @{
                         if (isLoggedIn)
                         {
-                            <li>@Html.ActionLink("Add Items", "Additems", "Item")</li>
-                            <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
-                            <li>@Html.ActionLink("Signout", "Signout", "Users")</li>
                             <li>
                                 <img src="@Request.Cookies["userProfile"].Value" height="50" width="50" alt="UserProfile" />
                             </li>
+                            <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
+                            <li>@Html.ActionLink("Add Items", "Additems", "Item")</li>
+                            if (isAdmin)
+                            {
+                                <li>@Html.ActionLink("ManageItems", "ManageItems", "Admin")</li>
+                                <li>@Html.ActionLink("ManageUsers", "ManageUsers", "Admin")</li>
+                            }
+                            <li>@Html.ActionLink("Signout", "Signout", "Users")</li>
                         }
                         else
                         {

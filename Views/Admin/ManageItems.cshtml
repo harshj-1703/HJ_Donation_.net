@@ -1,10 +1,10 @@
-﻿@{
-    ViewBag.Title = "Home Page";
+﻿
+@{
+    ViewBag.Title = "ManageItems";
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<head>
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-</head>
+<h2>ManageItems</h2>
 
 <main>
     <h2>Items</h2>
@@ -21,6 +21,7 @@
                 <th>Image URL 3</th>
                 <th>Image URL 4</th>
                 <th>Created At</th>
+                <th>Status</th>
                 <th>User Full Name</th>
                 <th>User Email</th>
             </tr>
@@ -58,6 +59,9 @@
                     </td>
                     <td>@itemWithUser.Item.createdat</td>
                     <td>
+                        <input type="checkbox" @(itemWithUser.Item.status == 1 ? "checked" : "") id="status_@itemWithUser.Item.id" data-id="@itemWithUser.Item.id" />
+                    </td>
+                    <td>
                         <a href="@Url.Action("UserDetails", "Users", new { userId = itemWithUser.User.id })">@itemWithUser.User.fullname</a>
                     </td>
                     <td><a href="mailto:@itemWithUser.User.email" target="_blank">@itemWithUser.User.email</a></td>
@@ -70,7 +74,7 @@
     </table>
 </main>
 
-<!--@section scripts {
+@section scripts {
     <script>
         $(document).ready(function () {
             // Handle checkbox change event
@@ -80,7 +84,7 @@
 
                 // Send an AJAX request to update the status
                 $.ajax({
-                    url: '/Home/UpdateStatus', // Replace with your actual update action
+                    url: '/Admin/UpdateItemStatus', // Replace with your actual update action
                     type: 'POST',
                     data: { id: itemId, isChecked: isChecked },
                     success: function (result) {
@@ -94,4 +98,3 @@
         });
     </script>
 }
--->
