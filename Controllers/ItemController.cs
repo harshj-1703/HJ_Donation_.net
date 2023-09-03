@@ -7,6 +7,7 @@ using System.Web;
 using System.Web.Mvc;
 using System.Configuration;
 using System.Net;
+using System.Data.Entity.Validation;
 
 namespace RMC_Donation.Controllers
 {
@@ -29,6 +30,12 @@ namespace RMC_Donation.Controllers
             items.user_id = (int)Session["user_id"];
 
             string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+
+            if(imageurl1 == null)
+            {
+                //ModelState.AddModelError("", "One image is required");
+                return View();
+            }
 
             if (imageurl1 != null && imageurl1.ContentLength > 0)
             {
@@ -137,43 +144,8 @@ namespace RMC_Donation.Controllers
 
             itemsEntity.items.Add(items);
             itemsEntity.SaveChanges();
-            return View();
+            return RedirectToAction("MyItems");
         }
-
-        /*public ActionResult ItemDetails(int itemId)
-        {
-            if (itemId == null)
-            {
-                return HttpNotFound();
-            }
-
-            using (var itemDb = new rmcdonateItemsEntity())
-            using (var userDb = new rmcdonateEntities())
-            {
-                var itemDetails = itemDb.items.SingleOrDefault(item => item.id == itemId);
-
-                if (itemDetails == null)
-                {
-                    return HttpNotFound();
-                }
-
-                var userDetails = userDb.users.SingleOrDefault(user => user.id == itemDetails.user_id);
-
-                if (userDetails == null)
-                {
-                    return HttpNotFound();
-                }
-
-                // Create a view model to hold both item and user details
-                var itemWithUserDetails = new ItemsWithUserViewModel
-                {
-                    Item = itemDetails,
-                    User = userDetails
-                };
-
-                return View(itemWithUserDetails);
-            }
-        }*/
 
         public ActionResult ItemDetails(int itemId)
         {
@@ -188,6 +160,54 @@ namespace RMC_Donation.Controllers
             return View(itemDetails);
         }
 
+        public ActionResult MyItems()
+        {
+            var itemDb = new rmcdonateItemsEntity();
+            var user_id = (int)Session["user_id"];
+            var itemDetails = itemDb.items
+            .Where(item => item.user_id == user_id)
+            .Where(item => item.status != 0)
+            .OrderByDescending(item => item.createdat)
+            .ToList();
+
+            return View(itemDetails);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ItemDeleteByUser(int itemId)
+        {
+            using (var db = new rmcdonateItemsEntity())
+            {
+                var item = db.items.Find(itemId);
+                if (item == null)
+                {
+                    return RedirectToAction("MyItems");
+                }
+
+                if (item.user_id != (int)Session["user_id"])
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+                try
+                {
+                    item.status = 0;
+                    db.SaveChanges();
+                }
+                catch (DbEntityValidationException ex)
+                {
+                    foreach (var entityValidationErrors in ex.EntityValidationErrors)
+                    {
+                        foreach (var validationError in entityValidationErrors.ValidationErrors)
+                        {
+                            // Log or print the validation error details
+                            Console.WriteLine($"Property: {validationError.PropertyName}, Error: {validationError.ErrorMessage}");
+                        }
+                    }
+                }
+            }
+            return RedirectToAction("MyItems");
+        }
 
     }
 }

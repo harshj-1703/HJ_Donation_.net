@@ -41,6 +41,7 @@
                             </li>
                             <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
                             <li>@Html.ActionLink("Add Items", "Additems", "Item")</li>
+                            <li>@Html.ActionLink("My Items", "MyItems", "Item")</li>
                             if (isAdmin)
                             {
                                 <li>@Html.ActionLink("ManageItems", "ManageItems", "Admin")</li>

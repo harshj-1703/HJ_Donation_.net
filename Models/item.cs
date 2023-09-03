@@ -26,7 +26,7 @@ namespace RMC_Donation.Models
         [MaxLength(255, ErrorMessage = "Details cannot exceed 255 characters")]
         public string details { get; set; }
         public int user_id { get; set; }
-
+        [Required(ErrorMessage = "First Image is required")]
         public string imageurl1 { get; set; }
         public string imageurl2 { get; set; }
         public string imageurl3 { get; set; }

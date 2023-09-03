@@ -64,29 +64,39 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
 
-    <script>
-        $(document).ready(function () {
-            var maxImages = 4; // Maximum number of images allowed
-            var currentImageCount = 1;
+<script>
+    $(document).ready(function () {
+        var maxImages = 4; // Maximum number of images allowed
+        var currentImageCount = 1;
 
-            // Function to add a new image upload field
-            function addImageField() {
-                if (currentImageCount < maxImages) {
-                    currentImageCount++;
-                    var newImageField = $('<div class="form-group">' +
-                        '<label class="control-label col-md-2">Image URL ' + currentImageCount + '</label>' +
-                        '<div class="col-md-10">' +
-                        '<input type="file" name="imageurl' + currentImageCount + '" class="form-control" />' +
-                        '</div>' +
-                        '</div>');
-                    $('#additionalImageFields').append(newImageField);
-                }
+        // Function to add a new image upload field with a "Remove" button
+        function addImageField() {
+            if (currentImageCount < maxImages) {
+                currentImageCount++;
+                var newImageField = $('<div class="form-group">' +
+                    '<label class="control-label col-md-2">Image URL ' + currentImageCount + '</label>' +
+                    '<div class="col-md-8">' +
+                    '<input type="file" name="imageurl' + currentImageCount + '" class="form-control" />' +
+                    '</div>' +
+                    '<div class="col-md-2">' +
+                    '<button type="button" class="btn btn-danger remove-image">Remove</button>' +
+                    '</div>' +
+                    '</div>');
+
+                // Add a click handler to the "Remove" button
+                newImageField.find('.remove-image').click(function () {
+                    $(this).closest('.form-group').remove();
+                    currentImageCount--;
+                });
+
+                $('#additionalImageFields').append(newImageField);
             }
+        }
 
-            // Handle click on "Add Image" button
-            $('#addImageField').click(function () {
-                addImageField();
-            });
+        // Handle click on "Add Image" button
+        $('#addImageField').click(function () {
+            addImageField();
         });
-    </script>
+    });
+</script>
 }

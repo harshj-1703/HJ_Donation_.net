@@ -1,0 +1,121 @@
+﻿@model IEnumerable<RMC_Donation.Models.item>
+
+@{
+    ViewBag.Title = "MyItems";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>MyItems</h2>
+
+<p>
+    @Html.ActionLink("Add New", "AddItems","Item")
+</p>
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.name)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.catagory)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.details)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.user_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imageurl1)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imageurl2)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imageurl3)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.imageurl4)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.createdat)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.updatedat)
+        </th>
+        <!--<th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>-->
+        <th></th>
+    </tr>
+
+    @if (Model != null)
+    {
+
+        foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.name)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.catagory)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.details)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.user_id)
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.imageurl1))
+                    {
+                        <img src="@item.imageurl1" alt="Image 1" height="100" width="100" />
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.imageurl2))
+                    {
+                        <img src="@item.imageurl2" alt="Image 2" height="100" width="100" />
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.imageurl3))
+                    {
+                        <img src="@item.imageurl3" alt="Image 3" height="100" width="100" />
+                    }
+                </td>
+                <td>
+                    @if (!string.IsNullOrEmpty(item.imageurl4))
+                    {
+                        <img src="@item.imageurl4" alt="Image 4" height="100" width="100" />
+                    }
+                </td>
+
+                <td>
+                    @Html.DisplayFor(modelItem => item.createdat)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.updatedat)
+                </td>
+                <!--<td>
+                    @Html.DisplayFor(modelItem => item.status)
+                </td>-->
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                <a href="@Url.Action("ItemDetails", "Item", new { itemId = item.id })" target="_blank">Details</a> |
+                @using (Html.BeginForm("ItemDeleteByUser", "Item", new { itemId = item.id }, FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                }
+
+            </td>
+            </tr>
+        }
+    }
+    else
+    {
+        < p > No data available.</ p >
+    }
+
+</table>
