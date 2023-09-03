@@ -32,43 +32,29 @@ namespace RMC_Donation.Controllers
             user u = entity.users.FirstOrDefault(x => x.email == credentials.email && x.password == credentials.password);
             if (userExists)
             {
-                if(u.status == 0)
-                {
-                    ModelState.AddModelError("", "You were removed by Admin");
-                    return View();
-                }
-                /*else
+                if (u.status == 1)
                 {
                     FormsAuthentication.SetAuthCookie(u.fullname, false);
                     var userProfile = new HttpCookie("userProfile", u.profilephoto);
                     Response.Cookies.Add(userProfile);
                     Session["user_id"] = u.id;
-                    return RedirectToAction("Index", "Home"); 
-                }*/
-                else if (u.status == 1)
-                {
-                    FormsAuthentication.SetAuthCookie(u.fullname, false);
-                    // Set the user role to "User"
-                    var authTicket = new FormsAuthenticationTicket(1, u.fullname, DateTime.Now, DateTime.Now.AddMinutes(30), false, "User");
-                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                    HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                    Response.Cookies.Add(authCookie);
-                    var userProfile = new HttpCookie("userProfile", u.profilephoto);
-                    Response.Cookies.Add(userProfile);
+                    Session["user_role"] = "User";
                     return RedirectToAction("Index", "Home");
                 }
                 else if (u.status == 2)
                 {
                     FormsAuthentication.SetAuthCookie(u.fullname, false);
-                    // Set the user role to "Admin"
-                    var authTicket = new FormsAuthenticationTicket(1, u.fullname, DateTime.Now, DateTime.Now.AddMinutes(30), false, "Admin");
-                    string encryptedTicket = FormsAuthentication.Encrypt(authTicket);
-                    HttpCookie authCookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptedTicket);
-                    Response.Cookies.Add(authCookie);
                     var userProfile = new HttpCookie("userProfile", u.profilephoto);
                     Response.Cookies.Add(userProfile);
                     Session["user_id"] = u.id;
+                    Session["user_role"] = "Admin";
                     return RedirectToAction("Index", "Home");
+                }
+
+                else
+                {
+                    ModelState.AddModelError("", "You were removed by Admin");
+                    return View();
                 }
             }
             ModelState.AddModelError("", "Username or password is wrong");
