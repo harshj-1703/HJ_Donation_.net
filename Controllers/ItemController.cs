@@ -8,6 +8,7 @@ using System.Web.Mvc;
 using System.Configuration;
 using System.Net;
 using System.Data.Entity.Validation;
+using System.Data.Entity;
 
 namespace RMC_Donation.Controllers
 {
@@ -209,5 +210,148 @@ namespace RMC_Donation.Controllers
             return RedirectToAction("MyItems");
         }
 
+
+        [HttpGet]
+        public ActionResult ItemEditByUser(int itemId)
+        {
+            using (var db = new rmcdonateItemsEntity())
+            {
+                var item = db.items.Find(itemId);
+                if (item == null)
+                {
+                    return RedirectToAction("MyItems");
+                }
+
+                if (item.user_id != (int)Session["user_id"])
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                return View(item);
+            }
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken] // Add AntiForgeryToken for security
+        public ActionResult ItemEditByUser(item items, HttpPostedFileBase imageurl1, HttpPostedFileBase imageurl2, HttpPostedFileBase imageurl3, HttpPostedFileBase imageurl4)
+        {
+            using (var db = new rmcdonateItemsEntity())
+            {
+                var existingItem = db.items.Find(items.id);
+                if (existingItem == null || existingItem.user_id != (int)Session["user_id"])
+                {
+                    return RedirectToAction("Index", "Home");
+                }
+
+                existingItem.updatedat = DateTime.Now;
+                string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+
+                if (imageurl1 != null && imageurl1.ContentLength > 0)
+                {
+                    string originalFileName = Path.GetFileName(imageurl1.FileName);
+                    string fileExtension = Path.GetExtension(originalFileName);
+                    if (!allowedExtensions.Contains(fileExtension.ToLower()))
+                    {
+                        ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                        return View("ItemEditByUser");
+                    }
+                    string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
+                    string targetDirectory1 = Server.MapPath("~/Uploads/ItemPhotos/");
+                    string targetDirectory = "/Uploads/ItemPhotos/";
+                    if (!Directory.Exists(targetDirectory1))
+                    {
+                        Directory.CreateDirectory(targetDirectory1);
+                    }
+                    string filePath = targetDirectory + uniqueFileName;
+                    imageurl1.SaveAs(targetDirectory1 + uniqueFileName);
+                    existingItem.imageurl1 = filePath;
+                }
+
+                if (imageurl2 != null && imageurl2.ContentLength > 0)
+                {
+                    string originalFileName = Path.GetFileName(imageurl2.FileName);
+                    string fileExtension = Path.GetExtension(originalFileName);
+
+                    if (!allowedExtensions.Contains(fileExtension.ToLower()))
+                    {
+                        ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                        return View();
+                    }
+
+                    string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
+
+                    string targetDirectory1 = Server.MapPath("~/Uploads/ItemPhotos/");
+                    string targetDirectory = "/Uploads/ItemPhotos/";
+
+                    if (!Directory.Exists(targetDirectory1))
+                    {
+                        Directory.CreateDirectory(targetDirectory1);
+                    }
+
+                    string filePath = targetDirectory + uniqueFileName;
+                    imageurl2.SaveAs(targetDirectory1 + uniqueFileName);
+                    existingItem.imageurl2 = filePath;
+                }
+
+                if (imageurl3 != null && imageurl3.ContentLength > 0)
+                {
+                    string originalFileName = Path.GetFileName(imageurl3.FileName);
+                    string fileExtension = Path.GetExtension(originalFileName);
+
+                    if (!allowedExtensions.Contains(fileExtension.ToLower()))
+                    {
+                        ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                        return View();
+                    }
+
+                    string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
+
+                    string targetDirectory1 = Server.MapPath("~/Uploads/ItemPhotos/");
+                    string targetDirectory = "/Uploads/ItemPhotos/";
+
+                    if (!Directory.Exists(targetDirectory1))
+                    {
+                        Directory.CreateDirectory(targetDirectory1);
+                    }
+
+                    string filePath = targetDirectory + uniqueFileName;
+                    imageurl3.SaveAs(targetDirectory1 + uniqueFileName);
+                    existingItem.imageurl3 = filePath;
+                }
+
+                if (imageurl4 != null && imageurl4.ContentLength > 0)
+                {
+                    string originalFileName = Path.GetFileName(imageurl4.FileName);
+                    string fileExtension = Path.GetExtension(originalFileName);
+
+                    if (!allowedExtensions.Contains(fileExtension.ToLower()))
+                    {
+                        ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                        return View();
+                    }
+
+                    string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
+
+                    string targetDirectory1 = Server.MapPath("~/Uploads/ItemPhotos/");
+                    string targetDirectory = "/Uploads/ItemPhotos/";
+
+                    if (!Directory.Exists(targetDirectory1))
+                    {
+                        Directory.CreateDirectory(targetDirectory1);
+                    }
+
+                    string filePath = targetDirectory + uniqueFileName;
+                    imageurl4.SaveAs(targetDirectory1 + uniqueFileName);
+                    existingItem.imageurl4 = filePath;
+                }
+
+                existingItem.name = items.name;
+                existingItem.details = items.details;
+                existingItem.catagory = items.catagory;
+
+                db.SaveChanges();
+                return RedirectToAction("MyItems");
+            }
+        }
     }
 }

@@ -101,11 +101,17 @@
                     @Html.DisplayFor(modelItem => item.status)
                 </td>-->
             <td>
-                @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
-                <a href="@Url.Action("ItemDetails", "Item", new { itemId = item.id })" target="_blank">Details</a> |
-                @using (Html.BeginForm("ItemDeleteByUser", "Item", new { itemId = item.id }, FormMethod.Post))
+                @using (Html.BeginForm("ItemEditByUser", "Item", FormMethod.Get))
                 {
                     @Html.AntiForgeryToken()
+                    @Html.Hidden("itemId", item.id)
+                    <button type="submit" class="btn btn-warning">Edit</button>
+                } |
+                <a href="@Url.Action("ItemDetails", "Item", new { itemId = item.id })" target="_blank">Details</a> |
+                @using (Html.BeginForm("ItemDeleteByUser", "Item", FormMethod.Post))
+                {
+                    @Html.AntiForgeryToken()
+                    @Html.Hidden("itemId", item.id)
                     <button type="submit" class="btn btn-danger">Delete</button>
                 }
 
