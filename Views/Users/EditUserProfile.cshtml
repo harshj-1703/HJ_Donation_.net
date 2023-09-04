@@ -65,7 +65,7 @@
             {
                 <img id="profileImagePreview" src="@Model.profilephoto" alt="Current Profile Photo" style="max-width: 200px; max-height: 200px" />
                 <div id="deleteProfileImage">
-                    <a href="#" id="deleteProfileImageLink" onclick="deleteImage(@Model.id, 'profilephoto')">Delete Profile Photo</a>
+                    <a href="#" id="deleteProfileImageLink" data-userid="@Model.id">Delete Profile Photo</a>
                 </div>
             }
             else
@@ -76,6 +76,7 @@
             @Html.ValidationMessageFor(model => model.profilephoto, "", new { @class = "text-danger" })
         </div>
     </div>
+
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -91,6 +92,31 @@
 
 @section scripts{
     <script>
+
+        $(document).ready(function () {
+            $('#deleteProfileImageLink').on('click', function (e) {
+                e.preventDefault(); // Prevent the default link behavior
+
+                var userId = $(this).data('userid'); // Get the user id from the link's data attribute
+
+                if (confirm("Are you sure you want to delete this image?")) {
+                    $.ajax({
+                        url: '/Users/DeleteProfilePhoto', // Replace with the actual URL for deleting the profile photo
+                        type: 'POST',
+                        data: { userId: userId },
+                        success: function (result) {
+                            alert("Image Deleted Successfully");
+                            location.reload(); // Reload the page to update the image
+                        },
+                        error: function (error) {
+                            // Handle any errors
+                            alert("Error deleting image: " + JSON.stringify(error));
+                        }
+                    });
+                }
+            });
+        });
+
     $(document).ready(function () {
         $('#profileImageInput').change(function () {
             var input = this;

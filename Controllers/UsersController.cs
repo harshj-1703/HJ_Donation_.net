@@ -148,7 +148,7 @@ namespace RMC_Donation.Controllers
             using (var db = new rmcdonateEntities())
             {
                 var user = db.users.Find(userId);
-                if (user == null)
+                if (user == null || Session["user_id"] == null)
                 {
                     return RedirectToAction("Login");
                 }
@@ -169,7 +169,7 @@ namespace RMC_Donation.Controllers
             using (var db = new rmcdonateEntities())
             {
                 var oldUser = db.users.Find(users.id);
-                if (oldUser == null || oldUser.id != (int)Session["user_id"])
+                if (oldUser == null || Session["user_id"] == null || oldUser.id != (int)Session["user_id"])
                 {
                     return RedirectToAction("Index", "Home");
                 }
@@ -225,6 +225,47 @@ namespace RMC_Donation.Controllers
                 db.SaveChanges();
                 FormsAuthentication.SetAuthCookie(users.fullname, false);
                 return RedirectToAction("Index", "Home");
+            }
+        }
+
+        [Authorize]
+        [HttpPost]
+        public ActionResult DeleteProfilePhoto(int userId)
+        {
+            try
+            {
+                var db = new rmcdonateEntities();
+
+                if (userId <= 0)
+                {
+                    return Json(new { success = false, error = "Invalid user ID" });
+                }
+
+                var user = db.users.Find(userId);
+                if (user != null)
+                {
+                    user.profilephoto = "/Uploads/ProfilePhotos/NullImages/status1.png";
+                    db.SaveChanges();
+
+                    var userProfile = new HttpCookie("userProfile", user.profilephoto);
+                    Response.Cookies.Add(userProfile);
+
+                    return Json(new { success = true });
+                }
+                else
+                {
+                    return Json(new { success = false, error = "User not found" });
+                }
+            }
+            catch (Exception ex)
+            {
+                var responseObject = new
+                {
+                    success = false,
+                    error = ex.Message
+                };
+
+                return Json(responseObject);
             }
         }
     }

@@ -164,6 +164,10 @@ namespace RMC_Donation.Controllers
         public ActionResult MyItems()
         {
             var itemDb = new rmcdonateItemsEntity();
+            if (Session["user_id"] == null)
+            {
+                return RedirectToAction("Login", "Users");
+            }
             var user_id = (int)Session["user_id"];
             var itemDetails = itemDb.items
             .Where(item => item.user_id == user_id)
@@ -184,6 +188,11 @@ namespace RMC_Donation.Controllers
                 if (item == null)
                 {
                     return RedirectToAction("MyItems");
+                }
+
+                if (Session["user_id"] == null)
+                {
+                    return RedirectToAction("Login", "Users");
                 }
 
                 if (item.user_id != (int)Session["user_id"])
@@ -220,6 +229,11 @@ namespace RMC_Donation.Controllers
                 if (item == null)
                 {
                     return RedirectToAction("MyItems");
+                }
+
+                if (Session["user_id"] == null)
+                {
+                    return RedirectToAction("Login", "Users");
                 }
 
                 if (item.user_id != (int)Session["user_id"])
