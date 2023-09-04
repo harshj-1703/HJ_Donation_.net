@@ -60,16 +60,22 @@
     <div class="form-group">
         @Html.LabelFor(model => model.profilephoto, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.HiddenFor(model => model.profilephoto) <!-- Store the current image path -->
+            @Html.HiddenFor(model => model.profilephoto)
             @if (!string.IsNullOrEmpty(Model.profilephoto))
             {
-                <img id="profileImagePreview" src="@Model.profilephoto" height="100" width="100" alt="Current Profile Photo" />
+                <img id="profileImagePreview" src="@Model.profilephoto" alt="Current Profile Photo" style="max-width: 200px; max-height: 200px" />
+                <div id="deleteProfileImage">
+                    <a href="#" id="deleteProfileImageLink" onclick="deleteImage(@Model.id, 'profilephoto')">Delete Profile Photo</a>
+                </div>
             }
-            <input type="file" id="profileImageInput" name="profileImage" accept="image/*" />
+            else
+            {
+                <img id="profileImagePreview" src="" alt="Profile Photo Preview" style="max-width: 200px; max-height: 200px; display: none" />
+            }
+            <input type="file" name="profileImage" id="profileImageInput" class="form-control" onchange="previewImage('profilephoto', 'deleteProfileImage')" />
             @Html.ValidationMessageFor(model => model.profilephoto, "", new { @class = "text-danger" })
         </div>
     </div>
-
 
     <div class="form-group">
         <div class="col-md-offset-2 col-md-10">
@@ -97,5 +103,50 @@
             }
         });
     });
+
+        function previewImage(imageName, deleteButtonId) {
+            const fileInput = document.getElementById(`profileImageInput`);
+            const imagePreview = document.getElementById(`profileImagePreview`);
+            const deleteButton = document.getElementById(deleteButtonId);
+
+            if (fileInput.files && fileInput.files[0]) {
+                const reader = new FileReader();
+
+                reader.onload = function (e) {
+                    imagePreview.src = e.target.result;
+                    imagePreview.style.display = 'block'; // Show the preview
+                    deleteButton.style.display = 'none'; // Hide the "Delete" button
+                };
+
+                reader.readAsDataURL(fileInput.files[0]);
+            } else {
+                imagePreview.style.display = 'none'; // Hide the empty preview
+                const lastPartOfSrc = imagePreview.src.split('/').pop().trim().toLowerCase();
+                if (lastPartOfSrc === "status1.png") {
+                    deleteButton.style.display = 'none';
+                } else {
+                    deleteButton.style.display = 'block';
+                }
+                imagePreview.src = '';
+            }
+        }
+
+        function initializeProfileImage() {
+            const imagePreview = document.getElementById('profileImagePreview');
+            const deleteButton = document.getElementById('deleteProfileImage');
+            const lastPartOfSrc = imagePreview.src.split('/').pop().trim().toLowerCase();
+
+            if (lastPartOfSrc === 'status1.png') {
+                deleteButton.style.display = 'none';
+            } else {
+                deleteButton.style.display = 'block';
+            }
+        }
+
+        window.onload = initializeProfileImage;
+
+        /*var imgpre = document.getElementById('profileImagePreview');
+        console.log(imgpre.src.split('/').pop());*/
+
     </script>
     }
