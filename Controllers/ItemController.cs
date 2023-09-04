@@ -233,8 +233,7 @@ namespace RMC_Donation.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult ItemEditByUser(item items, HttpPostedFileBase imageurl1, HttpPostedFileBase imageurl2, HttpPostedFileBase imageurl3, HttpPostedFileBase imageurl4,
-            bool deleteImage1 = false, bool deleteImage2 = false, bool deleteImage3 = false, bool deleteImage4 = false)
+        public ActionResult ItemEditByUser(item items, HttpPostedFileBase imageurl1, HttpPostedFileBase imageurl2, HttpPostedFileBase imageurl3, HttpPostedFileBase imageurl4)
         {
             using (var db = new rmcdonateItemsEntity())
             {
@@ -370,6 +369,68 @@ namespace RMC_Donation.Controllers
 
                 db.SaveChanges();
                 return RedirectToAction("MyItems");
+            }
+        }
+
+        [HttpPost]
+        public ActionResult DeleteImage(int id, int imageNumber)
+        {
+            try
+            {
+                var db = new rmcdonateItemsEntity();
+
+                // Perform validation before making changes
+                if (imageNumber < 1 || imageNumber > 4)
+                {
+                    return Json(new { success = false, error = "Invalid imageNumber" });
+                }
+
+                // No validation issues, proceed with the update
+                string columnName = $"imageurl{imageNumber}";
+                string sql = $"UPDATE items SET {columnName} = NULL WHERE id = {id}";
+                db.Database.ExecuteSqlCommand(sql);
+
+                return Json(new { success = true });
+            }
+
+            catch (Exception ex)
+            {
+                // Create an empty list to store validation errors
+                var validationErrorsList = new List<object>();
+
+                Console.WriteLine("Exception: " + ex.Message);
+
+                // Check for EntityValidationErrors
+                if (ex is System.Data.Entity.Validation.DbEntityValidationException dbEx)
+                {
+                    foreach (var validationErrors in dbEx.EntityValidationErrors)
+                    {
+                        foreach (var validationError in validationErrors.ValidationErrors)
+                        {
+                            Console.WriteLine($"Entity: {validationErrors.Entry.Entity.GetType().Name}");
+                            Console.WriteLine($"Property: {validationError.PropertyName}");
+                            Console.WriteLine($"Error: {validationError.ErrorMessage}");
+
+                            // Add validation error details to the list
+                            validationErrorsList.Add(new
+                            {
+                                Entity = validationErrors.Entry.Entity.GetType().Name,
+                                Property = validationError.PropertyName,
+                                ErrorMessage = validationError.ErrorMessage
+                            });
+                        }
+                    }
+                }
+
+                // Create the JSON response object
+                var responseObject = new
+                {
+                    success = false,
+                    error = ex.Message,
+                    validationErrors = validationErrorsList
+                };
+
+                return Json(responseObject);
             }
         }
     }
