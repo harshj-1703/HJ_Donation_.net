@@ -22,6 +22,7 @@ namespace RMC_Donation.Models
 
         [Required(ErrorMessage = "Date of Birth is required")]
         [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:yyyy-MM-dd}", ApplyFormatInEditMode = true)]
         public System.DateTime dob { get; set; }
 
         [Required(ErrorMessage = "Address is required")]

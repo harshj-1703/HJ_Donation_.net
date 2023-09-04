@@ -156,10 +156,52 @@ namespace RMC_Donation.Controllers
                 {
                     return RedirectToAction("Login");
                 }
-
                 return View(user);
             }
         }
 
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult EditUserProfile(user users, HttpPostedFileBase profileImage)
+        {
+            using (var db = new rmcdonateEntities())
+            {
+                var oldUser = db.users.Find(users.id);
+
+                users.profilephoto = oldUser.profilephoto;
+
+                oldUser.profession = users.profession;
+                oldUser.fullname = users.fullname;
+                oldUser.dob = users.dob;
+                oldUser.address = users.address;
+                oldUser.mobile_no = users.mobile_no;
+
+                if (profileImage != null && profileImage.ContentLength > 0)
+                {
+                    string originalFileName = Path.GetFileName(profileImage.FileName);
+                    string fileExtension = Path.GetExtension(originalFileName);
+                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+                    if (!allowedExtensions.Contains(fileExtension.ToLower()))
+                    {
+                        ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                        return View(users);
+                    }
+                    string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
+                    string targetDirectory = "/Uploads/ProfilePhotos/";
+                    string filePath = targetDirectory + uniqueFileName;
+                    string targetDirectory1 = Server.MapPath("~/Uploads/ProfilePhotos/");
+                    profileImage.SaveAs(targetDirectory1 + uniqueFileName);
+                    oldUser.profilephoto = filePath;
+
+                    var userProfile = new HttpCookie("userProfile", oldUser.profilephoto);
+                    Response.Cookies.Add(userProfile);
+                }
+
+                db.SaveChanges();
+                FormsAuthentication.SetAuthCookie(users.fullname, false);
+                return RedirectToAction("Index", "Home");
+            }
+        }
     }
 }
