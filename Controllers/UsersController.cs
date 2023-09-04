@@ -142,6 +142,7 @@ namespace RMC_Donation.Controllers
         }
 
         [Authorize]
+        [HttpGet]
         public ActionResult EditUserProfile(int userId)
         {
             using (var db = new rmcdonateEntities())
@@ -168,20 +169,36 @@ namespace RMC_Donation.Controllers
             using (var db = new rmcdonateEntities())
             {
                 var oldUser = db.users.Find(users.id);
+                if (oldUser == null || oldUser.id != (int)Session["user_id"])
+                {
+                    return RedirectToAction("Index", "Home");
+                }
 
                 users.profilephoto = oldUser.profilephoto;
 
-                oldUser.profession = users.profession;
-                oldUser.fullname = users.fullname;
-                oldUser.dob = users.dob;
-                oldUser.address = users.address;
-                oldUser.mobile_no = users.mobile_no;
+                ModelState.Remove("email");
+                ModelState.Remove("password");
+
+                if (!ModelState.IsValid)
+                {
+                    List<string> modelErrors = new List<string>();
+                    foreach (var modelState in ModelState.Values)
+                    {
+                        foreach (var error in modelState.Errors)
+                        {
+                            modelErrors.Add(error.ErrorMessage);
+                        }
+                    }
+                    ViewBag.ModelErrors = modelErrors;
+                    return View(users);
+                }
+
+                string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
 
                 if (profileImage != null && profileImage.ContentLength > 0)
                 {
                     string originalFileName = Path.GetFileName(profileImage.FileName);
                     string fileExtension = Path.GetExtension(originalFileName);
-                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
                     if (!allowedExtensions.Contains(fileExtension.ToLower()))
                     {
                         ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
@@ -197,6 +214,13 @@ namespace RMC_Donation.Controllers
                     var userProfile = new HttpCookie("userProfile", oldUser.profilephoto);
                     Response.Cookies.Add(userProfile);
                 }
+
+                oldUser.fullname = users.fullname;
+                oldUser.profession = users.profession;
+                oldUser.dob = users.dob;
+                oldUser.address = users.address;
+                oldUser.mobile_no = users.mobile_no;
+                oldUser.updatedat = DateTime.Now;
 
                 db.SaveChanges();
                 FormsAuthentication.SetAuthCookie(users.fullname, false);

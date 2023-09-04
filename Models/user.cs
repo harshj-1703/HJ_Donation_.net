@@ -42,9 +42,8 @@ namespace RMC_Donation.Models
         [Required(ErrorMessage = "Password is required")]
         public string password { get; set; }
 
-        [MinLength(10, ErrorMessage = "Mobile Number Must 10 digits")]
-        [MaxLength(10, ErrorMessage = "Mobile Number Must 10 digits")]
-        [Required(ErrorMessage = "Mobile Number is required")]
+        [Required(ErrorMessage = "Mobile Number is required.")]
+        [RegularExpression("^[0-9]{10}$", ErrorMessage = "Mobile Number must be exactly 10 digits and contain only digits.")]
         public string mobile_no { get; set; }
         public string profilephoto { get; set; }
         public Nullable<System.DateTime> createdat { get; set; }
