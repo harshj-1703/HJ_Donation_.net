@@ -271,6 +271,7 @@
     <Content Include="Views\Admin\ManageUsers.cshtml" />
     <Content Include="Views\Item\MyItems.cshtml" />
     <Content Include="Views\Item\ItemEditByUser.cshtml" />
+    <Content Include="Views\Users\EditUserProfile.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

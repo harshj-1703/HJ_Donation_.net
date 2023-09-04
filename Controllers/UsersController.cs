@@ -39,6 +39,8 @@ namespace RMC_Donation.Controllers
                     Response.Cookies.Add(userProfile);
                     Session["user_id"] = u.id;
                     Session["user_role"] = "User";
+                    u.lastlogin = DateTime.Now;
+                    entity.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
                 else if (u.status == 2)
@@ -48,6 +50,8 @@ namespace RMC_Donation.Controllers
                     Response.Cookies.Add(userProfile);
                     Session["user_id"] = u.id;
                     Session["user_role"] = "Admin";
+                    u.lastlogin = DateTime.Now;
+                    entity.SaveChanges();
                     return RedirectToAction("Index", "Home");
                 }
 
@@ -135,6 +139,26 @@ namespace RMC_Donation.Controllers
             }
 
             return View(userDetails);
+        }
+
+        [Authorize]
+        public ActionResult EditUserProfile(int userId)
+        {
+            using (var db = new rmcdonateEntities())
+            {
+                var user = db.users.Find(userId);
+                if (user == null)
+                {
+                    return RedirectToAction("Login");
+                }
+
+                if (user.id != (int)Session["user_id"])
+                {
+                    return RedirectToAction("Login");
+                }
+
+                return View(user);
+            }
         }
 
     }
