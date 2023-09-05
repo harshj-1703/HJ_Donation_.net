@@ -5,7 +5,12 @@
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 </head>
-
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
 <main>
     <h2>Items</h2>
 

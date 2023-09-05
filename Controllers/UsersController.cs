@@ -69,7 +69,6 @@ namespace RMC_Donation.Controllers
             return View();
         }
 
-
         [HttpPost]
         public ActionResult Signup(user userinfo, HttpPostedFileBase profilePhotoFile, string confirmPassword)
         {
@@ -241,6 +240,7 @@ namespace RMC_Donation.Controllers
 
                 db.SaveChanges();
                 FormsAuthentication.SetAuthCookie(users.fullname, false);
+                TempData["SuccessMessage"] = "Profile Edited successfully!";
                 return RedirectToAction("Index", "Home");
             }
         }
@@ -289,6 +289,41 @@ namespace RMC_Donation.Controllers
         [Authorize]
         public ActionResult ChangePassword()
         {
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult ChangePassword(ChangePasswordViewModel changePasswordViewModel)
+        {
+            if (Session["user_id"] == null)
+            {
+                return RedirectToAction("Login");
+            }
+
+            int userId = (int)Session["user_id"];
+            var user = entity.users.FirstOrDefault(x => x.id == userId);
+
+            if (changePasswordViewModel.CurrentPassword.Length < 8 || changePasswordViewModel.NewPassword.Length < 8 || changePasswordViewModel.ConfirmNewPassword.Length < 8)
+            {
+                ModelState.AddModelError("", "Passwords Length Must Be 8.");
+                return View(changePasswordViewModel);
+            }
+
+            if (user != null && BCrypt.Net.BCrypt.Verify(changePasswordViewModel.CurrentPassword, user.password))
+            {
+                user.password = BCrypt.Net.BCrypt.HashPassword(changePasswordViewModel.NewPassword);
+                entity.SaveChanges();
+                TempData["SuccessMessage"] = "Password changed successfully!";
+                return RedirectToAction("Index", "Home");
+            }
+            else
+            {
+                ModelState.AddModelError("", "Old Password is Wrong!");
+                return View(changePasswordViewModel);
+            }
+
             return View();
         }
     }

@@ -6,9 +6,14 @@
 }
 
 <h2>MyItems</h2>
-
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success">
+        @TempData["SuccessMessage"]
+    </div>
+}
 <p>
-    @Html.ActionLink("Add New", "AddItems","Item")
+    @Html.ActionLink("Add New", "AddItems", "Item")
 </p>
 <table class="table">
     <tr>
@@ -100,22 +105,22 @@
                 <!--<td>
                     @Html.DisplayFor(modelItem => item.status)
                 </td>-->
-            <td>
-                @using (Html.BeginForm("ItemEditByUser", "Item", FormMethod.Get))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("itemId", item.id)
-                    <button type="submit" class="btn btn-warning">Edit</button>
-                } |
-                <a href="@Url.Action("ItemDetails", "Item", new { itemId = item.id })" target="_blank">Details</a> |
-                @using (Html.BeginForm("ItemDeleteByUser", "Item", FormMethod.Post))
-                {
-                    @Html.AntiForgeryToken()
-                    @Html.Hidden("itemId", item.id)
-                    <button type="submit" class="btn btn-danger">Delete</button>
-                }
+                <td>
+                    @using (Html.BeginForm("ItemEditByUser", "Item", FormMethod.Get))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("itemId", item.id)
+                        <button type="submit" class="btn btn-warning">Edit</button>
+                    } |
+                    <a href="@Url.Action("ItemDetails", "Item", new { itemId = item.id })" target="_blank">Details</a> |
+                    @using (Html.BeginForm("ItemDeleteByUser", "Item", FormMethod.Post))
+                    {
+                        @Html.AntiForgeryToken()
+                        @Html.Hidden("itemId", item.id)
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    }
 
-            </td>
+                </td>
             </tr>
         }
     }

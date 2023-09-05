@@ -145,6 +145,7 @@ namespace RMC_Donation.Controllers
 
             itemsEntity.items.Add(items);
             itemsEntity.SaveChanges();
+            TempData["SuccessMessage"] = "Item Added successfully!";
             return RedirectToAction("MyItems");
         }
 
@@ -382,6 +383,7 @@ namespace RMC_Donation.Controllers
                 existingItem.catagory = items.catagory;
 
                 db.SaveChanges();
+                TempData["SuccessMessage"] = "Item Edited successfully!";
                 return RedirectToAction("MyItems");
             }
         }
