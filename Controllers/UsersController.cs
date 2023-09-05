@@ -9,6 +9,10 @@ using System.Linq;
 using System.Configuration;
 using System.Net;
 using System.IO;
+using System.Security.Cryptography;
+using System.Text;
+using BCrypt.Net;
+using System.Data.Entity.Validation;
 
 namespace RMC_Donation.Controllers
 {
@@ -28,49 +32,61 @@ namespace RMC_Donation.Controllers
         [HttpPost]
         public ActionResult Login(LoginViewModel credentials)
         {
-            bool userExists = entity.users.Any(x => x.email == credentials.email && x.password == credentials.password);
-            user u = entity.users.FirstOrDefault(x => x.email == credentials.email && x.password == credentials.password);
-            if (userExists)
-            {
-                if (u.status == 1)
-                {
-                    FormsAuthentication.SetAuthCookie(u.fullname, false);
-                    var userProfile = new HttpCookie("userProfile", u.profilephoto);
-                    Response.Cookies.Add(userProfile);
-                    Session["user_id"] = u.id;
-                    Session["user_role"] = "User";
-                    u.lastlogin = DateTime.Now;
-                    entity.SaveChanges();
-                    return RedirectToAction("Index", "Home");
-                }
-                else if (u.status == 2)
-                {
-                    FormsAuthentication.SetAuthCookie(u.fullname, false);
-                    var userProfile = new HttpCookie("userProfile", u.profilephoto);
-                    Response.Cookies.Add(userProfile);
-                    Session["user_id"] = u.id;
-                    Session["user_role"] = "Admin";
-                    u.lastlogin = DateTime.Now;
-                    entity.SaveChanges();
-                    return RedirectToAction("Index", "Home");
-                }
+            var user = entity.users.FirstOrDefault(x => x.email == credentials.email);
 
+            if (user != null && BCrypt.Net.BCrypt.Verify(credentials.password, user.password))
+            {
+                if (user.status == 1)
+                {
+                    FormsAuthentication.SetAuthCookie(user.fullname, false);
+                    var userProfile = new HttpCookie("userProfile", user.profilephoto);
+                    Response.Cookies.Add(userProfile);
+                    Session["user_id"] = user.id;
+                    Session["user_role"] = "User";
+                    user.lastlogin = DateTime.Now;
+                    entity.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
+                else if (user.status == 2)
+                {
+                    FormsAuthentication.SetAuthCookie(user.fullname, false);
+                    var userProfile = new HttpCookie("userProfile", user.profilephoto);
+                    Response.Cookies.Add(userProfile);
+                    Session["user_id"] = user.id;
+                    Session["user_role"] = "Admin";
+                    user.lastlogin = DateTime.Now;
+                    entity.SaveChanges();
+                    return RedirectToAction("Index", "Home");
+                }
                 else
                 {
                     ModelState.AddModelError("", "You were removed by Admin");
                     return View();
                 }
             }
+
             ModelState.AddModelError("", "Username or password is wrong");
             return View();
         }
 
+
         [HttpPost]
-        public ActionResult Signup(user userinfo, HttpPostedFileBase profilePhotoFile)
+        public ActionResult Signup(user userinfo, HttpPostedFileBase profilePhotoFile, string confirmPassword)
         {
             bool userExists = entity.users.Any(x => x.email == userinfo.email || x.mobile_no == userinfo.mobile_no);
             if (!userExists)
             {
+                if (userinfo.password.Length < 8 || userinfo.password.Length > 15)
+                {
+                    ModelState.AddModelError("", "Password must be between 8 and 15 characters.");
+                    return View();
+                }
+                if (userinfo.password != confirmPassword)
+                {
+                    ModelState.AddModelError("", "Password And Confirm Password Must Be Same.");
+                    return View();
+                }
+
                 if (profilePhotoFile != null && profilePhotoFile.ContentLength > 0)
                 {
                     string originalFileName = Path.GetFileName(profilePhotoFile.FileName);
@@ -112,11 +128,11 @@ namespace RMC_Donation.Controllers
                 userinfo.updatedat = DateTime.Now;
                 userinfo.lastlogin = DateTime.Now;
                 userinfo.status = 1;
+                userinfo.password = BCrypt.Net.BCrypt.HashPassword(userinfo.password);
                 entity.users.Add(userinfo);
                 entity.SaveChanges();
                 return RedirectToAction("Login");
             }
-
             ModelState.AddModelError("", "User Exists");
             return View();
         }
@@ -142,9 +158,10 @@ namespace RMC_Donation.Controllers
         }
 
         [Authorize]
-        [HttpGet]
-        public ActionResult EditUserProfile(int userId)
+        //[HttpGet]
+        public ActionResult EditUserProfile()
         {
+            int userId = (int)Session["user_id"];
             using (var db = new rmcdonateEntities())
             {
                 var user = db.users.Find(userId);
@@ -267,6 +284,12 @@ namespace RMC_Donation.Controllers
 
                 return Json(responseObject);
             }
+        }
+
+        [Authorize]
+        public ActionResult ChangePassword()
+        {
+            return View();
         }
     }
 }

@@ -81,3 +81,5 @@ D:\CODES\.net projects\RMC_Donation\obj\Debug\RMC_Donation.csproj.CoreCompileInp
 D:\CODES\.net projects\RMC_Donation\obj\Debug\RMC_Donation.csproj.CopyComplete
 D:\CODES\.net projects\RMC_Donation\obj\Debug\RMC_Donation.dll
 D:\CODES\.net projects\RMC_Donation\obj\Debug\RMC_Donation.pdb
+D:\CODES\.net projects\RMC_Donation\bin\BCrypt.Net.dll
+D:\CODES\.net projects\RMC_Donation\bin\BCrypt.Net.xml

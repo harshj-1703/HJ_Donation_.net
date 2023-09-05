@@ -40,12 +40,14 @@
                                 <img src="@Request.Cookies["userProfile"].Value" height="50" width="50" alt="UserProfile" />
                             </li>
                             <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
-                            using (Html.BeginForm("EditUserProfile", "Users", FormMethod.Get))
-                            {
-                                @Html.AntiForgeryToken()
-                                @Html.Hidden("userId", Session["user_id"])
-                                <button type="submit" class="btn btn-warning">Edit User Profile</button>
-                            }
+                            <!--using (Html.BeginForm("EditUserProfile", "Users", FormMethod.Get))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("userId", Session["user_id"])
+                                    <button type="submit" class="btn btn-warning">Edit User Profile</button>
+                                }-->
+                            <li>@Html.ActionLink("Edit Profile", "EditUserProfile", "Users")</li>
+                            <li>@Html.ActionLink("Change Password", "ChangePassword", "Users")</li>
                             <li>@Html.ActionLink("Add Items", "Additems", "Item")</li>
                             <li>@Html.ActionLink("My Items", "MyItems", "Item")</li>
                             if (isAdmin)

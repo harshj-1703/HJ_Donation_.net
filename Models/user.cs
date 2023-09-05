@@ -37,8 +37,8 @@ namespace RMC_Donation.Models
         [Required(ErrorMessage = "Email is required")]
         public string email { get; set; }
 
-        [MinLength(8, ErrorMessage = "Password must be between 8 to 15 characters")]
-        [MaxLength(15, ErrorMessage = "Password must be between 8 to 15 characters")]
+        //[MinLength(8, ErrorMessage = "Password must be between 8 to 15 characters")]
+        //[MaxLength(15, ErrorMessage = "Password must be between 8 to 15 characters")]
         [Required(ErrorMessage = "Password is required")]
         public string password { get; set; }
 
