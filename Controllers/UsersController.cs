@@ -312,6 +312,11 @@ namespace RMC_Donation.Controllers
 
             if (user != null && BCrypt.Net.BCrypt.Verify(changePasswordViewModel.CurrentPassword, user.password))
             {
+                if (BCrypt.Net.BCrypt.Verify(changePasswordViewModel.NewPassword, user.password))
+                {
+                    ModelState.AddModelError("", "New password is same as old password!");
+                    return View(changePasswordViewModel);
+                }
                 user.password = BCrypt.Net.BCrypt.HashPassword(changePasswordViewModel.NewPassword);
                 entity.SaveChanges();
                 TempData["SuccessMessage"] = "Password changed successfully!";
