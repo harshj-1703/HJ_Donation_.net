@@ -302,14 +302,13 @@ namespace RMC_Donation.Controllers
                 return RedirectToAction("Login");
             }
 
-            int userId = (int)Session["user_id"];
-            var user = entity.users.FirstOrDefault(x => x.id == userId);
-
-            if (changePasswordViewModel.CurrentPassword.Length < 8 || changePasswordViewModel.NewPassword.Length < 8 || changePasswordViewModel.ConfirmNewPassword.Length < 8)
+            if(!ModelState.IsValid)
             {
-                ModelState.AddModelError("", "Passwords Length Must Be 8.");
                 return View(changePasswordViewModel);
             }
+
+            int userId = (int)Session["user_id"];
+            var user = entity.users.FirstOrDefault(x => x.id == userId);
 
             if (user != null && BCrypt.Net.BCrypt.Verify(changePasswordViewModel.CurrentPassword, user.password))
             {
