@@ -4,7 +4,6 @@
     {
         isLoggedIn = false;
     }
-
     bool isAdmin = false;
     if (Session["user_role"] == "Admin")
     {
@@ -16,53 +15,172 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <title>@ViewBag.Title - RMC-Donation</title>
     @Styles.Render("~/Content/css")
     <script src="https://kit.fontawesome.com/3055f91a99.js"></script>
 </head>
 <body>
-        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-            <div class="container">
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-                <div class="navbar-collapse collapse">
-                    <ul class="nav navbar-nav">
-                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+    <header id="main-header">
+        <div>
+            <div>
+                <a href="@Url.Action("Index", "Home", new { area = "" })" class="navbar-brand">
+                    <img id="header-logo" src="/images/linkedin.png" alt="LinkedIn" />
+                </a>
+                @{
+                    if (isLoggedIn)
+                    {
+                        <img id="header-picture-menu" src="@Request.Cookies["userProfile"].Value" alt="Profile picture" />
+                        <span id="header-picture-menu-bars">
+                            <span class="fas fa-bars"></span>
+                        </span>
+                    }
+                }
+                <div>
+                    <input id="search" type="text" placeholder="Search" onfocus="toggleSearchInput()" onblur="toggleSearchInput()" />
+                    <span id="search-icon" class="fas fa-search"></span>
+                    <span id="search-button" class="fas fa-search"></span>
+                </div>
+                <nav>
+                    <ul>
+                        <li>
+                            <a href="@Url.Action("Index", "Home", new { area = "" })">
+                                <div id="home" class="selected">
+                                    <span class="fas fa-home"></span>
+                                    <span class="nav-item-text">Home</span>
+                                </div>
+                            </a>
+                        </li>
                         @{
                             if (isLoggedIn)
                             {
                                 <li>
-                                    <img src="@Request.Cookies["userProfile"].Value" height="50" width="50" alt="UserProfile" />
+                                    <a href="@Url.Action("MyItems", "Item")" style="color: white;">
+                                        <div>
+                                            <span class="fas fa-user-friends"></span>
+                                            <span class="nav-item-text">My Items</span>
+                                        </div>
+                                    </a>
                                 </li>
-                                <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
-                                <li>@Html.ActionLink("Edit Profile", "EditUserProfile", "Users")</li>
-                                <li>@Html.ActionLink("Change Password", "ChangePassword", "Users")</li>
-                                <li>@Html.ActionLink("Add Items", "Additems", "Item")</li>
-                                <li>@Html.ActionLink("My Items", "MyItems", "Item")</li>
+                                <li>
+                                    <a href="@Url.Action("AddItems", "Item")" style="color: white;">
+                                        <div>
+                                            <span class="fas fa-suitcase"></span>
+                                            <span class="nav-item-text">Add Items</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("ManageItems", "Admin")" style="color: white;">
+                                        <div>
+                                            <span class="fas fa-bell"></span>
+                                            <span class="nav-item-text">Notifications</span>
+                                        </div>
+                                    </a>
+                                </li>
                                 if (isAdmin)
                                 {
-                                    <li>@Html.ActionLink("ManageItems", "ManageItems", "Admin")</li>
-                                    <li>@Html.ActionLink("ManageUsers", "ManageUsers", "Admin")</li>
+                                    <li>
+                                        <a href="@Url.Action("ManageItems", "Admin")" style="color: white;">
+                                            <div>
+                                                <span class="fas fa-suitcase"></span>
+                                                <span class="nav-item-text">Manage Items</span>
+                                            </div>
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="@Url.Action("ManageUsers", "Admin")" style="color: white;">
+                                            <div>
+                                                <span class="fas fa-user-friends"></span>
+                                                <span class="nav-item-text">Manage Users</span>
+                                            </div>
+                                        </a>
+                                    </li>
                                 }
-                                <li>@Html.ActionLink("Signout", "Signout", "Users")</li>
+                                <li class="dropdown">
+                                    <div class="dropbtn">
+                                        <img src="@Request.Cookies["userProfile"].Value" alt="Profile picture" height="50" width="50" />
+                                        <span class="nav-item-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 12ch;">
+                                            @User.Identity.Name<span class="fas fa-caret-down"></span>
+                                        </span>
+                                    </div>
+                                    <div class="dropdown-content">
+                                        <div class="profile-image1">
+                                            <img src="@Request.Cookies["userProfile"].Value" alt="Profile picture" />
+                                            <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 18ch;font-size:14px;
+                        padding-top:5px;
+">
+                                            @User.Identity.Name</p>
+                                        </div>
+                                        <a href="@Url.Action("EditUserProfile", "Users")" class="menu-item">Edit Profile</a>
+                                        <a href="@Url.Action("ChangePassword", "Users")" class="menu-item">Change Password</a>
+                                        <a href="@Url.Action("Signout", "Users")" class="menu-item">LogOut</a>
+                                    </div>
+                                </li>
                             }
                             else
                             {
-                                <li>@Html.ActionLink("Login", "Login", "Users")</li>
-                                <li>@Html.ActionLink("Register", "Signup", "Users")</li>
+                                <li>
+                                    <a href="@Url.Action("Login", "Users")" style="color: white;">
+                                        <div>
+                                            <span class="fas fa-user-friends"></span>
+                                            <span class="nav-item-text">Login</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Signup", "Users")" style="color: white;">
+                                        <div>
+                                            <span class="fas fa-user-friends"></span>
+                                            <span class="nav-item-text">SignUp</span>
+                                        </div>
+                                    </a>
+                                </li>
                             }
                         }
                     </ul>
-                </div>
+                </nav>
             </div>
-        </nav>
-
-        <div class="container body-content">
-            @RenderBody()
         </div>
+    </header>
 
-        @Scripts.Render("~/bundles/jquery")
-        @RenderSection("scripts", required: false)
-    </body>
+    <!--<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+        <div class="container">
+            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                    @{
+                        if (isLoggedIn)
+                        {
+                            <li>
+                                <img src="@Request.Cookies["userProfile"].Value" height="50" width="50" alt="UserProfile" />
+                            </li>
+                            <li>@Html.ActionLink("Add Items", "Additems", "Item")</li>
+                            <li>@Html.ActionLink("My Items", "MyItems", "Item")</li>
+                            if (isAdmin)
+                            {
+                                <li>@Html.ActionLink("ManageItems", "ManageItems", "Admin")</li>
+                                <li>@Html.ActionLink("ManageUsers", "ManageUsers", "Admin")</li>
+                            }
+                        }
+                        else
+                        {
+                            <li>@Html.ActionLink("Login", "Login", "Users")</li>
+                            <li>@Html.ActionLink("Register", "Signup", "Users")</li>
+                        }
+                    }
+                </ul>
+            </div>
+        </div>
+    </nav>-->
+
+    <div class="container body-content">
+        @RenderBody()
+    </div>
+
+    @Scripts.Render("~/bundles/jquery")
+    @RenderSection("scripts", required: false)
+</body>
 </html>
