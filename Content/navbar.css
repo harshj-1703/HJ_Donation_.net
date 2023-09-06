@@ -145,7 +145,32 @@ header#main-header > div nav ul li div:hover {
 }
 
 header#main-header > div nav ul li div.selected {
-    border-bottom: solid 2px #fff;
+    border-bottom: solid 2.5px #fff;
+    color: #fff;
+}
+
+header#main-header > div nav ul li div#myitems.selected {
+    border-bottom: solid 2.5px #fff;
+    color: #fff;
+}
+
+header#main-header > div nav ul li div#additem.selected {
+    border-bottom: solid 2.5px #fff;
+    color: #fff;
+}
+
+header#main-header > div nav ul li div#notifications.selected {
+    border-bottom: solid 2.5px #fff;
+    color: #fff;
+}
+
+header#main-header > div nav ul li div#manageitems.selected {
+    border-bottom: solid 2.5px #fff;
+    color: #fff;
+}
+
+header#main-header > div nav ul li div#manageusers.selected {
+    border-bottom: solid 2.5px #fff;
     color: #fff;
 }
 

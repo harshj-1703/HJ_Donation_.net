@@ -43,8 +43,8 @@
                 <nav>
                     <ul>
                         <li>
-                            <a href="@Url.Action("Index", "Home", new { area = "" })">
-                                <div id="home" class="selected">
+                            <a href="@Url.Action("Index", "Home", new { area = "" })" style="color:white;">
+                                <div id="home" style="color:white;" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("Index", "Home", new { area = "" }) ? "selected" : "")">
                                     <span class="fas fa-home"></span>
                                     <span class="nav-item-text">Home</span>
                                 </div>
@@ -55,7 +55,7 @@
                             {
                                 <li>
                                     <a href="@Url.Action("MyItems", "Item")" style="color: white;">
-                                        <div>
+                                        <div id="myitems" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("MyItems", "Item", new { area = "" }) ? "selected" : "")">
                                             <span class="fas fa-user-friends"></span>
                                             <span class="nav-item-text">My Items</span>
                                         </div>
@@ -63,7 +63,7 @@
                                 </li>
                                 <li>
                                     <a href="@Url.Action("AddItems", "Item")" style="color: white;">
-                                        <div>
+                                        <div id="additem" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("AddItems", "Item", new { area = "" }) ? "selected" : "")">
                                             <span class="fas fa-suitcase"></span>
                                             <span class="nav-item-text">Add Items</span>
                                         </div>
@@ -71,7 +71,7 @@
                                 </li>
                                 <li>
                                     <a href="@Url.Action("ManageItems", "Admin")" style="color: white;">
-                                        <div>
+                                        <div id="notifications" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("ManageItems", "Admin", new { area = "" }) ? "selected" : "")">
                                             <span class="fas fa-bell"></span>
                                             <span class="nav-item-text">Notifications</span>
                                         </div>
@@ -81,7 +81,7 @@
                                 {
                                     <li>
                                         <a href="@Url.Action("ManageItems", "Admin")" style="color: white;">
-                                            <div>
+                                            <div id="manageitems" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("ManageItems", "Admin", new { area = "" }) ? "selected" : "")">
                                                 <span class="fas fa-suitcase"></span>
                                                 <span class="nav-item-text">Manage Items</span>
                                             </div>
@@ -89,7 +89,7 @@
                                     </li>
                                     <li>
                                         <a href="@Url.Action("ManageUsers", "Admin")" style="color: white;">
-                                            <div>
+                                            <div id="manageusers" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("ManageUsers", "Admin", new { area = "" }) ? "selected" : "")">
                                                 <span class="fas fa-user-friends"></span>
                                                 <span class="nav-item-text">Manage Users</span>
                                             </div>
@@ -108,7 +108,8 @@
                                             <img src="@Request.Cookies["userProfile"].Value" alt="Profile picture" />
                                             <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 18ch;font-size:14px;
                                                 padding-top:5px;">
-                                            @User.Identity.Name</p>
+                                                @User.Identity.Name
+                                            </p>
                                         </div>
                                         <a href="@Url.Action("EditUserProfile", "Users")" class="menu-item">Edit Profile</a>
                                         <a href="@Url.Action("ChangePassword", "Users")" class="menu-item">Change Password</a>
