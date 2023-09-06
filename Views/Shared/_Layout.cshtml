@@ -107,8 +107,7 @@
                                         <div class="profile-image1">
                                             <img src="@Request.Cookies["userProfile"].Value" alt="Profile picture" />
                                             <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 18ch;font-size:14px;
-                        padding-top:5px;
-">
+                                                padding-top:5px;">
                                             @User.Identity.Name</p>
                                         </div>
                                         <a href="@Url.Action("EditUserProfile", "Users")" class="menu-item">Edit Profile</a>
