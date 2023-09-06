@@ -18,51 +18,51 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title - My ASP.NET Application</title>
     @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <script src="https://kit.fontawesome.com/3055f91a99.js"></script>
 </head>
 <body>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    @{
-                        if (isLoggedIn)
-                        {
-                            <li>
-                                <img src="@Request.Cookies["userProfile"].Value" height="50" width="50" alt="UserProfile" />
-                            </li>
-                            <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
-                            <li>@Html.ActionLink("Edit Profile", "EditUserProfile", "Users")</li>
-                            <li>@Html.ActionLink("Change Password", "ChangePassword", "Users")</li>
-                            <li>@Html.ActionLink("Add Items", "Additems", "Item")</li>
-                            <li>@Html.ActionLink("My Items", "MyItems", "Item")</li>
-                            if (isAdmin)
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
+            <div class="container">
+                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
+                        @{
+                            if (isLoggedIn)
                             {
-                                <li>@Html.ActionLink("ManageItems", "ManageItems", "Admin")</li>
-                                <li>@Html.ActionLink("ManageUsers", "ManageUsers", "Admin")</li>
+                                <li>
+                                    <img src="@Request.Cookies["userProfile"].Value" height="50" width="50" alt="UserProfile" />
+                                </li>
+                                <li>@Html.ActionLink(User.Identity.Name, "Index", "Home")</li>
+                                <li>@Html.ActionLink("Edit Profile", "EditUserProfile", "Users")</li>
+                                <li>@Html.ActionLink("Change Password", "ChangePassword", "Users")</li>
+                                <li>@Html.ActionLink("Add Items", "Additems", "Item")</li>
+                                <li>@Html.ActionLink("My Items", "MyItems", "Item")</li>
+                                if (isAdmin)
+                                {
+                                    <li>@Html.ActionLink("ManageItems", "ManageItems", "Admin")</li>
+                                    <li>@Html.ActionLink("ManageUsers", "ManageUsers", "Admin")</li>
+                                }
+                                <li>@Html.ActionLink("Signout", "Signout", "Users")</li>
                             }
-                            <li>@Html.ActionLink("Signout", "Signout", "Users")</li>
+                            else
+                            {
+                                <li>@Html.ActionLink("Login", "Login", "Users")</li>
+                                <li>@Html.ActionLink("Register", "Signup", "Users")</li>
+                            }
                         }
-                        else
-                        {
-                            <li>@Html.ActionLink("Login", "Login", "Users")</li>
-                            <li>@Html.ActionLink("Register", "Signup", "Users")</li>
-                        }
-                    }
-                </ul>
+                    </ul>
+                </div>
             </div>
-        </div>
-    </nav>
-    <div class="container body-content">
-        @RenderBody()
-    </div>
+        </nav>
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
-</body>
+        <div class="container body-content">
+            @RenderBody()
+        </div>
+
+        @Scripts.Render("~/bundles/jquery")
+        @RenderSection("scripts", required: false)
+    </body>
 </html>
