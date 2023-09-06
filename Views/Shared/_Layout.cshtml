@@ -97,13 +97,13 @@
                                     </li>
                                 }
                                 <li class="dropdown">
-                                    <div class="dropbtn">
+                                    <div class="dropbtn" onclick="toggleDropdown(this)">
                                         <img src="@Request.Cookies["userProfile"].Value" alt="Profile picture" height="50" width="50" />
                                         <span class="nav-item-text" style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 12ch;">
                                             @User.Identity.Name<span class="fas fa-caret-down"></span>
                                         </span>
                                     </div>
-                                    <div class="dropdown-content">
+                                    <div class="dropdown-content" style="display: none;">
                                         <div class="profile-image1">
                                             <img src="@Request.Cookies["userProfile"].Value" alt="Profile picture" />
                                             <p style="white-space: nowrap; overflow: hidden; text-overflow: ellipsis; max-width: 18ch;font-size:14px;
@@ -143,44 +143,34 @@
         </div>
     </header>
 
-    <!--<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-dark bg-dark">
-        <div class="container">
-            @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("About", "About", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home", new { area = "" }, new { @class = "nav-link" })</li>
-                    @{
-                        if (isLoggedIn)
-                        {
-                            <li>
-                                <img src="@Request.Cookies["userProfile"].Value" height="50" width="50" alt="UserProfile" />
-                            </li>
-                            <li>@Html.ActionLink("Add Items", "Additems", "Item")</li>
-                            <li>@Html.ActionLink("My Items", "MyItems", "Item")</li>
-                            if (isAdmin)
-                            {
-                                <li>@Html.ActionLink("ManageItems", "ManageItems", "Admin")</li>
-                                <li>@Html.ActionLink("ManageUsers", "ManageUsers", "Admin")</li>
-                            }
-                        }
-                        else
-                        {
-                            <li>@Html.ActionLink("Login", "Login", "Users")</li>
-                            <li>@Html.ActionLink("Register", "Signup", "Users")</li>
-                        }
-                    }
-                </ul>
-            </div>
-        </div>
-    </nav>-->
-
     <div class="container body-content">
         @RenderBody()
     </div>
 
+
     @Scripts.Render("~/bundles/jquery")
     @RenderSection("scripts", required: false)
+
+    <script>
+        function toggleDropdown(element) {
+            const dropdownContent = element.nextElementSibling;
+
+            if (dropdownContent.style.display === 'none' || dropdownContent.style.display === '') {
+                dropdownContent.style.display = 'block';
+            } else {
+                dropdownContent.style.display = 'none';
+            }
+        }
+        // Click event listener to hide the dropdown when clicking outside
+        window.addEventListener('click', function (event) {
+            if (!event.target.closest('.dropdown')) {
+                const dropdownContents = document.querySelectorAll('.dropdown-content');
+                dropdownContents.forEach(function (dropdownContent) {
+                    dropdownContent.style.display = 'none';
+                });
+            }
+        });
+    </script>
+
 </body>
 </html>
