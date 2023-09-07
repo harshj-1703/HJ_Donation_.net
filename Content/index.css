@@ -97,3 +97,7 @@ a {
     object-fit: cover;
 }
 
+.details-text {
+    word-wrap: break-word;
+    max-width: 700px;
+}

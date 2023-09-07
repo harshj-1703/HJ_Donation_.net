@@ -19,51 +19,54 @@
 <div id="main-wrapper">
     <main id="main-section">
         <!-- Your Item Grid Iteration -->
-        @foreach (var itemWithUser in Model)
-        {
-            <article class="item-article">
-                <!-- Item Details -->
-                <div class="item-details">
-                    <h3>Item Name: @itemWithUser.Item.name</h3>
-                    <p>Category: @itemWithUser.Item.catagory</p>
-                    <p class="details-text">Details: @itemWithUser.Item.details</p>
-                </div>
+        @{
+            int index = 0;
+            foreach (var itemWithUser in Model)
+            {
+                <article class="item-article">
+                    <!-- Item Details -->
+                    <div class="item-details">
+                        <h3>Item Name: @itemWithUser.Item.name</h3>
+                        <p>Category: @itemWithUser.Item.catagory</p>
+                        <p class="details-text" id="details-@index">@itemWithUser.Item.details</p>
+                    </div>
 
-                <!-- User Details -->
-                <div class="user-details">
-                    <p>User Full Name: @itemWithUser.User.fullname</p>
-                    <p>User Email: <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
-                </div>
+                    <!-- User Details -->
+                    <div class="user-details">
+                        <p>User Full Name: @itemWithUser.User.fullname</p>
+                        <p>User Email: <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
+                    </div>
 
-                <!-- Images Container -->
-                <div class="item-images">
-                    @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl1))
-                    {
-                        <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl1" data-caption="Image 1" class="post-image-container">
-                            <img src="@itemWithUser.Item.imageurl1" alt="Image 1" class="post-image" />
-                        </a>
-                    }
-                    @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl2))
-                    {
-                        <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl2" data-caption="Image 2" class="post-image-container">
-                            <img src="@itemWithUser.Item.imageurl2" alt="Image 2" class="post-image" />
-                        </a>
-                    }
-                    @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl3))
-                    {
-                        <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl3" data-caption="Image 3" class="post-image-container">
-                            <img src="@itemWithUser.Item.imageurl3" alt="Image 3" class="post-image" />
-                        </a>
-                    }
-                    @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl4))
-                    {
-                        <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl4" data-caption="Image 4" class="post-image-container">
-                            <img src="@itemWithUser.Item.imageurl4" alt="Image 4" class="post-image" />
-                        </a>
-                    }
-                </div>
-
-            </article>
+                    <!-- Images Container -->
+                    <div class="item-images">
+                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl1))
+                        {
+                            <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl1" data-caption="Image 1" class="post-image-container">
+                                <img src="@itemWithUser.Item.imageurl1" alt="Image 1" class="post-image" />
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl2))
+                        {
+                            <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl2" data-caption="Image 2" class="post-image-container">
+                                <img src="@itemWithUser.Item.imageurl2" alt="Image 2" class="post-image" />
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl3))
+                        {
+                            <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl3" data-caption="Image 3" class="post-image-container">
+                                <img src="@itemWithUser.Item.imageurl3" alt="Image 3" class="post-image" />
+                            </a>
+                        }
+                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl4))
+                        {
+                            <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl4" data-caption="Image 4" class="post-image-container">
+                                <img src="@itemWithUser.Item.imageurl4" alt="Image 4" class="post-image" />
+                            </a>
+                        }
+                    </div>
+                </article>
+                index++;
+            }
         }
     </main>
 </div>
@@ -71,30 +74,9 @@
 
 @section scripts{
     <script>
-        $(document).ready(function () {
+        jQuery(document).ready(function ($) {
             $("[data-fancybox]").fancybox({
-                buttons: [
-                    "zoom",
-                    "slideShow",
-                    "thumbs",
-                    "close"
-                ],
-            });
-        });
-
-        document.addEventListener("DOMContentLoaded", function () {
-            const detailsText = document.querySelector(".details-text");
-            const showMoreButton = document.querySelector(".show-more-button");
-
-            showMoreButton.addEventListener("click", function () {
-                detailsText.classList.toggle("show-more");
-                if (detailsText.classList.contains("show-more")) {
-                    showMoreButton.textContent = "Read Less";
-                    detailsText.style.maxHeight = "none"; // Show full details
-                } else {
-                    showMoreButton.textContent = "Read More";
-                    detailsText.style.maxHeight = "60px"; // Set the desired max-height for truncated details
-                }
+                buttons: ["zoom", "slideShow", "thumbs", "close"]
             });
         });
 
