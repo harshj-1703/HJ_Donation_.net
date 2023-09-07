@@ -4,6 +4,9 @@
 
 <head>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <!-- Include Fancybox CSS and JS from a CDN -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
 </head>
 @if (TempData["SuccessMessage"] != null)
 {
@@ -11,92 +14,89 @@
         @TempData["SuccessMessage"]
     </div>
 }
-<main>
-    <h2>Items</h2>
 
-    <table class="table">
+<!-- Main -->
+<div id="main-wrapper">
+    <main id="main-section">
+        <!-- Your Item Grid Iteration -->
+        @foreach (var itemWithUser in Model)
+        {
+            <article class="item-article">
+                <!-- Item Details -->
+                <div class="item-details">
+                    <h3>Item Name: @itemWithUser.Item.name</h3>
+                    <p>Category: @itemWithUser.Item.catagory</p>
+                    <p class="details-text">Details: @itemWithUser.Item.details</p>
+                </div>
 
-        <thead>
-            <tr>
-                <th>Item Name</th>
-                <th>Category</th>
-                <th>Details</th>
-                <th>Image URL 1</th>
-                <th>Image URL 2</th>
-                <th>Image URL 3</th>
-                <th>Image URL 4</th>
-                <th>Created At</th>
-                <th>User Full Name</th>
-                <th>User Email</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var itemWithUser in Model)
-            {
-                <tr>
-                    <td><a href="@Url.Action("ItemDetails", "Item", new { itemId = itemWithUser.Item.id })">@itemWithUser.Item.name</a></td>
-                    <td>@itemWithUser.Item.catagory</td>
-                    <td>@itemWithUser.Item.details</td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl1))
-                        {
-                            <img src="@itemWithUser.Item.imageurl1" alt="Image 1" width="100" height="100" />
-                        }
-                    </td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl2))
-                        {
-                            <img src="@itemWithUser.Item.imageurl2" alt="Image 2" width="100" height="100" />
-                        }
-                    </td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl3))
-                        {
-                            <img src="@itemWithUser.Item.imageurl3" alt="Image 3" width="100" height="100" />
-                        }
-                    </td>
-                    <td>
-                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl4))
-                        {
-                            <img src="@itemWithUser.Item.imageurl4" alt="Image 4" width="100" height="100" />
-                        }
-                    </td>
-                    <td>@itemWithUser.Item.createdat</td>
-                    <td>
-                        <a href="@Url.Action("UserDetails", "Users", new { userId = itemWithUser.User.id })">@itemWithUser.User.fullname</a>
-                    </td>
-                    <td><a href="mailto:@itemWithUser.User.email" target="_blank">@itemWithUser.User.email</a></td>
+                <!-- User Details -->
+                <div class="user-details">
+                    <p>User Full Name: @itemWithUser.User.fullname</p>
+                    <p>User Email: <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
+                </div>
 
-                </tr>
-            }
-        </tbody>
+                <!-- Images Container -->
+                <div class="item-images">
+                    @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl1))
+                    {
+                        <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl1" data-caption="Image 1" class="post-image-container">
+                            <img src="@itemWithUser.Item.imageurl1" alt="Image 1" class="post-image" />
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl2))
+                    {
+                        <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl2" data-caption="Image 2" class="post-image-container">
+                            <img src="@itemWithUser.Item.imageurl2" alt="Image 2" class="post-image" />
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl3))
+                    {
+                        <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl3" data-caption="Image 3" class="post-image-container">
+                            <img src="@itemWithUser.Item.imageurl3" alt="Image 3" class="post-image" />
+                        </a>
+                    }
+                    @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl4))
+                    {
+                        <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl4" data-caption="Image 4" class="post-image-container">
+                            <img src="@itemWithUser.Item.imageurl4" alt="Image 4" class="post-image" />
+                        </a>
+                    }
+                </div>
+
+            </article>
+        }
+    </main>
+</div>
 
 
-    </table>
-</main>
-
-<!--@section scripts {
+@section scripts{
     <script>
         $(document).ready(function () {
-            // Handle checkbox change event
-            $('input[type="checkbox"]').change(function () {
-                var itemId = $(this).data('id');
-                var isChecked = $(this).prop('checked');
-
-                // Send an AJAX request to update the status
-                $.ajax({
-                    url: '/Home/UpdateStatus', // Replace with your actual update action
-                    type: 'POST',
-                    data: { id: itemId, isChecked: isChecked },
-                    success: function (result) {
-                        // Handle success, if needed
-                    },
-                    error: function () {
-                        // Handle error, if needed
-                    }
-                });
+            $("[data-fancybox]").fancybox({
+                buttons: [
+                    "zoom",
+                    "slideShow",
+                    "thumbs",
+                    "close"
+                ],
             });
         });
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const detailsText = document.querySelector(".details-text");
+            const showMoreButton = document.querySelector(".show-more-button");
+
+            showMoreButton.addEventListener("click", function () {
+                detailsText.classList.toggle("show-more");
+                if (detailsText.classList.contains("show-more")) {
+                    showMoreButton.textContent = "Read Less";
+                    detailsText.style.maxHeight = "none"; // Show full details
+                } else {
+                    showMoreButton.textContent = "Read More";
+                    detailsText.style.maxHeight = "60px"; // Set the desired max-height for truncated details
+                }
+            });
+        });
+
     </script>
-}
--->
+    }

@@ -23,7 +23,7 @@ namespace RMC_Donation.Models
         [MaxLength(255, ErrorMessage = "Catagory cannot exceed 255 characters")]
         public string catagory { get; set; }
         [Required(ErrorMessage = "Details is required")]
-        [MaxLength(255, ErrorMessage = "Details cannot exceed 255 characters")]
+        [MaxLength(700, ErrorMessage = "Details cannot exceed 700 characters")]
         public string details { get; set; }
         public int user_id { get; set; }
         [Required(ErrorMessage = "First Image is required")]

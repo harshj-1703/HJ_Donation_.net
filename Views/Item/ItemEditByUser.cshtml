@@ -39,7 +39,7 @@
     <div class="form-group">
         @Html.LabelFor(model => model.details, htmlAttributes: new { @class = "control-label col-md-2" })
         <div class="col-md-10">
-            @Html.EditorFor(model => model.details, new { htmlAttributes = new { @class = "form-control" } })
+            @Html.TextAreaFor(model => model.details, new { @class = "form-control", rows = 5 })
             @Html.ValidationMessageFor(model => model.details, "", new { @class = "text-danger" })
         </div>
     </div>
@@ -51,9 +51,9 @@
             @if (!string.IsNullOrEmpty(Model.imageurl1))
             {
                 <img id="imagePreview1" src="@Url.Content(Model.imageurl1)" alt="Image 1" style="max-width: 200px; max-height: 200px" />
-               /* <div id="deleteImage1">
-                    <a href="#" id="deleteImage1Link" onclick="deleteImage(@Model.id, 1)">Delete image 1</a>
-                </div>*/
+                /* <div id="deleteImage1">
+                     <a href="#" id="deleteImage1Link" onclick="deleteImage(@Model.id, 1)">Delete image 1</a>
+                 </div>*/
             }
             else
             {
