@@ -24,22 +24,25 @@
         <div>
             <div>
                 <a href="@Url.Action("Index", "Home", new { area = "" })" class="navbar-brand">
-                    <img id="header-logo" src="~/Content/images/main.png" alt="LinkedIn" height="50" width="50"/>
+                    <img id="header-logo" src="~/Content/images/main.png" alt="LinkedIn" height="50" width="50" />
                 </a>
+                <div id="search">
+                    <input id="search" type="text" placeholder="Search" onfocus="toggleSearchInput()" onblur="toggleSearchInput()" />
+                    <span id="search-icon" class="fas fa-search"></span>
+                    <span id="search-button" class="fas fa-search"></span>
+                </div>
                 @{
                     if (isLoggedIn)
                     {
                         <img id="header-picture-menu" src="@Request.Cookies["userProfile"].Value" alt="Profile picture" />
+                    }
+                    else
+                    {
                         <span id="header-picture-menu-bars">
                             <span class="fas fa-bars"></span>
                         </span>
                     }
                 }
-                <div>
-                    <input id="search" type="text" placeholder="Search" onfocus="toggleSearchInput()" onblur="toggleSearchInput()" />
-                    <span id="search-icon" class="fas fa-search"></span>
-                    <span id="search-button" class="fas fa-search"></span>
-                </div>
                 <nav>
                     <ul>
                         <li>
@@ -161,7 +164,6 @@
                 dropdownContent.style.display = 'none';
             }
         }
-        // Click event listener to hide the dropdown when clicking outside
         window.addEventListener('click', function (event) {
             if (!event.target.closest('.dropdown')) {
                 const dropdownContents = document.querySelectorAll('.dropdown-content');

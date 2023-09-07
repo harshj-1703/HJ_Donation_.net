@@ -296,3 +296,64 @@ header#main-header > div nav ul li.dropdown .dropbtn .fas.fa-caret-down {
 /***************************************************************************
     header > HEADER MEDIA QUERY
 /**************************************************************************/
+
+@media only screen and (max-width: 700px) {
+
+    header#main-header {
+        display: flex;
+        justify-content: center;
+        width: 100vw;
+        align-items: center;
+        height: 54px;
+        position: fixed;
+        background: #283c4a;
+    }
+
+    header#main-header > div {
+        display: flex;
+        justify-content:center;
+        align-items: center;
+        width: fit-content;
+        margin:auto;
+        padding: 0 5px;
+    }
+
+    header#main-header > div nav {
+        display: none;
+    }
+
+    header#main-header > div > div > img#header-logo {
+        display: none;
+    }
+
+    header#main-header > div > div > img#header-picture-menu {
+        display: block;
+        height: 40px;
+        width: 40px;
+        border-radius: 50%;
+        border: 2px solid #fff;
+        box-shadow: inset 0 1.5px 3px 0 rgba(0, 0, 0, 0.15),
+            0 1.5px 3px 0 rgba(0, 0, 0, 0.15);
+        background-color: #c7d1d8;
+        cursor: pointer;
+    }
+
+    header#main-header > div > div > span#header-picture-menu-bars {
+        display: block;
+        color: #283c4a;
+        background: #fff;
+        font-size: 25px;
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        background-color: #f6f6f6;
+        text-align: center;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    header#main-header > div > div> div#search{
+        padding:0 8px 0 2px;
+    }
+}
