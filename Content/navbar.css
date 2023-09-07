@@ -293,6 +293,10 @@ header#main-header > div nav ul li.dropdown .dropbtn .fas.fa-caret-down {
     margin: auto;
 }
 
+#mobile-dropdown{
+    display:none;
+}
+
 /***************************************************************************
     header > HEADER MEDIA QUERY
 /**************************************************************************/
@@ -340,20 +344,119 @@ header#main-header > div nav ul li.dropdown .dropbtn .fas.fa-caret-down {
 
     header#main-header > div > div > span#header-picture-menu-bars {
         display: block;
-        color: #283c4a;
-        background: #fff;
         font-size: 25px;
         width: 40px;
         height: 40px;
         border-radius: 50%;
         background-color: #f6f6f6;
         text-align: center;
-        display: flex;
-        align-items: center;
-        justify-content: center;
+        color: darkblue;
+        line-height: 40px;
     }
 
-    header#main-header > div > div> div#search{
-        padding:0 8px 0 2px;
+    header#main-header > div > div > div#search {
+        padding: 0 8px 0 2px;
     }
+
+        /* Add styles for the dropdown menu */
+        header#main-header > div > div ul.mobile-dropdown {
+            display: none;
+            flex-direction: column;
+            position: absolute;
+            top: 52px;
+            left: 0;
+            width: 100%;
+            background-color: #283c4a;
+            z-index: 1;
+        }
+
+            header#main-header > div > div ul.mobile-dropdown.active {
+                display: flex;
+            }
+
+            header#main-header > div > div ul.mobile-dropdown li {
+                width: 100%;
+                padding: 10px 0;
+                border-bottom: 1px solid #fff;
+            }
+
+        /* Style for the mobile menu button */
+        header#main-header > div > div > span#header-picture-menu-bars {
+            display: block;
+            color: #fff;
+            font-size: 25px;
+            cursor: pointer;
+        }
+
+        /* Style for the caret icon in the mobile menu */
+        header#main-header > div > div ul.mobile-dropdown .fas.fa-caret-down {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+        }
+
+        /* Apply styles when the mobile menu is active */
+        header#main-header > div > div ul.mobile-dropdown.active .fas.fa-caret-down {
+            transform: translateY(-50%) rotate(180deg);
+        }
+
+        /* Apply styles to highlight the active menu item */
+        header#main-header > div > div ul.mobile-dropdown li.active {
+            background-color: #fff;
+            color: #283c4a;
+        }
+    
+        /* Style for the mobile menu button */
+header#main-header > div > div > span#header-picture-menu-bars {
+    display: block;
+    color: #fff;
+    font-size: 25px;
+    cursor: pointer;
+}
+
+/* Style for the caret icon in the mobile menu */
+header#main-header > div > div ul.mobile-dropdown .fas.fa-caret-down {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+/* Apply styles when the mobile menu is active */
+header#main-header > div > div ul.mobile-dropdown.active .fas.fa-caret-down {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+/* Style for the dropdown menu items */
+header#main-header > div > div ul.mobile-dropdown li {
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #fff;
+    text-align: center; /* Center-align the text */
+    font-size: 18px; /* Adjust the font size */
+    color: #fff;
+}
+
+/* Apply styles to highlight the active menu item */
+header#main-header > div > div ul.mobile-dropdown li.active {
+    background-color: #fff;
+    color: #283c4a;
+}
+
+    /* Style for the dropdown menu items */
+    ul.mobile-dropdown .menu-item {
+        text-align: center;
+        font-size: 18px;
+        font-weight: bold; /* Make the text bold */
+        color: #fff !important; /* Text color in white */
+    }
+
+        /* Apply styles to highlight the active menu item */
+        ul.mobile-dropdown .menu-item:hover {
+            background-color: #fff; /* Background color on hover */
+            color: #283c4a !important; /* Change the hover text color */
+            font-weight: normal; /* Reset font weight for hovered item */
+        }
+
 }

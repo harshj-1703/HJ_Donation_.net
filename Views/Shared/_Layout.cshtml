@@ -34,13 +34,73 @@
                 @{
                     if (isLoggedIn)
                     {
-                        <img id="header-picture-menu" src="@Request.Cookies["userProfile"].Value" alt="Profile picture" />
+                        <img id="header-picture-menu" src="@Request.Cookies["userProfile"].Value" alt="Profile picture" onclick="toggleMobileButton()" />
+                        <ul class="mobile-dropdown" id="mobile-dropdown">
+                            <li>
+                                <a href="#" class="menu-item">
+                                    <span class="fas fa-user"></span>
+                                    <span class="nav-item-text" style="display: inline-block; max-width: 20ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
+                                            @User.Identity.Name
+                                    </span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("MyItems", "Item")" class="menu-item">
+                                    <span class="fas fa-folder"></span>
+                                    <span class="nav-item-text">My Items</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("AddItems", "Item")" class="menu-item">
+                                    <span class="fas fa-plus-circle"></span>
+                                    <span class="nav-item-text">Add Items</span>
+                                </a>
+                            </li>
+                            @if (isAdmin)
+                            {
+                                <li>
+                                    <a href="@Url.Action("ManageItems", "Admin")" class="menu-item">
+                                        <span class="fas fa-wrench"></span>
+                                        <span class="nav-item-text">Manage Items</span>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("ManageUsers", "Admin")" class="menu-item">
+                                        <span class="fas fa-user-friends"></span>
+                                        <span class="nav-item-text">Manage Users</span>
+                                    </a>
+                                </li>
+                            }
+                            <li>
+                                <a href="@Url.Action("EditUserProfile", "Users")" class="menu-item">
+                                    <span class="fas fa-edit"></span> <strong>Edit Profile</strong>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("ChangePassword", "Users")" class="menu-item">
+                                    <span class="fas fa-lock"></span> <strong>Change Password</strong>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Signout", "Users")" class="menu-item">
+                                    <span class="fas fa-sign-out-alt"></span> <strong>LogOut</strong>
+                                </a>
+                            </li>
+                        </ul>
                     }
                     else
                     {
-                        <span id="header-picture-menu-bars">
-                            <span class="fas fa-bars"></span>
+                        <span id="header-picture-menu-bars" onclick="toggleMobileButton()">
+                            <span class="fas fa-bars" style="color:darkblue"></span>
                         </span>
+                        <ul class="mobile-dropdown" id="mobile-dropdown">
+                            <li>
+                                <a href="@Url.Action("Login", "Users")" class="menu-item"><span class="fas fa-key"></span> Login</a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Signup", "Users")" class="menu-item"><span class="fas fa-user-plus"></span> SignUp</a>
+                            </li>
+                        </ul>
                     }
                 }
                 <nav>
@@ -59,7 +119,7 @@
                                 <li>
                                     <a href="@Url.Action("MyItems", "Item")" style="color: white;">
                                         <div id="myitems" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("MyItems", "Item", new { area = "" }) ? "selected" : "")">
-                                            <span class="fas fa-user-friends"></span>
+                                            <span class="fas fa-folder"></span>
                                             <span class="nav-item-text">My Items</span>
                                         </div>
                                     </a>
@@ -67,7 +127,7 @@
                                 <li>
                                     <a href="@Url.Action("AddItems", "Item")" style="color: white;">
                                         <div id="additem" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("AddItems", "Item", new { area = "" }) ? "selected" : "")">
-                                            <span class="fas fa-suitcase"></span>
+                                            <span class="fas fa-plus-circle"></span>
                                             <span class="nav-item-text">Add Items</span>
                                         </div>
                                     </a>
@@ -85,7 +145,7 @@
                                     <li>
                                         <a href="@Url.Action("ManageItems", "Admin")" style="color: white;">
                                             <div id="manageitems" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("ManageItems", "Admin", new { area = "" }) ? "selected" : "")">
-                                                <span class="fas fa-suitcase"></span>
+                                                <span class="fas fa-wrench"></span>
                                                 <span class="nav-item-text">Manage Items</span>
                                             </div>
                                         </a>
@@ -114,9 +174,9 @@
                                                 @User.Identity.Name
                                             </p>
                                         </div>
-                                        <a href="@Url.Action("EditUserProfile", "Users")" class="menu-item">Edit Profile</a>
-                                        <a href="@Url.Action("ChangePassword", "Users")" class="menu-item">Change Password</a>
-                                        <a href="@Url.Action("Signout", "Users")" class="menu-item">LogOut</a>
+                                        <a href="@Url.Action("EditUserProfile", "Users")" class="menu-item"><span class="fas fa-edit"></span> Edit Profile</a>
+                                        <a href="@Url.Action("ChangePassword", "Users")" class="menu-item"><span class="fas fa-lock"></span> Change Password</a>
+                                        <a href="@Url.Action("Signout", "Users")" class="menu-item"><span class="fas fa-sign-out-alt"></span> LogOut</a>
                                     </div>
                                 </li>
                             }
@@ -125,7 +185,7 @@
                                 <li>
                                     <a href="@Url.Action("Login", "Users")" style="color: white;">
                                         <div>
-                                            <span class="fas fa-user-friends"></span>
+                                            <span class="fas fa-key"></span>
                                             <span class="nav-item-text">Login</span>
                                         </div>
                                     </a>
@@ -133,7 +193,7 @@
                                 <li>
                                     <a href="@Url.Action("Signup", "Users")" style="color: white;">
                                         <div>
-                                            <span class="fas fa-user-friends"></span>
+                                            <span class="fas fa-user-plus"></span>
                                             <span class="nav-item-text">SignUp</span>
                                         </div>
                                     </a>
@@ -172,6 +232,25 @@
                 });
             }
         });
+        // JavaScript function to toggle the mobile dropdown menu
+        function toggleMobileButton() {
+            var mobileDropdown = document.getElementById("mobile-dropdown");
+            var headerPictureMenuBars = document.getElementById("header-picture-menu-bars");
+
+            // Toggle the visibility of the mobile dropdown menu
+            if (mobileDropdown.style.display === "none" || !mobileDropdown.style.display) {
+                mobileDropdown.style.display = "block";
+            } else {
+                mobileDropdown.style.display = "none";
+            }
+
+            // Rotate the caret icon when the dropdown is active
+            if (mobileDropdown.style.display === "block") {
+                headerPictureMenuBars.classList.add("active");
+            } else {
+                headerPictureMenuBars.classList.remove("active");
+            }
+        }
     </script>
 
 </body>
