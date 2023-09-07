@@ -303,6 +303,137 @@ header#main-header > div nav ul li.dropdown .dropbtn .fas.fa-caret-down {
 
 @media only screen and (max-width: 700px) {
 
+header#main-header {
+    display: flex;
+    justify-content: center;
+    width: 100vw;
+    align-items: center;
+    height: 54px;
+    position: fixed;
+    background: #283c4a;
+}
+
+header#main-header > div {
+    display: flex;
+    justify-content:center;
+    align-items: center;
+    width: fit-content;
+    margin:auto;
+    padding: 0 5px;
+}
+
+header#main-header > div nav {
+    display: none;
+}
+
+header#main-header > div > div > img#header-logo {
+    display: none;
+}
+
+header#main-header > div > div > img#header-picture-menu {
+    display: block;
+    height: 40px;
+    width: 40px;
+    border-radius: 50%;
+    border: 2px solid #fff;
+    box-shadow: inset 0 1.5px 3px 0 rgba(0, 0, 0, 0.15),
+        0 1.5px 3px 0 rgba(0, 0, 0, 0.15);
+    background-color: #c7d1d8;
+    cursor: pointer;
+}
+header#main-header > div > div > span#header-picture-menu-bars {
+    display: block;
+    font-size: 25px;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background-color: #f6f6f6;
+    text-align: center;
+    color: darkblue;
+    line-height: 40px;
+}
+header#main-header > div > div > div#search {
+    padding: 0 8px 0 2px;
+}
+header#main-header > div > div ul.mobile-dropdown {
+    display: none;
+    flex-direction: column;
+    position: absolute;
+    top: 52px;
+    left: 0;
+    width: 100%;
+    background-color: #283c4a;
+    z-index: 1;
+}
+header#main-header > div > div ul.mobile-dropdown.active {
+    display: flex;
+}
+header#main-header > div > div ul.mobile-dropdown li {
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #fff;
+}
+header#main-header > div > div > span#header-picture-menu-bars {
+    display: block;
+    color: #fff;
+    font-size: 25px;
+    cursor: pointer;
+}
+header#main-header > div > div ul.mobile-dropdown .fas.fa-caret-down {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+header#main-header > div > div ul.mobile-dropdown.active .fas.fa-caret-down {
+    transform: translateY(-50%) rotate(180deg);
+}
+header#main-header > div > div ul.mobile-dropdown li.active {
+    background-color: #fff;
+    color: #283c4a;
+}
+header#main-header > div > div > span#header-picture-menu-bars {
+    display: block;
+    color: #fff;
+    font-size: 25px;
+    cursor: pointer;
+}
+header#main-header > div > div ul.mobile-dropdown .fas.fa-caret-down {
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+}
+header#main-header > div > div ul.mobile-dropdown.active .fas.fa-caret-down {
+    transform: translateY(-50%) rotate(180deg);
+}
+header#main-header > div > div ul.mobile-dropdown li {
+    width: 100%;
+    padding: 10px 0;
+    border-bottom: 1px solid #fff;
+    text-align: center; /* Center-align the text */
+    font-size: 18px; /* Adjust the font size */
+    color: #fff;
+}
+header#main-header > div > div ul.mobile-dropdown li.active {
+    background-color: #fff;
+    color: #283c4a;
+}
+ul.mobile-dropdown .menu-item {
+    text-align: center;
+    font-size: 18px;
+    font-weight: bold; /* Make the text bold */
+    color: #fff !important; /* Text color in white */
+}
+ul.mobile-dropdown .menu-item:hover {
+    background-color: #fff; /* Background color on hover */
+    color: #283c4a !important; /* Change the hover text color */
+    font-weight: normal; /* Reset font weight for hovered item */
+}
+}
+
+@media only screen and (max-width: 1024px) {
+
     header#main-header {
         display: flex;
         justify-content: center;
@@ -313,138 +444,126 @@ header#main-header > div nav ul li.dropdown .dropbtn .fas.fa-caret-down {
         background: #283c4a;
     }
 
-    header#main-header > div {
-        display: flex;
-        justify-content:center;
-        align-items: center;
-        width: fit-content;
-        margin:auto;
-        padding: 0 5px;
-    }
-
-    header#main-header > div nav {
-        display: none;
-    }
-
-    header#main-header > div > div > img#header-logo {
-        display: none;
-    }
-
-    header#main-header > div > div > img#header-picture-menu {
-        display: block;
-        height: 40px;
-        width: 40px;
-        border-radius: 50%;
-        border: 2px solid #fff;
-        box-shadow: inset 0 1.5px 3px 0 rgba(0, 0, 0, 0.15),
-            0 1.5px 3px 0 rgba(0, 0, 0, 0.15);
-        background-color: #c7d1d8;
-        cursor: pointer;
-    }
-
-    header#main-header > div > div > span#header-picture-menu-bars {
-        display: block;
-        font-size: 25px;
-        width: 40px;
-        height: 40px;
-        border-radius: 50%;
-        background-color: #f6f6f6;
-        text-align: center;
-        color: darkblue;
-        line-height: 40px;
-    }
-
-    header#main-header > div > div > div#search {
-        padding: 0 8px 0 2px;
-    }
-
-        /* Add styles for the dropdown menu */
-        header#main-header > div > div ul.mobile-dropdown {
-            display: none;
-            flex-direction: column;
-            position: absolute;
-            top: 52px;
-            left: 0;
-            width: 100%;
-            background-color: #283c4a;
-            z-index: 1;
+        header#main-header > div {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: fit-content;
+            margin: auto;
+            padding: 0 5px;
         }
 
-            header#main-header > div > div ul.mobile-dropdown.active {
-                display: flex;
+            header#main-header > div nav {
+                display: none;
+            }
+
+            header#main-header > div > div > img#header-logo {
+                display: none;
+            }
+
+            header#main-header > div > div > img#header-picture-menu {
+                display: block;
+                height: 40px;
+                width: 40px;
+                border-radius: 50%;
+                border: 2px solid #fff;
+                box-shadow: inset 0 1.5px 3px 0 rgba(0, 0, 0, 0.15), 0 1.5px 3px 0 rgba(0, 0, 0, 0.15);
+                background-color: #c7d1d8;
+                cursor: pointer;
+            }
+
+            header#main-header > div > div > span#header-picture-menu-bars {
+                display: block;
+                font-size: 25px;
+                width: 40px;
+                height: 40px;
+                border-radius: 50%;
+                background-color: #f6f6f6;
+                text-align: center;
+                color: darkblue;
+                line-height: 40px;
+            }
+
+            header#main-header > div > div > div#search {
+                padding: 0 8px 0 2px;
+            }
+
+            header#main-header > div > div ul.mobile-dropdown {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 52px;
+                left: 0;
+                width: 100%;
+                background-color: #283c4a;
+                z-index: 1;
+            }
+
+                header#main-header > div > div ul.mobile-dropdown.active {
+                    display: flex;
+                }
+
+                header#main-header > div > div ul.mobile-dropdown li {
+                    width: 100%;
+                    padding: 10px 0;
+                    border-bottom: 1px solid #fff;
+                }
+
+            header#main-header > div > div > span#header-picture-menu-bars {
+                display: block;
+                color: #fff;
+                font-size: 25px;
+                cursor: pointer;
+            }
+
+            header#main-header > div > div ul.mobile-dropdown .fas.fa-caret-down {
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            header#main-header > div > div ul.mobile-dropdown.active .fas.fa-caret-down {
+                transform: translateY(-50%) rotate(180deg);
+            }
+
+            header#main-header > div > div ul.mobile-dropdown li.active {
+                background-color: #fff;
+                color: #283c4a;
+            }
+
+            header#main-header > div > div > span#header-picture-menu-bars {
+                display: block;
+                color: #fff;
+                font-size: 25px;
+                cursor: pointer;
+            }
+
+            header#main-header > div > div ul.mobile-dropdown .fas.fa-caret-down {
+                position: absolute;
+                right: 15px;
+                top: 50%;
+                transform: translateY(-50%);
+            }
+
+            header#main-header > div > div ul.mobile-dropdown.active .fas.fa-caret-down {
+                transform: translateY(-50%) rotate(180deg);
             }
 
             header#main-header > div > div ul.mobile-dropdown li {
                 width: 100%;
                 padding: 10px 0;
                 border-bottom: 1px solid #fff;
+                text-align: center; /* Center-align the text */
+                font-size: 18px; /* Adjust the font size */
+                color: #fff;
             }
 
-        /* Style for the mobile menu button */
-        header#main-header > div > div > span#header-picture-menu-bars {
-            display: block;
-            color: #fff;
-            font-size: 25px;
-            cursor: pointer;
-        }
+                header#main-header > div > div ul.mobile-dropdown li.active {
+                    background-color: #fff;
+                    color: #283c4a;
+                }
 
-        /* Style for the caret icon in the mobile menu */
-        header#main-header > div > div ul.mobile-dropdown .fas.fa-caret-down {
-            position: absolute;
-            right: 15px;
-            top: 50%;
-            transform: translateY(-50%);
-        }
-
-        /* Apply styles when the mobile menu is active */
-        header#main-header > div > div ul.mobile-dropdown.active .fas.fa-caret-down {
-            transform: translateY(-50%) rotate(180deg);
-        }
-
-        /* Apply styles to highlight the active menu item */
-        header#main-header > div > div ul.mobile-dropdown li.active {
-            background-color: #fff;
-            color: #283c4a;
-        }
-    
-        /* Style for the mobile menu button */
-header#main-header > div > div > span#header-picture-menu-bars {
-    display: block;
-    color: #fff;
-    font-size: 25px;
-    cursor: pointer;
-}
-
-/* Style for the caret icon in the mobile menu */
-header#main-header > div > div ul.mobile-dropdown .fas.fa-caret-down {
-    position: absolute;
-    right: 15px;
-    top: 50%;
-    transform: translateY(-50%);
-}
-
-/* Apply styles when the mobile menu is active */
-header#main-header > div > div ul.mobile-dropdown.active .fas.fa-caret-down {
-    transform: translateY(-50%) rotate(180deg);
-}
-
-/* Style for the dropdown menu items */
-header#main-header > div > div ul.mobile-dropdown li {
-    width: 100%;
-    padding: 10px 0;
-    border-bottom: 1px solid #fff;
-    text-align: center; /* Center-align the text */
-    font-size: 18px; /* Adjust the font size */
-    color: #fff;
-}
-
-/* Apply styles to highlight the active menu item */
-header#main-header > div > div ul.mobile-dropdown li.active {
-    background-color: #fff;
-    color: #283c4a;
-}
-
-    /* Style for the dropdown menu items */
     ul.mobile-dropdown .menu-item {
         text-align: center;
         font-size: 18px;
@@ -452,11 +571,9 @@ header#main-header > div > div ul.mobile-dropdown li.active {
         color: #fff !important; /* Text color in white */
     }
 
-        /* Apply styles to highlight the active menu item */
         ul.mobile-dropdown .menu-item:hover {
             background-color: #fff; /* Background color on hover */
             color: #283c4a !important; /* Change the hover text color */
             font-weight: normal; /* Reset font weight for hovered item */
         }
-
 }
