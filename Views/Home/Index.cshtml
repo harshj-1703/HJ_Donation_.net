@@ -27,14 +27,18 @@
                     <!-- Item Details -->
                     <div class="item-details">
                         <h3>Item Name: @itemWithUser.Item.name</h3>
-                        <p>Category: @itemWithUser.Item.catagory</p>
-                        <p class="details-text" id="details-@index">@itemWithUser.Item.details</p>
+                        <p><strong>Category: </strong> @itemWithUser.Item.catagory</p>
+                        <strong>Details: </strong>
+                        <p class="details-text" id="details-@index">
+                            @itemWithUser.Item.details
+                            <span class="read-more">Read More</span>
+                        </p>
                     </div>
 
                     <!-- User Details -->
                     <div class="user-details">
-                        <p>User Full Name: @itemWithUser.User.fullname</p>
-                        <p>User Email: <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
+                        <p><strong>User Name: </strong> @itemWithUser.User.fullname</p>
+                        <p><strong>Email: </strong> <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
                     </div>
 
                     <!-- Images Container -->
@@ -77,6 +81,28 @@
         jQuery(document).ready(function ($) {
             $("[data-fancybox]").fancybox({
                 buttons: ["zoom", "slideShow", "thumbs", "close"]
+            });
+        });
+
+        $(document).ready(function () {
+            $(".details-text").each(function () {
+                var $text = $(this);
+                var $readMore = $text.find(".read-more");
+                var originalHeight = $text.innerHeight();
+                // Check if the text needs to be truncated
+                if ($text[0].scrollHeight > originalHeight) {
+                    $readMore.show();
+                    $readMore.click(function () {
+                        $text.toggleClass("expanded");
+                        if ($text.hasClass("expanded")) {
+                            $text.css("-webkit-line-clamp", "initial"); // Remove line clamp
+                            $readMore.text("Read Less");
+                        } else {
+                            $text.css("-webkit-line-clamp", "2"); // Reapply 2-line clamp
+                            $readMore.text("Read More");
+                        }
+                    });
+                }
             });
         });
 
