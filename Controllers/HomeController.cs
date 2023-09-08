@@ -18,7 +18,7 @@ namespace RMC_Donation.Controllers
             {
                 var items = dbContext.items
                     .Where(item => item.status != 0)
-                    .OrderBy(item => item.id) // Order the items as needed
+                    .OrderByDescending(item => item.createdat)
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
                     .ToList();
