@@ -117,3 +117,88 @@ a {
     cursor: pointer;
     font-weight: bold;
 }
+
+/* Pagination styles */
+.pagination {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.pagination a {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 20px;
+    border-radius: 7px;
+    border: 1px solid rgb(61, 106, 255);
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    background: transparent;
+    color: darkblue;
+    text-decoration: none;
+    overflow: hidden;
+    box-shadow: 0 0 0 0 transparent;
+    transition: all 0.2s ease-in;
+    font-weight:bold;
+    font-size:17px;
+}
+
+.pagination a.active {
+    background: rgb(61, 106, 255);
+    box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+    transition: all 0.2s ease-out;
+    color:white;
+}
+
+.pagination a:hover {
+    background: rgb(61, 106, 255);
+    box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+    transition: all 0.2s ease-out;
+}
+
+.pagination a:not(.active):hover::before {
+    content: '';
+    display: block;
+    width: 0px;
+    height: 86%;
+    position: absolute;
+    top: 7%;
+    left: 0%;
+    opacity: 0;
+    background: #fff;
+    box-shadow: 0 0 50px 30px #fff;
+    transform: skewX(-20deg);
+    transition: all 0.5s linear;
+}
+
+.pagination a:active {
+    box-shadow: 0 0 0 0 transparent;
+    transition: box-shadow 0.2s ease-in;
+}
+
+/* Arrow styles */
+.pagination .arrow {
+    display: inline-block;
+    margin: 5px;
+    padding: 10px 20px;
+    border-radius: 7px;
+    border: 1px solid rgb(61, 106, 255);
+    font-size: 14px;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 2px;
+    background: transparent;
+    color: #fff;
+    text-decoration: none;
+    overflow: hidden;
+    box-shadow: 0 0 0 0 transparent;
+    transition: all 0.2s ease-in;
+}
+
+.pagination .arrow:hover {
+    background: rgb(61, 106, 255);
+    color: #fff;
+    box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+    transition: all 0.2s ease-out;
+}

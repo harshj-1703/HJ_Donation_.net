@@ -12,18 +12,23 @@ namespace RMC_Donation.Controllers
     public class HomeController : Controller
     {
         [AllowAnonymous]
-        public ActionResult Index()
+        public ActionResult Index(int page = 1, int pageSize = 5)
         {
             using (var dbContext = new rmcdonateItemsEntity())
             {
-                var items = dbContext.items.Where(item => item.status != 0).ToList();
-                //var items = dbContext.items.ToList();
+                var items = dbContext.items
+                    .Where(item => item.status != 0)
+                    .OrderBy(item => item.id) // Order the items as needed
+                    .Skip((page - 1) * pageSize)
+                    .Take(pageSize)
+                    .ToList();
+
                 var userDb = new rmcdonateEntities();
 
-                // Retrieve users from the second context
-                var users = userDb.users.Where(user => user.status != 0).ToList();
+                var users = userDb.users
+                    .Where(user => user.status != 0)
+                    .ToList();
 
-                // Join items and users in memory using LINQ to Objects
                 var itemsWithUserDetails = items
                     .Join(
                         users,
@@ -35,6 +40,13 @@ namespace RMC_Donation.Controllers
                             User = user
                         })
                     .ToList();
+
+                int totalCount = dbContext.items.Count(item => item.status != 0);
+                ViewBag.TotalCount = totalCount;
+
+                ViewBag.page = page;
+                ViewBag.pageSize = pageSize;
+                ViewBag.TotalCount = totalCount;
 
                 return View(itemsWithUserDetails);
             }
