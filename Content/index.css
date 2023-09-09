@@ -2,6 +2,8 @@
     MAIN CONTAINER
 **************************************************************************/
 
+@import url("https://fonts.googleapis.com/css?family=Source+Sans+Pro&display=swap");
+
 div.container {
     max-width: 1188px;
     margin: 0 auto;

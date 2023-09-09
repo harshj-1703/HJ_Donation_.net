@@ -14,10 +14,18 @@ namespace RMC_Donation.Controllers
         [AllowAnonymous]
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
+            var sessionUserId = Session["user_id"] as int?;
             using (var dbContext = new rmcdonateItemsEntity())
             {
-                var items = dbContext.items
-                    .Where(item => item.status != 0)
+                IQueryable<item> itemsQuery = dbContext.items
+                        .Where(item => item.status != 0);
+
+                if (sessionUserId != null)
+                {
+                    itemsQuery = itemsQuery.Where(item => item.user_id != sessionUserId.Value);
+                }
+
+                var items = itemsQuery
                     .OrderByDescending(item => item.createdat)
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
@@ -41,8 +49,7 @@ namespace RMC_Donation.Controllers
                         })
                     .ToList();
 
-                int totalCount = dbContext.items.Count(item => item.status != 0);
-                ViewBag.TotalCount = totalCount;
+                int totalCount = itemsQuery.Count();
 
                 ViewBag.page = page;
                 ViewBag.pageSize = pageSize;
