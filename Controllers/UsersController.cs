@@ -139,6 +139,8 @@ namespace RMC_Donation.Controllers
         public ActionResult SignOut()
         {
             FormsAuthentication.SignOut();
+            Session.Clear();
+            Session.Abandon();
             return RedirectToAction("Login");
         }
 
