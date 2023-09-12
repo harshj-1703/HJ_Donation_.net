@@ -183,59 +183,21 @@
             <div id="rec-section">
                 <div>
                     <header>
-                        <span>Add to your feed</span>
-                        <span class="fas fa-info-circle"
-                              onmouseover="showRecommendationsInfo(this)"
-                              onmouseout="showRecommendationsInfo(this)">
-                            <div id="float-info">
-                                <span>
-                                    Follow things that interest you to
-                                    personalize your feed.
-                                </span>
-                                <a href="#">Learn more.</a>
-                            </div>
-                            <span>►</span>
-                            <div id="square"></div>
-                        </span>
+                        <span>My Items</span>
                     </header>
-                    <div>
+                    @foreach (var items in ViewBag.userItems)
+                    {
                         <div>
-                            <img src="/images/mongo.jpeg" alt="" />
                             <div>
-                                <strong>MongoDB</strong>
-                                <small>Company - Computer Software</small>
+                                <img src="@items.imageurl1" alt="" />
+                                <div>
+                                    <strong>@items.name</strong>
+                                    <small>@items.catagory</small>
+                                </div>
                             </div>
-                            <button>
-                                <span class="fas fa-plus"></span>
-                                <span>Follow</span>
-                            </button>
                         </div>
-                        <div>
-                            <img src="/images/react.png" alt="" />
-                            <div>
-                                <strong>#reactjs</strong>
-                            </div>
-                            <button>
-                                <span class="fas fa-plus"></span>
-                                <span>Follow</span>
-                            </button>
-                        </div>
-                        <div>
-                            <img src="/images/example-person.jpeg" alt="" />
-                            <div>
-                                <strong>John Smith</strong>
-                                <small>
-                                    Entrepreneur and Marketing
-                                    Specialist
-                                </small>
-                            </div>
-                            <button>
-                                <span class="fas fa-plus"></span>
-                                <span>Follow</span>
-                            </button>
-                        </div>
-                    </div>
-                    <a href="#">View all recommendations</a>
+                    }
+                    <a href="@Url.Action("MyItems", "Item")">View all items</a>
                 </div>
             </div>
         </aside>

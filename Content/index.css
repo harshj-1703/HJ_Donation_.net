@@ -445,8 +445,8 @@ aside#left-aside div#profile-groups {
 **************************************************************************/
 
 aside#right-aside div#rec-section {
-    height: 273px;
-    background-color:#fff;
+    height: max-content;
+    background-color: #fff;
     border: 0.1px solid #cfcfcf;
     padding: 16px 0;
     border-bottom: 1px solid #cfcfcf;

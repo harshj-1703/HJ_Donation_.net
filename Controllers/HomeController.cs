@@ -34,6 +34,11 @@ namespace RMC_Donation.Controllers
                     ViewBag.DateOfBirth = dateOfBirth.ToString("MM-dd-yyyy");
                     ViewBag.Profession = users1.Result.profession;
                     ViewBag.Address = users1.Result.address;
+
+                    var userItems = dbContext.items.Where(item => item.user_id == sessionUserId.Value).Where(item => item.status != 0).
+                        OrderByDescending(item => item.createdat).Take(5).ToList();
+
+                    ViewBag.userItems = userItems;
                 }
 
                 var items = itemsQuery
