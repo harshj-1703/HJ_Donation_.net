@@ -5,6 +5,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using RMC_Donation.CustomAttributes;
+using System.Data.Entity;
 
 namespace RMC_Donation.Controllers
 {
@@ -19,10 +20,20 @@ namespace RMC_Donation.Controllers
             {
                 IQueryable<item> itemsQuery = dbContext.items
                         .Where(item => item.status != 0);
+                var userDb = new rmcdonateEntities();
 
                 if (sessionUserId != null)
                 {
                     itemsQuery = itemsQuery.Where(item => item.user_id != sessionUserId.Value);
+                    var users1 = userDb.users
+                    .Where(user => user.id == sessionUserId).FirstOrDefaultAsync();
+                    ViewBag.UserName = users1.Result.fullname;
+                    ViewBag.Mobileno = users1.Result.mobile_no;
+                    ViewBag.Email = users1.Result.email;
+                    DateTime dateOfBirth = users1.Result.dob;
+                    ViewBag.DateOfBirth = dateOfBirth.ToString("MM-dd-yyyy");
+                    ViewBag.Profession = users1.Result.profession;
+                    ViewBag.Address = users1.Result.address;
                 }
 
                 var items = itemsQuery
@@ -30,8 +41,6 @@ namespace RMC_Donation.Controllers
                     .Skip((page - 1) * pageSize)
                     .Take(pageSize)
                     .ToList();
-
-                var userDb = new rmcdonateEntities();
 
                 var users = userDb.users
                     .Where(user => user.status != 0)

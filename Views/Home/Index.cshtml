@@ -16,96 +16,326 @@
     </div>
 }
 
-<!-- Main -->
-<div id="main-wrapper">
-    <main id="main-section">
-        <!-- Your Item Grid Iteration -->
-        @{
-            int page = ViewBag.page;
-            int pageSize = ViewBag.pageSize;
-            int index = 0;
-            int totalCount = ViewBag.TotalCount;
-            int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
-            int currentPage = page;
-        }
-
-        @{
-            foreach (var itemWithUser in Model)
-            {
-                <article class="item-article">
-                    <!-- Item Details -->
-                    <div class="item-details">
-                        <h3>Item Name: @itemWithUser.Item.name</h3>
-                        <p><strong>Category: </strong> @itemWithUser.Item.catagory</p>
-                        <strong>Details: </strong>
-                        <p class="details-text" id="details-@index">
-                            @itemWithUser.Item.details
-                            <span class="read-more">Read More</span>
-                        </p>
+@if (Session["user_id"] != null)
+{
+    <!-- MAIN CONTAINER -->
+    <div class="container" style="display:grid; grid-template-rows:1fr;">
+        <!-- LEFT ASIDE -->
+        <div id="left-aside-wrapper">
+            <aside id="left-aside">
+                <div id="profile-card">
+                    <div id="background"></div>
+                    <div id="profile-info">
+                        <img src="@Request.Cookies["userProfile"].Value" height="100" width="100"
+                             alt="Profile picture" />
+                        <strong id="profile-name">@ViewBag.UserName</strong>
+                        <small>@ViewBag.Mobileno</small>
                     </div>
-
-                    <!-- User Details -->
-                    <div class="user-details">
-                        <p><strong>User Name: </strong> @itemWithUser.User.fullname</p>
-                        <p><strong>Email: </strong> <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
+                    <!--<div id="profile-links">
+                        <a href="#">
+                            <span>
+                                Who's viewed your profile
+                            </span>
+                            <span class="profile-number">
+                                102
+                            </span>
+                        </a>
+                        <a href="#">
+                            <span>
+                                Connections
+                            </span>
+                            <span class="profile-number">
+                                452
+                            </span>
+                        </a>
                     </div>
-
-                    <!-- Images Container -->
-                    <div class="item-images">
-                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl1))
-                        {
-                            <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl1" data-caption="Image 1" class="post-image-container">
-                                <img src="@itemWithUser.Item.imageurl1" alt="Image 1" class="post-image" />
-                            </a>
-                        }
-                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl2))
-                        {
-                            <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl2" data-caption="Image 2" class="post-image-container">
-                                <img src="@itemWithUser.Item.imageurl2" alt="Image 2" class="post-image" />
-                            </a>
-                        }
-                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl3))
-                        {
-                            <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl3" data-caption="Image 3" class="post-image-container">
-                                <img src="@itemWithUser.Item.imageurl3" alt="Image 3" class="post-image" />
-                            </a>
-                        }
-                        @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl4))
-                        {
-                            <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl4" data-caption="Image 4" class="post-image-container">
-                                <img src="@itemWithUser.Item.imageurl4" alt="Image 4" class="post-image" />
-                            </a>
-                        }
-                    </div>
-                </article>
-                index++;
-            }
-        }
-
-        <!-- Pagination controls -->
-        <div class="pagination">
-            @if (totalPages > 1)
-            {
-                if (currentPage > 1)
-                {
-                    <a href="@Url.Action("Index", new { page = 1 })">First</a>
-                    <a href="@Url.Action("Index", new { page = currentPage - 1 })">&lt;</a>
-                }
-
-                for (int i = 1; i <= totalPages; i++)
-                {
-                    <a href="@Url.Action("Index", new { page = i })" @(i == currentPage ? "class=active" : "")>@i</a>
-                }
-
-                if (currentPage < totalPages)
-                {
-                    <a href="@Url.Action("Index", new { page = currentPage + 1 })">&gt;</a>
-                    <a href="@Url.Action("Index", new { page = totalPages })">Last</a>
-                }
-            }
+                    <span>Grow your network</span>
+                    <a href="#">
+                        <span>Access exclusive tools & insights</span>
+                        <span id="profile-premium">
+                            <span id="profile-square">■</span> Try Premium
+                            Free for 1 Month
+                        </span>
+                    </a>-->
+                </div>
+                <div id="profile-groups">
+                    <section>
+                        <header>
+                            <span>User Details</span>
+                            <span class="fas fa-angle-up"></span>
+                        </header>
+                        <ul class="group-list">
+                            <li>
+                                <span class="fas fa-envelope"></span>
+                                <span class="indexuserdetails">@ViewBag.Email</span>
+                            </li>
+                            <li>
+                                <span class="fas fa-birthday-cake"></span>
+                                <span class="indexuserdetails">@ViewBag.DateOfBirth</span>
+                            </li>
+                            <li>
+                                <span class="fas fa-briefcase"></span>
+                                <span class="indexuserdetails">@ViewBag.Profession</span>
+                            </li>
+                            <li>
+                                <span class="fas fa-home"></span>
+                                <span id="indexuserdetails">@ViewBag.Address</span>
+                            </li>
+                        </ul>
+                    </section>
+                </div>
+            </aside>
         </div>
-    </main>
-</div>
+
+        <!-- Main -->
+        <div id="main-wrapper">
+            <main id="main-section">
+                <!-- Your Item Grid Iteration -->
+                @{
+                    int page = ViewBag.page;
+                    int pageSize = ViewBag.pageSize;
+                    int index = 0;
+                    int totalCount = ViewBag.TotalCount;
+                    int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+                    int currentPage = page;
+                }
+
+                @{
+                    foreach (var itemWithUser in Model)
+                    {
+                        <article class="item-article">
+                            <!-- Item Details -->
+                            <div class="item-details">
+                                <h3>Item Name: @itemWithUser.Item.name</h3>
+                                <p><strong>Category: </strong> @itemWithUser.Item.catagory</p>
+                                <strong>Details: </strong>
+                                <p class="details-text" id="details-@index">
+                                    @itemWithUser.Item.details
+                                    <span class="read-more">Read More</span>
+                                </p>
+                            </div>
+
+                            <!-- User Details -->
+                            <div class="user-details">
+                                <p><strong>User Name: </strong> @itemWithUser.User.fullname</p>
+                                <p><strong>Email: </strong> <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
+                            </div>
+
+                            <!-- Images Container -->
+                            <div class="item-images">
+                                @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl1))
+                                {
+                                    <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl1" data-caption="Image 1" class="post-image-container">
+                                        <img src="@itemWithUser.Item.imageurl1" alt="Image 1" class="post-image" />
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl2))
+                                {
+                                    <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl2" data-caption="Image 2" class="post-image-container">
+                                        <img src="@itemWithUser.Item.imageurl2" alt="Image 2" class="post-image" />
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl3))
+                                {
+                                    <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl3" data-caption="Image 3" class="post-image-container">
+                                        <img src="@itemWithUser.Item.imageurl3" alt="Image 3" class="post-image" />
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl4))
+                                {
+                                    <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl4" data-caption="Image 4" class="post-image-container">
+                                        <img src="@itemWithUser.Item.imageurl4" alt="Image 4" class="post-image" />
+                                    </a>
+                                }
+                            </div>
+                        </article>
+                        index++;
+                    }
+                }
+
+                <!-- Pagination controls -->
+                <div class="pagination">
+                    @if (totalPages > 1)
+                    {
+                        if (currentPage > 1)
+                        {
+                            <a href="@Url.Action("Index", new { page = 1 })">First</a>
+                            <a href="@Url.Action("Index", new { page = currentPage - 1 })">&lt;</a>
+                        }
+
+                        for (int i = 1; i <= totalPages; i++)
+                        {
+                            <a href="@Url.Action("Index", new { page = i })" @(i == currentPage ? "class=active" : "")>@i</a>
+                        }
+
+                        if (currentPage < totalPages)
+                        {
+                            <a href="@Url.Action("Index", new { page = currentPage + 1 })">&gt;</a>
+                            <a href="@Url.Action("Index", new { page = totalPages })">Last</a>
+                        }
+                    }
+                </div>
+            </main>
+        </div>
+
+        <!-- RIGHT ASIDE-->
+        <aside id="right-aside">
+            <div id="rec-section">
+                <div>
+                    <header>
+                        <span>Add to your feed</span>
+                        <span class="fas fa-info-circle"
+                              onmouseover="showRecommendationsInfo(this)"
+                              onmouseout="showRecommendationsInfo(this)">
+                            <div id="float-info">
+                                <span>
+                                    Follow things that interest you to
+                                    personalize your feed.
+                                </span>
+                                <a href="#">Learn more.</a>
+                            </div>
+                            <span>►</span>
+                            <div id="square"></div>
+                        </span>
+                    </header>
+                    <div>
+                        <div>
+                            <img src="/images/mongo.jpeg" alt="" />
+                            <div>
+                                <strong>MongoDB</strong>
+                                <small>Company - Computer Software</small>
+                            </div>
+                            <button>
+                                <span class="fas fa-plus"></span>
+                                <span>Follow</span>
+                            </button>
+                        </div>
+                        <div>
+                            <img src="/images/react.png" alt="" />
+                            <div>
+                                <strong>#reactjs</strong>
+                            </div>
+                            <button>
+                                <span class="fas fa-plus"></span>
+                                <span>Follow</span>
+                            </button>
+                        </div>
+                        <div>
+                            <img src="/images/example-person.jpeg" alt="" />
+                            <div>
+                                <strong>John Smith</strong>
+                                <small>
+                                    Entrepreneur and Marketing
+                                    Specialist
+                                </small>
+                            </div>
+                            <button>
+                                <span class="fas fa-plus"></span>
+                                <span>Follow</span>
+                            </button>
+                        </div>
+                    </div>
+                    <a href="#">View all recommendations</a>
+                </div>
+            </div>
+        </aside>
+    </div>
+}
+
+else
+{
+    <!-- Main -->
+    <div id="main-wrapper">
+        <main id="main-section">
+            <!-- Your Item Grid Iteration -->
+            @{
+                int page = ViewBag.page;
+                int pageSize = ViewBag.pageSize;
+                int index = 0;
+                int totalCount = ViewBag.TotalCount;
+                int totalPages = (int)Math.Ceiling((double)totalCount / pageSize);
+                int currentPage = page;
+            }
+
+            @{
+                foreach (var itemWithUser in Model)
+                {
+                    <article class="item-article">
+                        <!-- Item Details -->
+                        <div class="item-details">
+                            <h3>Item Name: @itemWithUser.Item.name</h3>
+                            <p><strong>Category: </strong> @itemWithUser.Item.catagory</p>
+                            <strong>Details: </strong>
+                            <p class="details-text" id="details-@index">
+                                @itemWithUser.Item.details
+                                <span class="read-more">Read More</span>
+                            </p>
+                        </div>
+
+                        <!-- User Details -->
+                        <div class="user-details">
+                            <p><strong>User Name: </strong> @itemWithUser.User.fullname</p>
+                            <p><strong>Email: </strong> <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
+                        </div>
+
+                        <!-- Images Container -->
+                        <div class="item-images">
+                            @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl1))
+                            {
+                                <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl1" data-caption="Image 1" class="post-image-container">
+                                    <img src="@itemWithUser.Item.imageurl1" alt="Image 1" class="post-image" />
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl2))
+                            {
+                                <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl2" data-caption="Image 2" class="post-image-container">
+                                    <img src="@itemWithUser.Item.imageurl2" alt="Image 2" class="post-image" />
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl3))
+                            {
+                                <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl3" data-caption="Image 3" class="post-image-container">
+                                    <img src="@itemWithUser.Item.imageurl3" alt="Image 3" class="post-image" />
+                                </a>
+                            }
+                            @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl4))
+                            {
+                                <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl4" data-caption="Image 4" class="post-image-container">
+                                    <img src="@itemWithUser.Item.imageurl4" alt="Image 4" class="post-image" />
+                                </a>
+                            }
+                        </div>
+                    </article>
+                    index++;
+                }
+            }
+
+            <!-- Pagination controls -->
+            <div class="pagination">
+                @if (totalPages > 1)
+                {
+                    if (currentPage > 1)
+                    {
+                        <a href="@Url.Action("Index", new { page = 1 })">First</a>
+                        <a href="@Url.Action("Index", new { page = currentPage - 1 })">&lt;</a>
+                    }
+
+                    for (int i = 1; i <= totalPages; i++)
+                    {
+                        <a href="@Url.Action("Index", new { page = i })" @(i == currentPage ? "class=active" : "")>@i</a>
+                    }
+
+                    if (currentPage < totalPages)
+                    {
+                        <a href="@Url.Action("Index", new { page = currentPage + 1 })">&gt;</a>
+                        <a href="@Url.Action("Index", new { page = totalPages })">Last</a>
+                    }
+                }
+            </div>
+        </main>
+    </div>
+
+}
 
 
 @section scripts{
