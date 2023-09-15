@@ -5,7 +5,6 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Security;
 using RMC_Donation.Models;
-using System.Linq;
 using System.Configuration;
 using System.Net;
 using System.IO;
@@ -329,8 +328,6 @@ namespace RMC_Donation.Controllers
                 ModelState.AddModelError("", "Old Password is Wrong!");
                 return View(changePasswordViewModel);
             }
-
-            return View();
         }
     }
 }
