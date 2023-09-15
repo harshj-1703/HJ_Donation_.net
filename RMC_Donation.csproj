@@ -183,6 +183,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\index.css" />
+    <Content Include="Content\login.css" />
     <Content Include="Content\navbar.css" />
     <Content Include="favicon.ico" />
     <Content Include="Global.asax" />
