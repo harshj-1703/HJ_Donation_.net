@@ -80,6 +80,43 @@ namespace RMC_Donation.Controllers
             return View(combinedData);
         }
 
+        public ActionResult ItemRequests()
+        {
+            var dbRequests = new rmcDonationRequestItems();
+            var dbUser = new rmcdonateEntities();
+            var dbItem = new rmcdonateItemsEntity();
+
+            int recId = (int)Session["user_id"];
+
+            var myRequests = dbRequests.requestitems
+                .Where(requestitem => requestitem.receiver_id == recId).Where(requestitem => requestitem.status != 0)
+                .ToList();
+
+            var userEntities = dbUser.users.ToList();
+            var itemEntities = dbItem.items.ToList();
+
+            // Combine data into the view model using joins
+            var combinedData = myRequests
+                .Join(
+                    userEntities,
+                    requestitem => requestitem.sender_id,
+                    user => user.id,
+                    (requestitem, user) => new { RequestItem = requestitem, User = user })
+                .Join(
+                    itemEntities,
+                    requestUser => requestUser.RequestItem.item_id,
+                    item => item.id,
+                    (requestUser, item) => new RequestItemWithUserAndItemViewModel
+                    {
+                        RequestItem = requestUser.RequestItem,
+                        User = requestUser.User,
+                        Item = item
+                    })
+                .ToList();
+
+            return View(combinedData);
+        }
+
         [HttpPost]
         public ActionResult UpdateRequestStatus(int id, bool isChecked)
         {
@@ -95,6 +132,40 @@ namespace RMC_Donation.Controllers
                 }
             }
             return new EmptyResult();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateRequestStatusReceiverAfterDesicion(int id, bool isChecked)
+        {
+            using (var db = new rmcDonationRequestItems())
+            {
+                var req = db.requestitems.Find(id);
+
+                if (req != null)
+                {
+                    req.approved_status = isChecked ? 1 : 0;
+                    req.updatedat = DateTime.Now;
+                    db.SaveChanges();
+                }
+            }
+            return new EmptyResult();
+        }
+
+        [HttpPost]
+        public ActionResult UpdateRequestStatusReceiver(int id, int newStatus)
+        {
+            using (var db = new rmcDonationRequestItems())
+            {
+                var req = db.requestitems.Find(id);
+
+                if (req != null)
+                {
+                    req.approved_status = newStatus;
+                    req.updatedat = DateTime.Now;
+                    db.SaveChanges();
+                }
+            }
+            return Json(new {newStatus});
         }
     }
 }

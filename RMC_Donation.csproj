@@ -295,6 +295,7 @@
     <Content Include="Views\Users\EditUserProfile.cshtml" />
     <Content Include="Views\Users\ChangePassword.cshtml" />
     <Content Include="Views\Request\Index.cshtml" />
+    <Content Include="Views\Request\ItemRequests.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

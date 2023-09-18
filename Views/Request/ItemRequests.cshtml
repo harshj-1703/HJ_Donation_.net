@@ -1,0 +1,126 @@
+﻿@model IEnumerable<RMC_Donation.Models.RequestItemWithUserAndItemViewModel>
+
+@{
+    ViewBag.Title = "My Requests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Requests</h2>
+
+<table class="table" border="1">
+    <tr>
+        <th>
+            User Name
+        </th>
+        <th>
+            Item Name
+        </th>
+        <th>
+            Mobile
+        </th>
+        <th>
+            Email
+        </th>
+        <th>
+            Date & Time
+        </th>
+        <th>
+            Approve/Cancle
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.fullname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.mobile_no)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestItem.updatedat)
+            </td>
+            <td>
+                @{
+                    if (item.RequestItem.approved_status == 2)
+                    {
+                        <button class="btn btn-success" data-id="@item.RequestItem.id" data-status="1">Approve</button>
+                        <button class="btn btn-danger" data-id="@item.RequestItem.id" data-status="0">Reject</button>
+                    }
+                    else
+                    {
+                        <input type="checkbox" data-id="@item.RequestItem.id" @(item.RequestItem.approved_status == 1 ? "checked" : "") />
+                        if (item.RequestItem.approved_status == 1)
+                        {
+                            <span>Approved</span>
+                        }
+                        else if (item.RequestItem.approved_status == 0)
+                        {
+                            <span>Rejected</span>
+                        }
+                    }
+                }
+            </td>
+        </tr>
+    }
+</table>
+
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Handle button click event
+            $('button.btn').click(function () {
+                var button = $(this);
+                var itemId = button.data('id');
+                var newStatus = button.data('status');
+
+                var confirmation = confirm("Are you sure you want to Accpet/Reject?");
+                if (!confirmation) {
+                    return;
+                }
+
+                $.ajax({
+                    url: '/Request/UpdateRequestStatusReceiver',
+                    type: 'POST',
+                    data: { id: itemId, newStatus: newStatus },
+                    success: function (result) {
+                        window.location.reload();
+                    },
+                    error: function () {
+                    }
+                });
+            });
+
+            $('input[type="checkbox"]').change(function () {
+                var checkbox = $(this);
+                var itemId = checkbox.data('id');
+                var isChecked = checkbox.prop('checked');
+
+                var confirmation = confirm("Are you sure you want to Accpet/Reject?");
+                if (!confirmation) {
+                    checkbox.prop('checked', !isChecked);
+                    return;
+                }
+
+                $.ajax({
+                    url: '/Request/UpdateRequestStatusReceiverAfterDesicion',
+                    type: 'POST',
+                    data: { id: itemId, isChecked: isChecked },
+                    success: function (result) {
+                        window.location.reload();
+                    },
+                    error: function () {
+                    }
+                });
+            });
+        });
+    </script>
+}
