@@ -10,10 +10,16 @@
 <table class="table" border="1">
     <tr>
         <th>
+            User Photo
+        </th>
+        <th>
             User Name
         </th>
         <th>
             Item Name
+        </th>
+        <th>
+            Item Category
         </th>
         <th>
             Mobile
@@ -33,10 +39,16 @@
     {
         <tr>
             <td>
+                <img src="@item.User.profilephoto" height="50" width="50" />
+            </td>
+            <td>
                 @Html.DisplayFor(modelItem => item.User.fullname)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.Item.catagory)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.User.mobile_no)
