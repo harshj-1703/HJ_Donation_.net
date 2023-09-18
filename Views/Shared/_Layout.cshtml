@@ -40,7 +40,7 @@
                                 <a href="#" class="menu-item">
                                     <span class="fas fa-user"></span>
                                     <span class="nav-item-text" style="display: inline-block; max-width: 20ch; overflow: hidden; text-overflow: ellipsis; white-space: nowrap;">
-                                            @User.Identity.Name
+                                        @User.Identity.Name
                                     </span>
                                 </a>
                             </li>
@@ -54,6 +54,18 @@
                                 <a href="@Url.Action("AddItems", "Item")" class="menu-item">
                                     <span class="fas fa-plus-circle"></span>
                                     <span class="nav-item-text">Add Items</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Index", "Request")" class="menu-item">
+                                    <span class="fas fa-envelope"></span>
+                                    <span class="nav-item-text">Requests</span>
+                                </a>
+                            </li>
+                            <li>
+                                <a href="@Url.Action("Notifications", "Request")" class="menu-item">
+                                    <span class="fas fa-bell"></span>
+                                    <span class="nav-item-text">Notifications</span>
                                 </a>
                             </li>
                             @if (isAdmin)
@@ -133,8 +145,16 @@
                                     </a>
                                 </li>
                                 <li>
-                                    <a href="@Url.Action("ManageItems", "Admin")" style="color: white;">
-                                        <div id="notifications" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("ManageItems", "Admin", new { area = "" }) ? "selected" : "")">
+                                    <a href="@Url.Action("Index", "Request")" style="color: white;">
+                                        <div id="notifications" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("Index", "Request", new { area = "" }) ? "selected" : "")">
+                                            <span class="fas fa-envelope"></span>
+                                            <span class="nav-item-text">My Requests</span>
+                                        </div>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="@Url.Action("Notifications", "Request")" style="color: white;">
+                                        <div id="notifications" class="@(HttpContext.Current.Request.Url.AbsolutePath == Url.Action("Notifications", "Request", new { area = "" }) ? "selected" : "")">
                                             <span class="fas fa-bell"></span>
                                             <span class="nav-item-text">Notifications</span>
                                         </div>

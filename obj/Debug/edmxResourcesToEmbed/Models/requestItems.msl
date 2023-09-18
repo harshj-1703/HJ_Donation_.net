@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="requestItemsStoreContainer" CdmEntityContainer="rmcDonationRequestItems">
+    <EntitySetMapping Name="requestitems">
+      <EntityTypeMapping TypeName="requestItems.requestitem">
+        <MappingFragment StoreEntitySet="requestitems">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="sender_id" ColumnName="sender_id" />
+          <ScalarProperty Name="receiver_id" ColumnName="receiver_id" />
+          <ScalarProperty Name="item_id" ColumnName="item_id" />
+          <ScalarProperty Name="approved_status" ColumnName="approved_status" />
+          <ScalarProperty Name="createdat" ColumnName="createdat" />
+          <ScalarProperty Name="updatedat" ColumnName="updatedat" />
+          <ScalarProperty Name="status" ColumnName="status" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

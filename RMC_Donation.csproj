@@ -135,6 +135,7 @@
     <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ItemController.cs" />
+    <Compile Include="Controllers\RequestController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
     <Compile Include="CustomAttributes\CustomAuthorizeAttribute.cs" />
     <Compile Include="Global.asax.cs">
@@ -161,6 +162,24 @@
     </Compile>
     <Compile Include="Models\ItemsWithUserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\requestitem.cs">
+      <DependentUpon>requestItems.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\requestItems.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>requestItems.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\requestItems.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>requestItems.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\requestItems.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>requestItems.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\user.cs">
       <DependentUpon>UserEDM.tt</DependentUpon>
     </Compile>
@@ -197,6 +216,16 @@
       <DependentUpon>ItemEDM.edmx</DependentUpon>
       <LastGenOutput>ItemEDM.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\requestItems.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>requestItems.edmx</DependentUpon>
+      <LastGenOutput>requestItems.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\requestItems.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>requestItems.edmx</DependentUpon>
+      <LastGenOutput>requestItems.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\UserEDM.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>UserEDM.Context.cs</LastGenOutput>
@@ -220,6 +249,13 @@
     </EntityDeploy>
     <Content Include="Models\ItemEDM.edmx.diagram">
       <DependentUpon>ItemEDM.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\requestItems.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>requestItems.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\requestItems.edmx.diagram">
+      <DependentUpon>requestItems.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
@@ -257,6 +293,7 @@
     <Content Include="Views\Item\ItemEditByUser.cshtml" />
     <Content Include="Views\Users\EditUserProfile.cshtml" />
     <Content Include="Views\Users\ChangePassword.cshtml" />
+    <Content Include="Views\Request\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

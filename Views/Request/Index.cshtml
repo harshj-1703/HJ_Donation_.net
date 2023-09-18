@@ -1,0 +1,93 @@
+﻿@model IEnumerable<RMC_Donation.Models.requestitem>
+
+@{
+    ViewBag.Title = "My Requests";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>My Requests</h2>
+
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.receiver_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.item_id)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.approved_status)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.status)
+        </th>
+    </tr>
+
+    @foreach (var item in Model)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.receiver_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.item_id)
+            </td>
+            <td>
+                @{
+                    string statusText = "";
+                    if (item.status == 0)
+                    {
+                        statusText = "Canceled";
+                    }
+                    else if (item.status == 1)
+                    {
+                        switch (item.approved_status)
+                        {
+                            case 2:
+                                statusText = "Pending";
+                                break;
+                            case 1:
+                                statusText = "Approved";
+                                break;
+                            case 0:
+                                statusText = "Rejected";
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                }
+                @statusText
+            </td>
+            <td>
+                <input type="checkbox" data-id="@item.id" @(item.status == 1 ? "checked" : "") />
+            </td>
+        </tr>
+    }
+
+</table>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            // Handle checkbox change event
+            $('input[type="checkbox"]').change(function () {
+                var itemId = $(this).data('id');
+                var isChecked = $(this).prop('checked');
+
+                // Send an AJAX request to update the status
+                $.ajax({
+                    url: '/Request/UpdateRequestStatus', // Replace with your actual update action
+                    type: 'POST',
+                    data: { id: itemId, isChecked: isChecked },
+                    success: function (result) {
+                        // Handle success, if needed
+                    },
+                    error: function () {
+                        // Handle error, if needed
+                    }
+                });
+            });
+        });
+    </script>
+}
