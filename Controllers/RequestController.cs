@@ -90,6 +90,7 @@ namespace RMC_Donation.Controllers
                 if (req != null)
                 {
                     req.status = isChecked ? 1 : 0;
+                    req.updatedat = DateTime.Now;
                     db.SaveChanges();
                 }
             }

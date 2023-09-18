@@ -7,19 +7,28 @@
 
 <h2>My Requests</h2>
 
-<table class="table">
+<table class="table" border="1">
     <tr>
         <th>
-            Receiver
+            User Name
         </th>
         <th>
-            Item
+            Item Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RequestItem.approved_status)
+            Mobile
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.RequestItem.status)
+            Email
+        </th>
+        <th>
+            Date & Time
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Request/Cancle
         </th>
     </tr>
 
@@ -31,6 +40,15 @@
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Item.name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.mobile_no)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.User.email)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.RequestItem.updatedat)
             </td>
             <td>
                 @{
