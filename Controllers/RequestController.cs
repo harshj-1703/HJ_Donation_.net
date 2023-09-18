@@ -46,9 +46,38 @@ namespace RMC_Donation.Controllers
         public ActionResult Index()
         {
             var dbRequests = new rmcDonationRequestItems();
+            var dbUser = new rmcdonateEntities();
+            var dbItem = new rmcdonateItemsEntity();
+
             int senderId = (int)Session["user_id"];
-            var myRequests = dbRequests.requestitems.Where(requestitem=>requestitem.sender_id == senderId).ToList();
-            return View(myRequests);
+
+            var myRequests = dbRequests.requestitems
+                .Where(requestitem => requestitem.sender_id == senderId)
+                .ToList();
+
+            var userEntities = dbUser.users.ToList();
+            var itemEntities = dbItem.items.ToList();
+
+            // Combine data into the view model using joins
+            var combinedData = myRequests
+                .Join(
+                    userEntities,
+                    requestitem => requestitem.receiver_id,
+                    user => user.id,
+                    (requestitem, user) => new { RequestItem = requestitem, User = user })
+                .Join(
+                    itemEntities,
+                    requestUser => requestUser.RequestItem.item_id,
+                    item => item.id,
+                    (requestUser, item) => new RequestItemWithUserAndItemViewModel
+                    {
+                        RequestItem = requestUser.RequestItem,
+                        User = requestUser.User,
+                        Item = item
+                    })
+                .ToList();
+
+            return View(combinedData);
         }
 
         [HttpPost]

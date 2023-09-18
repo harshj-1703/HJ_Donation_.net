@@ -180,6 +180,7 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>requestItems.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\RequestItemWithUserAndItemViewModel.cs" />
     <Compile Include="Models\user.cs">
       <DependentUpon>UserEDM.tt</DependentUpon>
     </Compile>
