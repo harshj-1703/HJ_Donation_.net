@@ -753,6 +753,24 @@ aside#right-aside div#linkedin-section footer > div {
     display: inline-block;
 }
 
+.request-button {
+    float:right;
+    display: inline-block;
+    padding: 5px 10px;
+    background-color: darkblue;
+    color: white;
+    text-decoration: none;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+    .request-button:hover {
+        background-color: blue;
+        color: white;
+    }
+
 @media only screen and (max-width: 700px) {
     .item-article {
         width: fit-content;

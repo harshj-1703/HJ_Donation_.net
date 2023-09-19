@@ -106,14 +106,18 @@
                         <article class="item-article">
                             <!-- Item Details -->
                             <div class="item-details">
-                                <h3>Item Name: @itemWithUser.Item.name</h3>
-                                <a href="@Url.Action("RequestItem", "Request", new { itemId = itemWithUser.Item.id, recId = itemWithUser.Item.user_id })">Request Item</a>
-                                <p><strong>Category: </strong> @itemWithUser.Item.catagory</p>
-                                <strong>Details: </strong>
-                                <p class="details-text" id="details-@index">
-                                    @itemWithUser.Item.details
-                                    <span class="read-more">Read More</span>
-                                </p>
+                                <div class="item-header">
+                                    <h3>@itemWithUser.Item.name</h3>
+                                    <a href="@Url.Action("RequestItem", "Request", new { itemId = itemWithUser.Item.id, recId = itemWithUser.Item.user_id })" class="request-button">Request Item</a>
+                                </div>
+                                <div class="item-info">
+                                    <p><strong>Category:</strong> @itemWithUser.Item.catagory</p>
+                                    <strong>Details:</strong>
+                                    <p class="details-text" id="details-@index">
+                                        @itemWithUser.Item.details
+                                        <span class="read-more">Read More</span>
+                                    </p>
+                                </div>
                             </div>
 
                             <!-- User Details -->
