@@ -114,7 +114,8 @@
                                         var requests = requestItems.requestitems.SingleOrDefault(u =>
                                             (u.item_id == itemWithUser.Item.id) &&
                                             (u.receiver_id == itemWithUser.User.id) &&
-                                            (u.sender_id == userId)
+                                            (u.sender_id == userId) &&
+                                            (u.status == 1)
                                         );
                                     }
 
