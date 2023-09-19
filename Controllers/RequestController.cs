@@ -14,7 +14,14 @@ namespace RMC_Donation.Controllers
         {
             using (var db = new rmcDonationRequestItems())
             {
+                var notificationEntity = new rmcDonateNotificationEntity();
+                var notification = new notification();
+
                 int senderid = (int) Session["user_id"];
+
+                var findUser = new rmcdonateEntities().users.SingleOrDefault(u => u.id == senderid);
+                var findItem = new rmcdonateItemsEntity().items.SingleOrDefault(i => i.id == itemId);
+
                 var existingRequest = db.requestitems
                 .SingleOrDefault(r => r.sender_id == senderid && r.receiver_id == recId && r.item_id == itemId);
 
@@ -37,6 +44,14 @@ namespace RMC_Donation.Controllers
 
                         db.requestitems.Add(newRequest);
                     }
+                    
+                    //for notification
+                    notification.details = findUser.fullname + " has requested for item " + findItem.name + " for category " + findItem.catagory;
+                    notification.status = 1;
+                    notification.user_id = recId;
+                    notification.createdat = DateTime.Now;
+                    notificationEntity.notifications.Add(notification);
+                    notificationEntity.SaveChanges();
 
                     db.SaveChanges();
             }
@@ -135,34 +150,78 @@ namespace RMC_Donation.Controllers
         }
 
         [HttpPost]
-        public ActionResult UpdateRequestStatusReceiverAfterDesicion(int id, bool isChecked)
+        public ActionResult UpdateRequestStatusReceiverAfterDesicion(int reqId, bool isChecked, int item_id, int rec_id)
         {
+            var notificationEntity = new rmcDonateNotificationEntity();
+            var notification = new notification();
+
+            var sender_id = (int)Session["user_id"];
+            var findUser = new rmcdonateEntities().users.SingleOrDefault(u => u.id == sender_id);
+            var findItem = new rmcdonateItemsEntity().items.SingleOrDefault(i => i.id == item_id);
+
             using (var db = new rmcDonationRequestItems())
             {
-                var req = db.requestitems.Find(id);
+                var req = db.requestitems.Find(reqId);
 
                 if (req != null)
                 {
                     req.approved_status = isChecked ? 1 : 0;
                     req.updatedat = DateTime.Now;
                     db.SaveChanges();
+
+                    if(isChecked)
+                    {
+                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Accepted by "+findUser.fullname;
+                    }
+                    else
+                    {
+                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Rejected by "+findUser.fullname;
+                    }
+
+                    notification.status = 1;
+                    notification.user_id = rec_id;
+                    notification.createdat = DateTime.Now;
+                    notificationEntity.notifications.Add(notification);
+                    notificationEntity.SaveChanges();
                 }
             }
             return new EmptyResult();
         }
 
         [HttpPost]
-        public ActionResult UpdateRequestStatusReceiver(int id, int newStatus)
+        public ActionResult UpdateRequestStatusReceiver(int reqId, int newStatus, int item_id, int rec_id)
         {
+            var notificationEntity = new rmcDonateNotificationEntity();
+            var notification = new notification();
+
+            var sender_id = (int)Session["user_id"];
+            var findUser = new rmcdonateEntities().users.SingleOrDefault(u => u.id == sender_id);
+            var findItem = new rmcdonateItemsEntity().items.SingleOrDefault(i => i.id == item_id);
+
             using (var db = new rmcDonationRequestItems())
             {
-                var req = db.requestitems.Find(id);
+                var req = db.requestitems.Find(reqId);
 
                 if (req != null)
                 {
                     req.approved_status = newStatus;
                     req.updatedat = DateTime.Now;
                     db.SaveChanges();
+
+                    if (newStatus == 1)
+                    {
+                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Accepted by " + findUser.fullname;
+                    }
+                    else
+                    {
+                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Rejected by " + findUser.fullname;
+                    }
+
+                    notification.status = 1;
+                    notification.user_id = rec_id;
+                    notification.createdat = DateTime.Now;
+                    notificationEntity.notifications.Add(notification);
+                    notificationEntity.SaveChanges();
                 }
             }
             return Json(new {newStatus});

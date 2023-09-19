@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="rmcdonateModel1StoreContainer" CdmEntityContainer="rmcDonateNotificationEntity">
+    <EntitySetMapping Name="notifications">
+      <EntityTypeMapping TypeName="rmcdonateModel1.notification">
+        <MappingFragment StoreEntitySet="notifications">
+          <ScalarProperty Name="id" ColumnName="id" />
+          <ScalarProperty Name="user_id" ColumnName="user_id" />
+          <ScalarProperty Name="details" ColumnName="details" />
+          <ScalarProperty Name="status" ColumnName="status" />
+          <ScalarProperty Name="createdat" ColumnName="createdat" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+  </EntityContainerMapping>
+</Mapping>

@@ -63,12 +63,12 @@
                 @{
                     if (item.RequestItem.approved_status == 2)
                     {
-                        <button class="btn btn-success" data-id="@item.RequestItem.id" data-status="1">Approve</button>
-                        <button class="btn btn-danger" data-id="@item.RequestItem.id" data-status="0">Reject</button>
+                        <button class="btn btn-success" data-id="@item.RequestItem.id" data-item_id="@item.RequestItem.item_id" data-sender_id="@item.RequestItem.sender_id" data-status="1">Approve</button>
+                        <button class="btn btn-danger" data-id="@item.RequestItem.id" data-item_id="@item.RequestItem.item_id" data-sender_id="@item.RequestItem.sender_id" data-status="0">Reject</button>
                     }
                     else
                     {
-                        <input type="checkbox" data-id="@item.RequestItem.id" @(item.RequestItem.approved_status == 1 ? "checked" : "") />
+                        <input type="checkbox" data-id="@item.RequestItem.id" data-item_id="@item.RequestItem.item_id" data-sender_id="@item.RequestItem.sender_id" @(item.RequestItem.approved_status == 1 ? "checked" : "") />
                         if (item.RequestItem.approved_status == 1)
                         {
                             <span>Approved</span>
@@ -91,8 +91,10 @@
             // Handle button click event
             $('button.btn').click(function () {
                 var button = $(this);
-                var itemId = button.data('id');
+                var reqId = button.data('id');
                 var newStatus = button.data('status');
+                var item_id = button.data('item_id');
+                var sender_id = button.data('sender_id');
 
                 var confirmation = confirm("Are you sure you want to Accpet/Reject?");
                 if (!confirmation) {
@@ -102,7 +104,7 @@
                 $.ajax({
                     url: '/Request/UpdateRequestStatusReceiver',
                     type: 'POST',
-                    data: { id: itemId, newStatus: newStatus },
+                    data: { id: reqId, newStatus: newStatus, item_id: item_id, rec_id: sender_id },
                     success: function (result) {
                         window.location.reload();
                     },
@@ -113,8 +115,10 @@
 
             $('input[type="checkbox"]').change(function () {
                 var checkbox = $(this);
-                var itemId = checkbox.data('id');
+                var reqId = checkbox.data('id');
                 var isChecked = checkbox.prop('checked');
+                var item_id = checkbox.data('item_id');
+                var sender_id = checkbox.data('sender_id');
 
                 var confirmation = confirm("Are you sure you want to Accpet/Reject?");
                 if (!confirmation) {
@@ -125,7 +129,7 @@
                 $.ajax({
                     url: '/Request/UpdateRequestStatusReceiverAfterDesicion',
                     type: 'POST',
-                    data: { id: itemId, isChecked: isChecked },
+                    data: { reqId: reqId, isChecked: isChecked, item_id: item_id, rec_id: sender_id },
                     success: function (result) {
                         window.location.reload();
                     },

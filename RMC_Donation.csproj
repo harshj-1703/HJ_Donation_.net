@@ -162,6 +162,24 @@
     </Compile>
     <Compile Include="Models\ItemsWithUserViewModel.cs" />
     <Compile Include="Models\LoginViewModel.cs" />
+    <Compile Include="Models\notification.cs">
+      <DependentUpon>NotificationsEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotificationsEntity.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotificationsEntity.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotificationsEntity.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotificationsEntity.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\NotificationsEntity.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>NotificationsEntity.edmx</DependentUpon>
+    </Compile>
     <Compile Include="Models\requestitem.cs">
       <DependentUpon>requestItems.tt</DependentUpon>
     </Compile>
@@ -217,6 +235,16 @@
       <DependentUpon>ItemEDM.edmx</DependentUpon>
       <LastGenOutput>ItemEDM.cs</LastGenOutput>
     </Content>
+    <Content Include="Models\NotificationsEntity.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NotificationsEntity.edmx</DependentUpon>
+      <LastGenOutput>NotificationsEntity.Context.cs</LastGenOutput>
+    </Content>
+    <Content Include="Models\NotificationsEntity.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>NotificationsEntity.edmx</DependentUpon>
+      <LastGenOutput>NotificationsEntity.cs</LastGenOutput>
+    </Content>
     <Content Include="Models\requestItems.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <DependentUpon>requestItems.edmx</DependentUpon>
@@ -257,6 +285,13 @@
     </EntityDeploy>
     <Content Include="Models\requestItems.edmx.diagram">
       <DependentUpon>requestItems.edmx</DependentUpon>
+    </Content>
+    <EntityDeploy Include="Models\NotificationsEntity.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>NotificationsEntity.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\NotificationsEntity.edmx.diagram">
+      <DependentUpon>NotificationsEntity.edmx</DependentUpon>
     </Content>
     <None Include="Scripts\jquery-3.4.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.4.1.js" />
