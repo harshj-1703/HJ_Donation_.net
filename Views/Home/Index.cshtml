@@ -201,6 +201,26 @@
                     <a href="@Url.Action("MyItems", "Item")">View all items</a>
                 </div>
             </div>
+            <div id="rec-section" style="margin-top:15px;">
+                <div>
+                    <header>
+                        <span>Notifications</span>
+                    </header>
+                    @foreach (var items in ViewBag.userItems)
+                    {
+                        <div>
+                            <div>
+                                <img src="@items.imageurl1" alt="" />
+                                <div>
+                                    <strong>@items.name</strong>
+                                    <small>@items.catagory</small>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    <a href="@Url.Action("MyItems", "Item")">Clear All Notifications</a>
+                </div>
+            </div>
         </aside>
     </div>
 }
@@ -314,7 +334,7 @@ else
                 var $text = $(this);
                 var $readMore = $text.find(".read-more");
                 var originalHeight = $text.innerHeight();
-                // Check if the text needs to be truncated
+
                 if ($text[0].scrollHeight > originalHeight) {
                     $readMore.show();
                     $readMore.click(function () {

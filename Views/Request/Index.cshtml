@@ -105,7 +105,11 @@
                 var itemId = $(this).data('id');
                 var isChecked = $(this).prop('checked');
 
-                // Send an AJAX request to update the status
+                var confirmation = confirm("Are you sure you want to Accpet/Reject?");
+                if (!confirmation) {
+                    return;
+                }
+
                 $.ajax({
                     url: '/Request/UpdateRequestStatus', // Replace with your actual update action
                     type: 'POST',
