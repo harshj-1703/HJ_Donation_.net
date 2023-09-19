@@ -104,7 +104,7 @@
                 $.ajax({
                     url: '/Request/UpdateRequestStatusReceiver',
                     type: 'POST',
-                    data: { id: reqId, newStatus: newStatus, item_id: item_id, rec_id: sender_id },
+                    data: { reqId: reqId, newStatus: newStatus, item_id: item_id, rec_id: sender_id },
                     success: function (result) {
                         window.location.reload();
                     },
