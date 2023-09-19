@@ -108,7 +108,24 @@
                             <div class="item-details">
                                 <div class="item-header">
                                     <h3>@itemWithUser.Item.name</h3>
-                                    <a href="@Url.Action("RequestItem", "Request", new { itemId = itemWithUser.Item.id, recId = itemWithUser.Item.user_id })" class="request-button">Request Item</a>
+                                    @{
+                                        var userId = (int)Session["user_id"];
+                                        var requestItems = new RMC_Donation.Models.rmcDonationRequestItems();
+                                        var requests = requestItems.requestitems.SingleOrDefault(u =>
+                                            (u.item_id == itemWithUser.Item.id) &&
+                                            (u.receiver_id == itemWithUser.User.id) &&
+                                            (u.sender_id == userId)
+                                        );
+                                    }
+
+                                    @if (requests == null)
+                                    {
+                                        <a href="@Url.Action("RequestItem", "Request", new { itemId = itemWithUser.Item.id, recId = itemWithUser.Item.user_id })" class="request-button">Request Item</a>
+                                    }
+                                    else
+                                    {
+                                        <div class="request-button" style="background-color:greenyellow;color:darkblue">Requested</div>
+                                    }
                                 </div>
                                 <div class="item-info">
                                     <p><strong>Category:</strong> @itemWithUser.Item.catagory</p>
