@@ -42,7 +42,7 @@ namespace RMC_Donation.Controllers
                         OrderByDescending(item => item.createdat).Take(3).ToList();
 
                     var userNotifications = notificationEntity.notifications.Where(n => n.user_id == sessionUserId.Value).Where(n => n.status != 0).
-                        OrderByDescending(n => n.createdat).ToList();
+                        OrderByDescending(n => n.createdat).Take(10).ToList();
 
                     ViewBag.userItems = userItems;
                     ViewBag.userNotifications = userNotifications;
