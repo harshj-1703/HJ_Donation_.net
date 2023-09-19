@@ -105,20 +105,19 @@
                 var itemId = $(this).data('id');
                 var isChecked = $(this).prop('checked');
 
-                var confirmation = confirm("Are you sure you want to Accpet/Reject?");
+                var confirmation = confirm("Are you sure you want to Cancle/Accept a given request?");
                 if (!confirmation) {
                     return;
                 }
 
                 $.ajax({
-                    url: '/Request/UpdateRequestStatus', // Replace with your actual update action
+                    url: '/Request/UpdateRequestStatus',
                     type: 'POST',
                     data: { id: itemId, isChecked: isChecked },
                     success: function (result) {
                         window.location.reload();
                     },
                     error: function () {
-                        // Handle error, if needed
                     }
                 });
             });

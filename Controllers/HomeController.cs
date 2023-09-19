@@ -37,12 +37,9 @@ namespace RMC_Donation.Controllers
                     ViewBag.Address = users1.Result.address;
 
                     var userItems = dbContext.items.Where(item => item.user_id == sessionUserId.Value).Where(item => item.status != 0).
-                        OrderByDescending(item => item.createdat).Take(5).ToList();
-
-                    var requests = dbContextRequest.requestitems.Where(requestitem => requestitem.status != 0).ToList();
+                        OrderByDescending(item => item.createdat).Take(3).ToList();
 
                     ViewBag.userItems = userItems;
-                    ViewBag.requests = requests;
                 }
 
                 var items = itemsQuery
