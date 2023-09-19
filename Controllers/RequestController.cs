@@ -171,11 +171,11 @@ namespace RMC_Donation.Controllers
 
                     if(isChecked)
                     {
-                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Accepted by "+findUser.fullname;
+                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Accepted by "+findUser.fullname+"("+findUser.mobile_no+")";
                     }
                     else
                     {
-                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Rejected by "+findUser.fullname;
+                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Rejected by "+findUser.fullname + "(" + findUser.mobile_no + ")";
                     }
 
                     notification.status = 1;
@@ -210,11 +210,11 @@ namespace RMC_Donation.Controllers
 
                     if (newStatus == 1)
                     {
-                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Accepted by " + findUser.fullname;
+                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Accepted by " + findUser.fullname + "(" + findUser.mobile_no + ")";
                     }
                     else
                     {
-                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Rejected by " + findUser.fullname;
+                        notification.details = "Your Request for item " + findItem.name + " for category " + findItem.catagory + " is Rejected by " + findUser.fullname + "(" + findUser.mobile_no + ")";
                     }
 
                     notification.status = 1;
@@ -225,6 +225,26 @@ namespace RMC_Donation.Controllers
                 }
             }
             return Json(new {newStatus});
+        }
+
+        public ActionResult ClearNotification()
+        {
+            int user_id = (int)Session["user_id"];
+
+            var notificationEntity = new rmcDonateNotificationEntity();
+
+            var notificationsToUpdate = notificationEntity.notifications
+                .Where(notification => notification.user_id == user_id)
+                .ToList();
+
+            foreach (var notification in notificationsToUpdate)
+            {
+                notification.status = 0;
+            }
+
+            notificationEntity.SaveChanges();
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

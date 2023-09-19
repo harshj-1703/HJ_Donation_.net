@@ -206,19 +206,16 @@
                     <header>
                         <span>Notifications</span>
                     </header>
-                    @foreach (var items in ViewBag.userItems)
+                    @foreach (var notification in ViewBag.userNotifications)
                     {
                         <div>
-                            <div>
-                                <img src="@items.imageurl1" alt="" />
                                 <div>
-                                    <strong>@items.name</strong>
-                                    <small>@items.catagory</small>
+                                    <strong>@notification.details</strong>
+                                    <small>@notification.createdat</small>
                                 </div>
                             </div>
-                        </div>
                     }
-                    <a href="@Url.Action("MyItems", "Item")">Clear All Notifications</a>
+                    <a href="@Url.Action("ClearNotification", "Request")">Clear All Notifications</a>
                 </div>
             </div>
         </aside>

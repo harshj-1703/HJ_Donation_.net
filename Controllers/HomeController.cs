@@ -16,7 +16,9 @@ namespace RMC_Donation.Controllers
         public ActionResult Index(int page = 1, int pageSize = 5)
         {
             var sessionUserId = Session["user_id"] as int?;
-            var dbContextRequest = new rmcDonationRequestItems();
+
+            var notificationEntity = new rmcDonateNotificationEntity();
+
             using (var dbContext = new rmcdonateItemsEntity())
             {
                 IQueryable<item> itemsQuery = dbContext.items
@@ -39,7 +41,11 @@ namespace RMC_Donation.Controllers
                     var userItems = dbContext.items.Where(item => item.user_id == sessionUserId.Value).Where(item => item.status != 0).
                         OrderByDescending(item => item.createdat).Take(3).ToList();
 
+                    var userNotifications = notificationEntity.notifications.Where(n => n.user_id == sessionUserId.Value).Where(n => n.status != 0).
+                        OrderByDescending(n => n.createdat).ToList();
+
                     ViewBag.userItems = userItems;
+                    ViewBag.userNotifications = userNotifications;
                 }
 
                 var items = itemsQuery
