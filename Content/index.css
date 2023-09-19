@@ -742,6 +742,16 @@ aside#right-aside div#linkedin-section footer > div {
         border-color: lightcyan transparent transparent transparent;
     }
 
+.highlight-accept {
+    background-color: lightgreen;
+    font-weight: bold;
+}
+
+.highlight-reject {
+    background-color: lightcoral;
+    font-weight: bold;
+}
+
 .notification-header {
     position: sticky;
     top: 0;

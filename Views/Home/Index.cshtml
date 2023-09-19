@@ -240,7 +240,10 @@
                             foreach (var notification in ViewBag.userNotifications)
                             {
                                 <div class="notification-item">
-                                    <strong>@notification.details</strong>
+                                    <strong>
+                                        @Html.Raw(notification.details.Replace("Accepted", "<span class='highlight-accept'>Accepted</span>")
+                                            .Replace("Rejected", "<span class='highlight-reject'>Rejected</span>"))
+                                    </strong>
                                     <small>@notification.createdat</small>
                                 </div>
                             }
