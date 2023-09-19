@@ -71,7 +71,7 @@ a {
 }
 
 .post-image-container {
-    padding:5px;
+    padding: 5px;
     width: calc(50% - 4px);
     max-height: calc(50vw - 4px);
     display: flex;
@@ -116,84 +116,84 @@ a {
     margin-top: 20px;
 }
 
-.pagination a {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px 20px;
-    border-radius: 7px;
-    border: 1px solid rgb(61, 106, 255);
-    font-size: 14px;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 2px;
-    background: transparent;
-    color: darkblue;
-    text-decoration: none;
-    overflow: hidden;
-    box-shadow: 0 0 0 0 transparent;
-    transition: all 0.2s ease-in;
-    font-weight:bold;
-    font-size:17px;
-}
+    .pagination a {
+        display: inline-block;
+        margin: 5px;
+        padding: 10px 20px;
+        border-radius: 7px;
+        border: 1px solid rgb(61, 106, 255);
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 2px;
+        background: transparent;
+        color: darkblue;
+        text-decoration: none;
+        overflow: hidden;
+        box-shadow: 0 0 0 0 transparent;
+        transition: all 0.2s ease-in;
+        font-weight: bold;
+        font-size: 17px;
+    }
 
-.pagination a.active {
-    background: rgb(61, 106, 255);
-    box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
-    transition: all 0.2s ease-out;
-    color:white;
-}
+        .pagination a.active {
+            background: rgb(61, 106, 255);
+            box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+            transition: all 0.2s ease-out;
+            color: white;
+        }
 
-.pagination a:hover {
-    background: rgb(61, 106, 255);
-    box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
-    transition: all 0.2s ease-out;
-}
+        .pagination a:hover {
+            background: rgb(61, 106, 255);
+            box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+            transition: all 0.2s ease-out;
+        }
 
-.pagination a:not(.active):hover::before {
-    content: '';
-    display: block;
-    width: 0px;
-    height: 86%;
-    position: absolute;
-    top: 7%;
-    left: 0%;
-    opacity: 0;
-    background: #fff;
-    box-shadow: 0 0 50px 30px #fff;
-    transform: skewX(-20deg);
-    transition: all 0.5s linear;
-}
+        .pagination a:not(.active):hover::before {
+            content: '';
+            display: block;
+            width: 0px;
+            height: 86%;
+            position: absolute;
+            top: 7%;
+            left: 0%;
+            opacity: 0;
+            background: #fff;
+            box-shadow: 0 0 50px 30px #fff;
+            transform: skewX(-20deg);
+            transition: all 0.5s linear;
+        }
 
-.pagination a:active {
-    box-shadow: 0 0 0 0 transparent;
-    transition: box-shadow 0.2s ease-in;
-}
+        .pagination a:active {
+            box-shadow: 0 0 0 0 transparent;
+            transition: box-shadow 0.2s ease-in;
+        }
 
-/* Arrow styles */
-.pagination .arrow {
-    display: inline-block;
-    margin: 5px;
-    padding: 10px 20px;
-    border-radius: 7px;
-    border: 1px solid rgb(61, 106, 255);
-    font-size: 14px;
-    text-transform: uppercase;
-    font-weight: 600;
-    letter-spacing: 2px;
-    background: transparent;
-    color: #fff;
-    text-decoration: none;
-    overflow: hidden;
-    box-shadow: 0 0 0 0 transparent;
-    transition: all 0.2s ease-in;
-}
+    /* Arrow styles */
+    .pagination .arrow {
+        display: inline-block;
+        margin: 5px;
+        padding: 10px 20px;
+        border-radius: 7px;
+        border: 1px solid rgb(61, 106, 255);
+        font-size: 14px;
+        text-transform: uppercase;
+        font-weight: 600;
+        letter-spacing: 2px;
+        background: transparent;
+        color: #fff;
+        text-decoration: none;
+        overflow: hidden;
+        box-shadow: 0 0 0 0 transparent;
+        transition: all 0.2s ease-in;
+    }
 
-.pagination .arrow:hover {
-    background: rgb(61, 106, 255);
-    color: #fff;
-    box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
-    transition: all 0.2s ease-out;
-}
+        .pagination .arrow:hover {
+            background: rgb(61, 106, 255);
+            color: #fff;
+            box-shadow: 0 0 30px 5px rgba(0, 142, 236, 0.815);
+            transition: all 0.2s ease-out;
+        }
 
 /*************************************************************************
     MAIN CONTAINER
@@ -203,7 +203,7 @@ div.container {
     max-width: 1188px;
     margin: auto;
     /*padding: 0 30px;*/
-    padding-top:10px;
+    padding-top: 10px;
     grid-template-areas:
         "left-aside main-section right-aside";
     grid-template-rows: 1fr;
@@ -226,7 +226,7 @@ div.container {
     width: 216px;
 }
 
-.container aside#left-aside > div {
+    .container aside#left-aside > div {
         background: #fff;
         box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.2), 0 2px 3px rgba(0, 0, 0, 0.25);
         border-radius: 2px;
@@ -352,7 +352,7 @@ aside#left-aside div#profile-card {
 aside#left-aside div#profile-groups {
     padding-top: 8px;
     width: 216px;
-    padding-bottom:1px;
+    padding-bottom: 1px;
 }
 
     aside#left-aside div#profile-groups section {
@@ -429,10 +429,10 @@ aside#left-aside div#profile-groups {
                 text-decoration: underline;
             }
 
-        aside#left-aside div#profile-groups > a:hover {
-            color: #0073b1;
-            text-decoration: underline;
-        }
+    aside#left-aside div#profile-groups > a:hover {
+        color: #0073b1;
+        text-decoration: underline;
+    }
 
     aside#left-aside div#profile-groups section .group-list {
         margin-bottom: 15px;
@@ -591,7 +591,7 @@ aside#right-aside div#rec-section {
 aside#right-aside div#linkedin-section section {
     background-color: #fff;
     border: 0.1px solid #cfcfcf;
-    margin-top:10px;
+    margin-top: 10px;
     height: 279px;
     padding: 0 0 15px 0;
     border-bottom: 1px solid #cfcfcf;
@@ -700,29 +700,78 @@ aside#right-aside div#linkedin-section footer > div {
         font-size: 13px;
     }
 
+.notification-container {
+    height: 320px;
+    border: 1px solid #ccc;
+    padding: 0;
+    background-color: white;
+    overflow: hidden;
+    position: relative;
+}
+
+.notification-scroll {
+    max-height: calc(100% - 80px);
+    min-height: calc(100% - 80px);
+    overflow-y: scroll;
+    padding-right: 15px;
+    padding-left: 10px;
+}
+
+.notification-item {
+    margin-bottom: 10px;
+}
+
+.notification-header {
+    position: sticky;
+    top: 0;
+    background-color: white;
+    padding: 10px;
+    border-bottom: 1px solid #ccc;
+}
+
+.notification-footer {
+    position: sticky;
+    bottom: 0;
+    background-color: white;
+    padding: 10px;
+    border-top: 1px solid #ccc;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+.clear-link {
+    text-decoration: none;
+    color: #007bff;
+}
+
 #indexuserdetails {
     white-space: break-spaces;
     overflow: hidden;
     text-overflow: ellipsis;
     max-width: 20ch;
-    display:inline-block;
+    display: inline-block;
 }
 
 @media only screen and (max-width: 700px) {
     .item-article {
         width: fit-content;
     }
-    #main-section{
-        width:fit-content;
+
+    #main-section {
+        width: fit-content;
     }
-    #left-aside-wrapper{
+
+    #left-aside-wrapper {
         display: none;
     }
-    #left-aside{
-        display:none;
+
+    #left-aside {
+        display: none;
     }
-    #right-aside{
-        display:none;
+
+    #right-aside {
+        display: none;
     }
 }
 

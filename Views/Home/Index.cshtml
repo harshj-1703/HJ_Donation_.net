@@ -184,7 +184,7 @@
             <div id="rec-section">
                 <div>
                     <header>
-                        <span>My Items</span>
+                        <strong>My Items</strong>
                     </header>
                     @foreach (var items in ViewBag.userItems)
                     {
@@ -201,21 +201,32 @@
                     <a href="@Url.Action("MyItems", "Item")">View all items</a>
                 </div>
             </div>
-            <div id="rec-section" style="margin-top:15px;">
-                <div>
-                    <header>
-                        <span>Notifications</span>
-                    </header>
-                    @foreach (var notification in ViewBag.userNotifications)
-                    {
-                        <div>
-                                <div>
+            <div id="rec-section1" style="margin-top: 15px;">
+                <div class="notification-container">
+                    <div class="notification-header">
+                        <strong>Notifications</strong>
+                    </div>
+                    <div class="notification-scroll">
+                        @if (ViewBag.userNotifications.Count == 0)
+                        {
+                            <div class="notification-item">
+                                <em>No notifications currently</em>
+                            </div>
+                        }
+                        else
+                        {
+                            foreach (var notification in ViewBag.userNotifications)
+                            {
+                                <div class="notification-item">
                                     <strong>@notification.details</strong>
                                     <small>@notification.createdat</small>
                                 </div>
-                            </div>
-                    }
-                    <a href="@Url.Action("ClearNotification", "Request")">Clear All Notifications</a>
+                            }
+                        }
+                    </div>
+                    <div class="notification-footer">
+                        <a href="@Url.Action("ClearNotification", "Request")" class="clear-link">Clear All Notifications</a>
+                    </div>
                 </div>
             </div>
         </aside>
