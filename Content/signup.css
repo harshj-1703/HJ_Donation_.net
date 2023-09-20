@@ -131,3 +131,27 @@
 .text-danger {
     color: red;
 }
+
+.input-group {
+    position: relative;
+}
+
+.toggle-password {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    background-color: transparent;
+    color: #6c757d;
+    border: none;
+    transition: color 0.3s ease;
+}
+
+    .toggle-password:focus {
+        outline: none;
+        box-shadow: none;
+    }
+
+    .toggle-password.glow {
+        color: white;
+    }
