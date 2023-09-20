@@ -27,9 +27,13 @@
                     <img id="header-logo" src="~/Content/images/main.png" alt="RMC-Donation" height="50" width="50" />
                 </a>
                 <div id="search">
-                    <input id="search" type="text" placeholder="Search" onfocus="toggleSearchInput()" onblur="toggleSearchInput()" />
-                    <span id="search-icon" class="fas fa-search"></span>
-                    <span id="search-button" class="fas fa-search"></span>
+                    <form id="search-form" method="get" action="@Url.Action("Index", "Home")">
+                        <input id="search-input" name="searchQuery" type="text" placeholder="Search" value="@Request.QueryString["searchQuery"]" />
+                        <button type="submit">
+                            <span id="search-icon" class="fas fa-search"></span>
+                            Search
+                        </button>
+                    </form>
                 </div>
                 @{
                     if (isLoggedIn)

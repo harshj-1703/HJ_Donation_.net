@@ -13,16 +13,23 @@ namespace RMC_Donation.Controllers
     public class HomeController : Controller
     {
         [AllowAnonymous]
-        public ActionResult Index(int page = 1, int pageSize = 5)
+        public ActionResult Index(string searchQuery, int page = 1, int pageSize = 5)
         {
             var sessionUserId = Session["user_id"] as int?;
-
             var notificationEntity = new rmcDonateNotificationEntity();
 
             using (var dbContext = new rmcdonateItemsEntity())
             {
                 IQueryable<item> itemsQuery = dbContext.items
                         .Where(item => item.status != 0);
+
+                if (!string.IsNullOrEmpty(searchQuery))
+                {
+                    itemsQuery = itemsQuery.Where(item =>
+                        item.name.Contains(searchQuery) ||
+                        item.catagory.Contains(searchQuery));
+                }
+
                 var userDb = new rmcdonateEntities();
 
                 if (sessionUserId != null)
@@ -75,6 +82,7 @@ namespace RMC_Donation.Controllers
                 ViewBag.page = page;
                 ViewBag.pageSize = pageSize;
                 ViewBag.TotalCount = totalCount;
+                ViewBag.SearchQuery = searchQuery;
 
                 return View(itemsWithUserDetails);
             }
