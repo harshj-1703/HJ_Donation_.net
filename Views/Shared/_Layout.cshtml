@@ -29,9 +29,9 @@
                 <div id="search">
                     <form id="search-form" method="get" action="@Url.Action("Index", "Home")">
                         <input id="search-input" name="searchQuery" type="text" placeholder="Search" value="@Request.QueryString["searchQuery"]" />
-                        <button type="submit">
+                        <button type="submit" class="search-button">
                             <span id="search-icon" class="fas fa-search"></span>
-                            Search
+                            <span id="search-icon1" class="fas fa-search"></span>
                         </button>
                     </form>
                 </div>
