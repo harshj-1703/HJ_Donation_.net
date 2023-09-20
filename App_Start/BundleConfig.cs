@@ -29,7 +29,8 @@ namespace RMC_Donation
             bundles.Add(new StyleBundle("~/Content/css").Include(
                       "~/Content/navbar.css",
                       "~/Content/index.css",
-                      "~/Content/login.css"));
+                      "~/Content/login.css",
+                      "~/Content/signup.css"));
         }
     }
 }
