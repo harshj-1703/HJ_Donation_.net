@@ -15,7 +15,7 @@ namespace RMC_Donation.Controllers
         {
             using (var dbContext = new rmcdonateItemsEntity())
             {
-                var items = dbContext.items.ToList();
+                var items = dbContext.items.OrderByDescending(item => item.createdat).ToList();
                 var userDb = new rmcdonateEntities();
 
                 var users = userDb.users.Where(user => user.status != 0).ToList();
@@ -40,7 +40,7 @@ namespace RMC_Donation.Controllers
         {
             using (var dbContext = new rmcdonateEntities())
             {
-                var users = dbContext.users.ToList();
+                var users = dbContext.users.OrderByDescending(user => user.createdat).ToList();
                 return View(users);
             }
         }
