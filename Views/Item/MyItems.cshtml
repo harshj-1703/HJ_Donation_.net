@@ -60,7 +60,7 @@
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.name)
+                <a href="@Url.Action("ItemDetails", "Item", new { itemId = item.id })">@Html.DisplayFor(modelItem => item.name)</a>
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.catagory)
@@ -103,8 +103,8 @@
                     @Html.DisplayFor(modelItem => item.updatedat)
                 </td>
                 <!--<td>
-                    @Html.DisplayFor(modelItem => item.status)
-                </td>-->
+        @Html.DisplayFor(modelItem => item.status)
+    </td>-->
                 <td>
                     @using (Html.BeginForm("ItemEditByUser", "Item", FormMethod.Get))
                     {
