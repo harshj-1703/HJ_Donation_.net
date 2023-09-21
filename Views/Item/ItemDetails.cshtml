@@ -1,80 +1,162 @@
 ﻿@model RMC_Donation.Models.item
 
 @{
-    ViewBag.Title = "ItemDetails";
+    ViewBag.Title = "Item Details";
 }
 
-<h2>ItemDetails</h2>
-<div>
-    <h4>item</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.name)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.name)
-        </dd>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+</head>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.catagory)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.catagory)
-        </dd>
+<style>
+    .container {
+        padding: 20px;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.details)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.details)
-        </dd>
+    .item-details-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
 
+    .item-images-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-wrap: wrap;
+        margin-top: 10px;
+    }
+
+    .item-image {
+        width: 150px;
+        height: 150px;
+        border: 1px solid darkblue;
+        margin: 10px;
+    }
+
+        .item-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+    .detail-item {
+        display: flex;
+        align-items: flex-start;
+        margin-bottom: 10px;
+    }
+
+        .detail-item dt {
+            width: 180px;
+            font-weight: bold;
+        }
+
+        .detail-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+
+    h2 {
+        text-align: center;
+        margin-bottom: 20px;
+        font-size: 24px;
+        color: darkblue;
+    }
+
+    .long-details {
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: break-all;
+    }
+
+    .label-center {
+        display: flex;
+        align-items: center;
+    }
+</style>
+
+<div class="container unique-container" style="width: 650px; background-color: rgb(243 246 254); color: darkblue;">
+    <h2>Item Details</h2>
+    <div class="item-details-container">
+        <dl class="dl-horizontal">
+            <div class="detail-item">
+                <dt class="label-center">
+                    <i class="fas fa-font"></i> Item Name:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.name)
+                </dd>
+            </div>
+
+            <div class="detail-item">
+                <dt class="label-center">
+                    <i class="fas fa-tags"></i> Category:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.catagory)
+                </dd>
+            </div>
+
+            <div class="detail-item">
+                <dt class="label-center">
+                    <i class="fas fa-info-circle"></i> Details:
+                </dt>
+                <dd class="long-details">
+                    @Html.DisplayFor(model => model.details)
+                </dd>
+            </div>
+
+            <div class="detail-item">
+                <dt class="label-center">
+                    <i class="fas fa-calendar"></i> Created At:
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.createdat)
+                </dd>
+            </div>
+        </dl>
+    </div>
+    <div class="item-images-container">
         @if (!string.IsNullOrEmpty(Model.imageurl1))
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.imageurl1)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.imageurl1)
-            </dd>
+            <a href="@Model.imageurl1" data-fancybox="gallery" data-caption="Image 1">
+                <img src="@Model.imageurl1" alt="Image 1" class="item-image" />
+            </a>
         }
 
         @if (!string.IsNullOrEmpty(Model.imageurl2))
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.imageurl2)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.imageurl2)
-            </dd>
+            <a href="@Model.imageurl2" data-fancybox="gallery" data-caption="Image 2">
+                <img src="@Model.imageurl2" alt="Image 2" class="item-image" />
+            </a>
         }
 
         @if (!string.IsNullOrEmpty(Model.imageurl3))
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.imageurl3)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.imageurl3)
-            </dd>
+            <a href="@Model.imageurl3" data-fancybox="gallery" data-caption="Image 3">
+                <img src="@Model.imageurl3" alt="Image 3" class="item-image" />
+            </a>
         }
 
         @if (!string.IsNullOrEmpty(Model.imageurl4))
         {
-            <dt>
-                @Html.DisplayNameFor(model => model.imageurl4)
-            </dt>
-            <dd>
-                @Html.DisplayFor(model => model.imageurl4)
-            </dd>
+            <a href="@Model.imageurl4" data-fancybox="gallery" data-caption="Image 4">
+                <img src="@Model.imageurl4" alt="Image 4" class="item-image" />
+            </a>
         }
-
-        <dt>
-            @Html.DisplayNameFor(model => model.createdat)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.createdat)
-        </dd>
-    </dl>
+    </div>
 </div>
+
+@section scripts{
+    <script>
+        $(document).ready(function () {
+            $("[data-fancybox]").fancybox({
+                buttons: ["zoom", "slideShow", "thumbs", "close"]
+            });
+        });
+    </script>
+}

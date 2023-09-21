@@ -1,110 +1,137 @@
 ﻿@model RMC_Donation.Models.user
 
 @{
-    ViewBag.Title = "UserDetails";
+    ViewBag.Title = "User Details";
 }
 
-<h2>UserDetails</h2>
+<head>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+</head>
 
-<div>
-    <h4>user</h4>
-    <hr />
-    <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.fullname)
-        </dt>
+<style>
+    dd {
+        max-width: 100%;
+        overflow-wrap: break-word;
+        word-break: break-all;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.fullname)
-        </dd>
+    dt {
+        width: 180px;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.dob)
-        </dt>
+    .user-details-container {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        flex-direction: column;
+    }
 
-        <dd>
-            @Html.DisplayFor(model => model.dob)
-        </dd>
+    .profile-photo {
+        width: 150px;
+        height: 150px;
+        border-radius: 50%;
+        overflow: hidden;
+        margin-bottom: 20px;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.address)
-        </dt>
+        .profile-photo img {
+            width: 100%;
+            height: auto;
+            cursor: pointer;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.address)
-        </dd>
+    .detail-item {
+        display: flex;
+        align-items: center;
+        margin-bottom: 10px;
+    }
 
-        <dt>
-            @Html.DisplayNameFor(model => model.profession)
-        </dt>
+        .detail-item dt {
+            width: 180px;
+            font-weight: bold;
+        }
 
-        <dd>
-            @Html.DisplayFor(model => model.profession)
-        </dd>
+        .detail-item i {
+            margin-right: 10px;
+            width: 20px;
+            text-align: center;
+        }
+</style>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.email)
-        </dt>
+<div class="container unique-container" style="width: 650px; background-color: rgb(243 246 254); color: darkblue;">
+    <h2>User Details</h2>
 
-        <dd>
-            @Html.DisplayFor(model => model.email)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.password)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.password)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.mobile_no)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.mobile_no)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.profilephoto)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.profilephoto)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.createdat)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.createdat)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.updatedat)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.updatedat)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.lastlogin)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.lastlogin)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.status)
-        </dd>
-
-    </dl>
+    <div class="user-details-container">
+        <div class="profile-photo" style="border: 1px solid darkblue; box-shadow: 0 0 20px rgba(0, 0, 255, 0.5);">
+            <a href="@Url.Content(Model.profilephoto)" data-fancybox="profile-photo">
+                <img src="@Url.Content(Model.profilephoto)" alt="Profile Photo" />
+            </a>
+        </div>
+        <div class="user-details-content">
+            <dl class="dl-horizontal">
+                <div class="detail-item">
+                    <dt>
+                        <i class="fas fa-user"></i> Full Name:
+                    </dt>
+                    <dd>@Html.DisplayFor(model => model.fullname)</dd>
+                </div>
+                <div class="detail-item">
+                    <dt>
+                        <i class="fas fa-calendar-alt"></i> Date of Birth:
+                    </dt>
+                    <dd>@Html.DisplayFor(model => model.dob)</dd>
+                </div>
+                <div class="detail-item">
+                    <dt style="width:180px;">
+                        <i class="fas fa-map-marker-alt"></i> Address:
+                    </dt>
+                    <dd style="max-width: 100%; overflow-wrap: break-word; word-break: break-all;">
+                        @Html.DisplayFor(model => model.address)
+                    </dd>
+                </div>
+                <div class="detail-item">
+                    <dt>
+                        <i class="fas fa-briefcase"></i> Profession:
+                    </dt>
+                    <dd>@Html.DisplayFor(model => model.profession)</dd>
+                </div>
+                <div class="detail-item">
+                    <dt>
+                        <i class="fas fa-envelope"></i> Email:
+                    </dt>
+                    <dd>@Html.DisplayFor(model => model.email)</dd>
+                </div>
+                <div class="detail-item">
+                    <dt>
+                        <i class="fas fa-mobile-alt"></i> Mobile No:
+                    </dt>
+                    <dd>@Html.DisplayFor(model => model.mobile_no)</dd>
+                </div>
+                <div class="detail-item">
+                    <dt>
+                        <i class="fas fa-calendar"></i> Created At:
+                    </dt>
+                    <dd>@Html.DisplayFor(model => model.createdat)</dd>
+                </div>
+                <div class="detail-item">
+                    <dt>
+                        <i class="fas fa-clock"></i> Last Login:
+                    </dt>
+                    <dd>@Html.DisplayFor(model => model.lastlogin)</dd>
+                </div>
+            </dl>
+        </div>
+    </div>
 </div>
+
+@section scripts {
+    <script>
+        $(document).ready(function () {
+            $("[data-fancybox]").fancybox({
+                buttons: ["zoom", "slideShow", "thumbs", "close"]
+            });
+        });
+    </script>
+}
