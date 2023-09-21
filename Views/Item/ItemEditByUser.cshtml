@@ -5,136 +5,136 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>ItemEditByUser</h2>
-
 @using (Html.BeginForm("ItemEditByUser", "Item", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>item</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.id)
+    <div class="container registration-container" style="width:500px;">
+        <div class="registration-form-container">
+            <h2 class="registration-heading">Item Edit By User</h2>
 
-    <!-- Name Field -->
-    <div class="form-group">
-        @Html.LabelFor(model => model.name, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
 
-    <!-- Category Field -->
-    <div class="form-group">
-        @Html.LabelFor(model => model.catagory, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.catagory, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.catagory, "", new { @class = "text-danger" })
-        </div>
-    </div>
+                @Html.HiddenFor(model => model.id)
 
-    <!-- Details Field -->
-    <div class="form-group">
-        @Html.LabelFor(model => model.details, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.TextAreaFor(model => model.details, new { @class = "form-control", rows = 5 })
-            @Html.ValidationMessageFor(model => model.details, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <!-- Image 1 -->
-    <div class="form-group">
-        @Html.LabelFor(model => model.imageurl1, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @if (!string.IsNullOrEmpty(Model.imageurl1))
-            {
-                <img id="imagePreview1" src="@Url.Content(Model.imageurl1)" alt="Image 1" style="max-width: 200px; max-height: 200px" />
-                /* <div id="deleteImage1">
-                     <a href="#" id="deleteImage1Link" onclick="deleteImage(@Model.id, 1)">Delete image 1</a>
-                 </div>*/
-            }
-            else
-            {
-                <img id="imagePreview1" src="" alt="Image 1 Preview" style="max-width: 200px; max-height: 200px; display: none" />
-            }
-            <input type="file" name="imageurl1" id="imageurl1" class="form-control" onchange="previewImage(1, 'deleteImage1')" />
-            @Html.ValidationMessageFor(model => model.imageurl1, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <!-- Image 2 -->
-    <div class="form-group">
-        @Html.LabelFor(model => model.imageurl2, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @if (!string.IsNullOrEmpty(Model.imageurl2))
-            {
-                <img id="imagePreview2" src="@Url.Content(Model.imageurl2)" alt="Image 2" style="max-width: 200px; max-height: 200px" />
-                <div id="deleteImage2">
-                    <a href="#" id="deleteImage2Link" onclick="deleteImage(@Model.id, 2)">Delete image 2</a>
+                <!-- Name Field -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.name, "Item Name", htmlAttributes: new { @class = "control-label col-md-2 registration-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.name, new { htmlAttributes = new { @class = "form-control registration-input" } })
+                        @Html.ValidationMessageFor(model => model.name, "", new { @class = "text-danger validation-message" })
+                    </div>
                 </div>
-            }
-            else
-            {
-                <img id="imagePreview2" src="" alt="Image 2 Preview" style="max-width: 200px; max-height: 200px; display: none" />
-            }
-            <input type="file" name="imageurl2" id="imageurl2" class="form-control" onchange="previewImage(2, 'deleteImage2')" />
-            @Html.ValidationMessageFor(model => model.imageurl2, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <!-- Image 3 -->
-    <div class="form-group">
-        @Html.LabelFor(model => model.imageurl3, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @if (!string.IsNullOrEmpty(Model.imageurl3))
-            {
-                <img id="imagePreview3" src="@Url.Content(Model.imageurl3)" alt="Image 3" style="max-width: 200px; max-height: 200px" />
-                <div id="deleteImage3">
-                    <a href="#" id="deleteImage3Link" onclick="deleteImage(@Model.id, 3)">Delete image 3</a>
+                <!-- Category Field -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.catagory, "Category", htmlAttributes: new { @class = "control-label col-md-2 registration-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.catagory, new { htmlAttributes = new { @class = "form-control registration-input" } })
+                        @Html.ValidationMessageFor(model => model.catagory, "", new { @class = "text-danger validation-message" })
+                    </div>
                 </div>
-            }
-            else
-            {
-                <img id="imagePreview3" src="" alt="Image 3 Preview" style="max-width: 200px; max-height: 200px; display: none" />
-            }
-            <input type="file" name="imageurl3" id="imageurl3" class="form-control" onchange="previewImage(3, 'deleteImage3')" />
-            @Html.ValidationMessageFor(model => model.imageurl3, "", new { @class = "text-danger" })
-        </div>
-    </div>
 
-    <!-- Image 4 -->
-    <div class="form-group">
-        @Html.LabelFor(model => model.imageurl4, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @if (!string.IsNullOrEmpty(Model.imageurl4))
-            {
-                <img id="imagePreview4" src="@Url.Content(Model.imageurl4)" alt="Image 4" style="max-width: 200px; max-height: 200px" />
-                <div id="deleteImage4">
-                    <a href="#" id="deleteImage4Link" onclick="deleteImage(@Model.id, 4)">Delete image 4</a>
+                <!-- Details Field -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.details, "Details", htmlAttributes: new { @class = "control-label col-md-2 registration-label" })
+                    <div class="col-md-10">
+                        @Html.TextAreaFor(model => model.details, new { @class = "form-control registration-input", rows = 5, style = "height:80px;" })
+                        @Html.ValidationMessageFor(model => model.details, "", new { @class = "text-danger validation-message" })
+                    </div>
                 </div>
-            }
-            else
-            {
-                <img id="imagePreview4" src="" alt="Image 4 Preview" style="max-width: 200px; max-height: 200px; display: none" />
-            }
-            <input type="file" name="imageurl4" id="imageurl4" class="form-control" onchange="previewImage(4, 'deleteImage4')" />
-            @Html.ValidationMessageFor(model => model.imageurl4, "", new { @class = "text-danger" })
+
+                <!-- Image 1 -->
+                <div class="form-group">
+                    @Html.LabelFor(model => model.imageurl1, "Image 1", htmlAttributes: new { @class = "control-label col-md-2 registration-label" })
+                    <div class="col-md-10">
+                        @if (!string.IsNullOrEmpty(Model.imageurl1))
+                        {
+                            <img id="imagePreview1" src="@Url.Content(Model.imageurl1)" alt="Image 1" style="max-width: 200px; max-height: 200px" />
+                            <div id="deleteImage1">
+                                <a href="#" id="deleteImage1Link" onclick="deleteImage(@Model.id, 1)">Delete image 1</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <img id="imagePreview1" src="" alt="Image 1 Preview" style="max-width: 200px; max-height: 200px; display: none" />
+                        }
+                        <input type="file" name="imageurl1" id="imageurl1" class="form-control" onchange="previewImage(1, 'deleteImage1')" />
+                        @Html.ValidationMessageFor(model => model.imageurl1, "", new { @class = "text-danger validation-message" })
+                    </div>
+                </div>
+
+                <!-- Image 2 -->
+                <div class="form-group" style="margin-top:10px;">
+                    @Html.LabelFor(model => model.imageurl2, "Image 2", htmlAttributes: new { @class = "control-label col-md-2 registration-label" })
+                    <div class="col-md-10">
+                        @if (!string.IsNullOrEmpty(Model.imageurl2))
+                        {
+                            <img id="imagePreview2" src="@Url.Content(Model.imageurl2)" alt="Image 2" style="max-width: 200px; max-height: 200px" />
+                            <div id="deleteImage2">
+                                <a href="#" id="deleteImage2Link" onclick="deleteImage(@Model.id, 2)">Delete image 2</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <img id="imagePreview2" src="" alt="Image 2 Preview" style="max-width: 200px; max-height: 200px; display: none" />
+                        }
+                        <input type="file" name="imageurl2" id="imageurl2" class="form-control" onchange="previewImage(2, 'deleteImage2')" />
+                        @Html.ValidationMessageFor(model => model.imageurl2, "", new { @class = "text-danger validation-message" })
+                    </div>
+                </div>
+
+                <!-- Image 3 -->
+                <div class="form-group" style="margin-top:10px;">
+                    @Html.LabelFor(model => model.imageurl3, "Image 3", htmlAttributes: new { @class = "control-label col-md-2 registration-label" })
+                    <div class="col-md-10">
+                        @if (!string.IsNullOrEmpty(Model.imageurl3))
+                        {
+                            <img id="imagePreview3" src="@Url.Content(Model.imageurl3)" alt="Image 3" style="max-width: 200px; max-height: 200px" />
+                            <div id="deleteImage3">
+                                <a href="#" id="deleteImage3Link" onclick="deleteImage(@Model.id, 3)">Delete image 3</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <img id="imagePreview3" src="" alt="Image 3 Preview" style="max-width: 200px; max-height: 200px; display: none" />
+                        }
+                        <input type="file" name="imageurl3" id="imageurl3" class="form-control" onchange="previewImage(3, 'deleteImage3')" />
+                        @Html.ValidationMessageFor(model => model.imageurl3, "", new { @class = "text-danger validation-message" })
+                    </div>
+                </div>
+
+                <!-- Image 4 -->
+                <div class="form-group" style="margin-top:10px;">
+                    @Html.LabelFor(model => model.imageurl4, "Image 4", htmlAttributes: new { @class = "control-label col-md-2 registration-label" })
+                    <div class="col-md-10">
+                        @if (!string.IsNullOrEmpty(Model.imageurl4))
+                        {
+                            <img id="imagePreview4" src="@Url.Content(Model.imageurl4)" alt="Image 4" style="max-width: 200px; max-height: 200px" />
+                            <div id="deleteImage4">
+                                <a href="#" id="deleteImage4Link" onclick="deleteImage(@Model.id, 4)">Delete image 4</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <img id="imagePreview4" src="" alt="Image 4 Preview" style="max-width: 200px; max-height: 200px; display: none" />
+                        }
+                        <input type="file" name="imageurl4" id="imageurl4" class="form-control" onchange="previewImage(4, 'deleteImage4')" />
+                        @Html.ValidationMessageFor(model => model.imageurl4, "", new { @class = "text-danger validation-message" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top:15px;">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default registration-button" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section Scripts{
     <script>
