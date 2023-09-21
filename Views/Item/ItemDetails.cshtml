@@ -30,13 +30,6 @@
             @Html.DisplayFor(model => model.details)
         </dd>
 
-        <dt>
-            @Html.DisplayNameFor(model => model.user_id)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.user_id)
-        </dd>
-
         @if (!string.IsNullOrEmpty(Model.imageurl1))
         {
             <dt>
@@ -82,20 +75,6 @@
         </dt>
         <dd>
             @Html.DisplayFor(model => model.createdat)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.updatedat)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.updatedat)
-        </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.status)
-        </dt>
-        <dd>
-            @Html.DisplayFor(model => model.status)
         </dd>
     </dl>
 </div>

@@ -111,8 +111,7 @@
                         @Html.AntiForgeryToken()
                         @Html.Hidden("itemId", item.id)
                         <button type="submit" class="btn btn-warning">Edit</button>
-                    } |
-                    <a href="@Url.Action("ItemDetails", "Item", new { itemId = item.id })" target="_blank">Details</a> |
+                    }
                     @using (Html.BeginForm("ItemDeleteByUser", "Item", FormMethod.Post))
                     {
                         @Html.AntiForgeryToken()
