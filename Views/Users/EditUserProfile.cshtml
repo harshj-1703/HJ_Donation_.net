@@ -5,90 +5,90 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>EditUserProfile</h2>
-
 @using (Html.BeginForm("EditUserProfile", "Users", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
 
-<div class="form-horizontal">
-    <h4>user</h4>
-    <hr />
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-    @Html.HiddenFor(model => model.id)
+    <div class="container registration-container">
+        <div class="registration-form-container">
+            <h2 class="registration-heading">Edit User Profile</h2>
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.fullname, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger" })
-        </div>
-    </div>
+            <div class="form-horizontal">
+                @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+                @Html.HiddenFor(model => model.id)
 
-    <div class="form-group">
-        @Html.LabelFor(model => model.dob, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.dob, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.address, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.profession, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.profession, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.profession, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.mobile_no, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.EditorFor(model => model.mobile_no, new { htmlAttributes = new { @class = "form-control" } })
-            @Html.ValidationMessageFor(model => model.mobile_no, "", new { @class = "text-danger" })
-        </div>
-    </div>
-
-    <div class="form-group">
-        @Html.LabelFor(model => model.profilephoto, htmlAttributes: new { @class = "control-label col-md-2" })
-        <div class="col-md-10">
-            @Html.HiddenFor(model => model.profilephoto)
-            @if (!string.IsNullOrEmpty(Model.profilephoto))
-            {
-                <img id="profileImagePreview" src="@Model.profilephoto" alt="Current Profile Photo" style="max-width: 200px; max-height: 200px" />
-                <div id="deleteProfileImage">
-                    <a href="#" id="deleteProfileImageLink" data-userid="@Model.id">Delete Profile Photo</a>
+                <div class="form-group">
+                    @Html.LabelFor(model => model.fullname, "Full Name", htmlAttributes: new { @class = "control-label col-md-2 registration-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.fullname, new { htmlAttributes = new { @class = "form-control registration-input" } })
+                        @Html.ValidationMessageFor(model => model.fullname, "", new { @class = "text-danger validation-message" })
+                    </div>
                 </div>
-            }
-            else
-            {
-                <img id="profileImagePreview" src="" alt="Profile Photo Preview" style="max-width: 200px; max-height: 200px; display: none" />
-            }
-            <input type="file" name="profileImage" id="profileImageInput" class="form-control" onchange="previewImage('profilephoto', 'deleteProfileImage')" />
-            @Html.ValidationMessageFor(model => model.profilephoto, "", new { @class = "text-danger" })
+
+                <div class="form-group">
+                    <div class="row">
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.profession, "Profession", htmlAttributes: new { @class = "control-label registration-label" })
+                            @Html.EditorFor(model => model.profession, new { htmlAttributes = new { @class = "form-control registration-input" } })
+                            <div class="validation-message">
+                                @Html.ValidationMessageFor(model => model.profession, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            @Html.LabelFor(model => model.dob, "Date of Birth", htmlAttributes: new { @class = "control-label registration-label" })
+                            @Html.EditorFor(model => model.dob, new { htmlAttributes = new { @class = "form-control registration-input", @type = "date", @id = "registration-dob" } })
+                            <div class="validation-message">
+                                @Html.ValidationMessageFor(model => model.dob, "", new { @class = "text-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.address,"Address", htmlAttributes: new { @class = "control-label col-md-2 registration-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.address, new { htmlAttributes = new { @class = "form-control registration-input" } })
+                        @Html.ValidationMessageFor(model => model.address, "", new { @class = "text-danger validation-message" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.mobile_no, "Mobile No", htmlAttributes: new { @class = "control-label col-md-2 registration-label" })
+                    <div class="col-md-10">
+                        @Html.EditorFor(model => model.mobile_no, new { htmlAttributes = new { @class = "form-control registration-input", @id = "registration-mobile" } })
+                        @Html.ValidationMessageFor(model => model.mobile_no, "", new { @class = "text-danger validation-message" })
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    @Html.LabelFor(model => model.profilephoto, "Profile Photo", htmlAttributes: new { @class = "control-label col-md-2 registration-label" })
+                    <div class="col-md-10">
+                        @Html.HiddenFor(model => model.profilephoto)
+                        @if (!string.IsNullOrEmpty(Model.profilephoto))
+                        {
+                            <img id="profileImagePreview" src="@Model.profilephoto" alt="Current Profile Photo" style="max-width: 200px; max-height: 200px" />
+                            <div id="deleteProfileImage">
+                                <a href="#" id="deleteProfileImageLink" data-userid="@Model.id">Delete Profile Photo</a>
+                            </div>
+                        }
+                        else
+                        {
+                            <img id="profileImagePreview" src="" alt="Profile Photo Preview" style="max-width: 200px; max-height: 200px; display: none" />
+                        }
+                        <input style="margin-top:5px;" type="file" name="profileImage" id="profileImageInput" class="form-control registration-input" onchange="previewImage('profilephoto', 'deleteProfileImage')" />
+                        @Html.ValidationMessageFor(model => model.profilephoto, "", new { @class = "text-danger validation-message" })
+                    </div>
+                </div>
+
+                <div class="form-group" style="margin-top:8px;">
+                    <div class="col-md-offset-2 col-md-10">
+                        <input type="submit" value="Save" class="btn btn-default registration-button" />
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-
-    <div class="form-group">
-        <div class="col-md-offset-2 col-md-10">
-            <input type="submit" value="Save" class="btn btn-default" />
-        </div>
-    </div>
-</div>
 }
-
-<div>
-    @Html.ActionLink("Back to List", "Index")
-</div>
 
 @section scripts{
     <script>
@@ -117,18 +117,18 @@
             });
         });
 
-    $(document).ready(function () {
-        $('#profileImageInput').change(function () {
-            var input = this;
-            if (input.files && input.files[0]) {
-                var reader = new FileReader();
-                reader.onload = function (e) {
-                    $('#profileImagePreview').attr('src', e.target.result);
-                };
-                reader.readAsDataURL(input.files[0]);
-            }
+        $(document).ready(function () {
+            $('#profileImageInput').change(function () {
+                var input = this;
+                if (input.files && input.files[0]) {
+                    var reader = new FileReader();
+                    reader.onload = function (e) {
+                        $('#profileImagePreview').attr('src', e.target.result);
+                    };
+                    reader.readAsDataURL(input.files[0]);
+                }
+            });
         });
-    });
 
         function previewImage(imageName, deleteButtonId) {
             const fileInput = document.getElementById(`profileImageInput`);
@@ -175,4 +175,4 @@
         console.log(imgpre.src.split('/').pop());*/
 
     </script>
-    }
+}

@@ -1,10 +1,16 @@
-﻿body {
+﻿@import url('signup.css');
+body {
     display: flex;
     justify-content: center;
     align-items: center;
     min-height: 100vh;
     margin: 0;
     background-color: #f0f0f0;
+}
+
+input{
+    font-size:18px;
+    letter-spacing:2px;
 }
 
 .registration-container {
