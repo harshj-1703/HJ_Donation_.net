@@ -286,52 +286,59 @@ else
             @{
                 foreach (var itemWithUser in Model)
                 {
-                    <article class="item-article">
-                        <!-- Item Details -->
-                        <div class="item-details">
-                            <h3>Item Name: @itemWithUser.Item.name</h3>
-                            <p><strong>Category: </strong> @itemWithUser.Item.catagory</p>
-                            <strong>Details: </strong>
-                            <p class="details-text" id="details-@index">
-                                @itemWithUser.Item.details
-                                <span class="read-more">Read More</span>
-                            </p>
-                        </div>
+                        <article class="item-article">
+                            <!-- Item Details -->
+                            <div class="item-details">
+                                <h3>Item Name: @itemWithUser.Item.name</h3>
+                                <p><strong>Category: </strong> @itemWithUser.Item.catagory</p>
+                                <strong>Details: </strong>
+                                <p class="details-text" id="details-@index">
+                                    @itemWithUser.Item.details
+                                    <span class="read-more">Read More</span>
+                                </p>
+                            </div>
 
-                        <!-- User Details -->
-                        <div class="user-details">
-                            <p><strong>User Name: </strong> @itemWithUser.User.fullname</p>
-                            <p><strong>Email: </strong> <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
-                        </div>
+                            <!-- User Details -->
+                            <div class="user-details">
+                                <div style="display: flex; align-items: center;">
+                                    <div style="width: 40px; height: 40px; border-radius: 50%; overflow: hidden; margin-right: 10px;">
+                                        <img src="@itemWithUser.User.profilephoto" alt="User Profile" style="width: 100%; height: 100%; object-fit: cover;">
+                                    </div>
+                                    <div>
+                                        <p><strong>User Name:</strong> @itemWithUser.User.fullname</p>
+                                        <p><strong>Email:</strong> <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
+                                    </div>
+                                </div>
+                            </div>
 
-                        <!-- Images Container -->
-                        <div class="item-images">
-                            @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl1))
-                            {
-                                <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl1" data-caption="Image 1" class="post-image-container">
-                                    <img src="@itemWithUser.Item.imageurl1" alt="Image 1" class="post-image" />
-                                </a>
-                            }
-                            @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl2))
-                            {
-                                <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl2" data-caption="Image 2" class="post-image-container">
-                                    <img src="@itemWithUser.Item.imageurl2" alt="Image 2" class="post-image" />
-                                </a>
-                            }
-                            @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl3))
-                            {
-                                <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl3" data-caption="Image 3" class="post-image-container">
-                                    <img src="@itemWithUser.Item.imageurl3" alt="Image 3" class="post-image" />
-                                </a>
-                            }
-                            @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl4))
-                            {
-                                <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl4" data-caption="Image 4" class="post-image-container">
-                                    <img src="@itemWithUser.Item.imageurl4" alt="Image 4" class="post-image" />
-                                </a>
-                            }
-                        </div>
-                    </article>
+                            <!-- Images Container -->
+                            <div class="item-images">
+                                @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl1))
+                                {
+                                    <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl1" data-caption="Image 1" class="post-image-container">
+                                        <img src="@itemWithUser.Item.imageurl1" alt="Image 1" class="post-image" />
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl2))
+                                {
+                                    <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl2" data-caption="Image 2" class="post-image-container">
+                                        <img src="@itemWithUser.Item.imageurl2" alt="Image 2" class="post-image" />
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl3))
+                                {
+                                    <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl3" data-caption="Image 3" class="post-image-container">
+                                        <img src="@itemWithUser.Item.imageurl3" alt="Image 3" class="post-image" />
+                                    </a>
+                                }
+                                @if (!string.IsNullOrEmpty(itemWithUser.Item.imageurl4))
+                                {
+                                    <a data-fancybox="image-gallery" href="@itemWithUser.Item.imageurl4" data-caption="Image 4" class="post-image-container">
+                                        <img src="@itemWithUser.Item.imageurl4" alt="Image 4" class="post-image" />
+                                    </a>
+                                }
+                            </div>
+                        </article>
                     index++;
                 }
             }
