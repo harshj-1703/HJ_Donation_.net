@@ -5,99 +5,119 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>My Requests</h2>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+    <style>
+        body {
+            display: block;
+        }
+    </style>
+</head>
 
-<table class="table" border="1">
-    <tr>
-        <th>
-            User Photo
-        </th>
-        <th>
-            User Name
-        </th>
-        <th>
-            Item Name
-        </th>
-        <th>
-            Item Category
-        </th>
-        <th>
-            Mobile
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            Date & Time
-        </th>
-        <th>
-            Status
-        </th>
-        <th>
-            Request/Cancle
-        </th>
-    </tr>
+<div class="content-wrapper">
+    <h2 class="myitemsh">My Requests</h2>
+        <table class="table" id="myItemsTable">
+            <thead>
+                <tr>
+                    <th class="text-center">User Photo</th>
+                    <th class="text-center">User Name</th>
+                    <th class="text-center">Item Name</th>
+                    <th class="text-center">Item Category</th>
+                    <th class="text-center">Mobile</th>
+                    <th class="text-center">Email</th>
+                    <th class="text-center">Date & Time</th>
+                    <th class="text-center">Status</th>
+                    <th class="text-center">Request/Cancel</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <img src="@item.User.profilephoto" height="50" width="50" />
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.fullname)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Item.name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.Item.catagory)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.mobile_no)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.User.email)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.RequestItem.updatedat)
+                        </td>
+                        <td>
+                            @{
+                                string statusText = "";
+                                string statusColor = "";
 
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <img src="@item.User.profilephoto" height="50" width="50" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.fullname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.catagory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.mobile_no)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequestItem.updatedat)
-            </td>
-            <td>
-                @{
-                    string statusText = "";
-                    if (item.RequestItem.status == 0)
-                    {
-                        statusText = "Canceled";
-                    }
-                    else if (item.RequestItem.status == 1)
-                    {
-                        switch (item.RequestItem.approved_status)
-                        {
-                            case 2:
-                                statusText = "Pending";
-                                break;
-                            case 1:
-                                statusText = "Approved";
-                                break;
-                            case 0:
-                                statusText = "Rejected";
-                                break;
-                            default:
-                                break;
-                        }
-                    }
+                                if (item.RequestItem.status == 0)
+                                {
+                                    statusText = "Canceled";
+                                    statusColor = "red";
+                                }
+                                else if (item.RequestItem.status == 1)
+                                {
+                                    switch (item.RequestItem.approved_status)
+                                    {
+                                        case 2:
+                                            statusText = "Pending";
+                                            statusColor = "blue";
+                                            break;
+                                        case 1:
+                                            statusText = "Approved";
+                                            statusColor = "green";
+                                            break;
+                                        case 0:
+                                            statusText = "Rejected";
+                                            statusColor = "red";
+                                            break;
+                                        default:
+                                            break;
+                                    }
+                                }
+                            }
+                            <span style="color: @statusColor">@statusText</span>
+                        </td>
+                        <td>
+                            <div class="checkbox-wrapper">
+                                <input id="_checkbox-26" type="checkbox" data-id="@item.RequestItem.id" @(item.RequestItem.status == 1 ? "checked" : "") />
+                                <label for="_checkbox-26">
+                                    <div class="tick_mark"></div>
+                                </label>
+                            </div>
+                        </td>
+                    </tr>
                 }
-                @statusText
-            </td>
-            <td>
-                <input type="checkbox" data-id="@item.RequestItem.id" @(item.RequestItem.status == 1 ? "checked" : "") />
-            </td>
-        </tr>
-    }
-</table>
-
+            </tbody>
+        </table>
+    </div>
 
 @section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        jQuery.noConflict();
+        (function ($) {
+            $(document).ready(function () {
+                $('#myItemsTable').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": true,
+                });
+            });
+        })(jQuery);
+    </script>
     <script>
         $(document).ready(function () {
             // Handle checkbox change event
