@@ -30,7 +30,8 @@ namespace RMC_Donation
                       "~/Content/navbar.css",
                       "~/Content/index.css",
                       "~/Content/login.css",
-                      "~/Content/signup.css"));
+                      "~/Content/signup.css",
+                      "~/Content/myitems.css"));
         }
     }
 }

@@ -5,114 +5,127 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>MyItems</h2>
-@if (TempData["SuccessMessage"] != null)
-{
-    <div class="alert alert-success">
-        @TempData["SuccessMessage"]
-    </div>
-}
-<p>
-    @Html.ActionLink("Add New", "AddItems", "Item")
-</p>
-<table class="table">
-    <tr>
-        <th>
-            @Html.DisplayNameFor(model => model.name)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.catagory)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.details)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.user_id)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.imageurl1)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.imageurl2)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.imageurl3)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.imageurl4)
-        </th>
-        <th>
-            @Html.DisplayNameFor(model => model.createdat)
-        </th>
-        <th></th>
-    </tr>
-
-    @if (Model != null)
-    {
-
-        foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                <a href="@Url.Action("ItemDetails", "Item", new { itemId = item.id })">@Html.DisplayFor(modelItem => item.name)</a>
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.catagory)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.details)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.user_id)
-                </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.imageurl1))
-                    {
-                        <img src="@item.imageurl1" alt="Image 1" height="100" width="100" />
-                    }
-                </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.imageurl2))
-                    {
-                        <img src="@item.imageurl2" alt="Image 2" height="100" width="100" />
-                    }
-                </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.imageurl3))
-                    {
-                        <img src="@item.imageurl3" alt="Image 3" height="100" width="100" />
-                    }
-                </td>
-                <td>
-                    @if (!string.IsNullOrEmpty(item.imageurl4))
-                    {
-                        <img src="@item.imageurl4" alt="Image 4" height="100" width="100" />
-                    }
-                </td>
-
-                <td>
-                    @Html.DisplayFor(modelItem => item.createdat)
-                </td>
-                <td>
-                    @using (Html.BeginForm("ItemEditByUser", "Item", FormMethod.Get))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.Hidden("itemId", item.id)
-                        <button type="submit" class="btn btn-warning">Edit</button>
-                    }
-                    @using (Html.BeginForm("ItemDeleteByUser", "Item", FormMethod.Post, new { onsubmit = "return confirm('Are you sure you want to delete this item?');" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        @Html.Hidden("itemId", item.id)
-                        <button type="submit" class="btn btn-danger">Delete</button>
-                    }
-                </td>
-            </tr>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+    <style>
+        body {
+            display: block;
         }
-    }
-    else
-    {
-        < p > No data available.</ p >
-    }
+    </style>
+</head>
 
-</table>
+<div class="content-wrapper">
+    <h2 class="myitemsh">My Items</h2>
+    @if (TempData["SuccessMessage"] != null)
+    {
+        <div class="alert alert-success">
+            @TempData["SuccessMessage"]
+        </div>
+    }
+    <p class="additems">
+        @Html.ActionLink("Add New", "AddItems", "Item")
+    </p>
+    <table class="table" id="myItemsTable">
+        <thead>
+            <tr>
+                <th class="text-center">Name</th>
+                <th class="text-center">Category</th>
+                <th class="text-center">Details</th>
+                <th class="text-center">Image 1</th>
+                <th class="text-center">Image 2</th>
+                <th class="text-center">Image 3</th>
+                <th class="text-center">Image 4</th>
+                <th class="text-center">Created At</th>
+                <th class="text-center">Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @if (Model != null)
+            {
+                foreach (var item in Model)
+                {
+                    <tr>
+                        <td>
+                            <a href="@Url.Action("ItemDetails", "Item", new { itemId = item.id })">@Html.DisplayFor(modelItem => item.name)</a>
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.catagory)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.details)
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.imageurl1))
+                            {
+                                <img src="@item.imageurl1" alt="Image 1" height="100" width="100" />
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.imageurl2))
+                            {
+                                <img src="@item.imageurl2" alt="Image 2" height="100" width="100" />
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.imageurl3))
+                            {
+                                <img src="@item.imageurl3" alt="Image 3" height="100" width="100" />
+                            }
+                        </td>
+                        <td>
+                            @if (!string.IsNullOrEmpty(item.imageurl4))
+                            {
+                                <img src="@item.imageurl4" alt="Image 4" height="100" width="100" />
+                            }
+                        </td>
+                        <td>
+                            @Html.DisplayFor(modelItem => item.createdat)
+                        </td>
+                        <td class="text-center">
+                            <div class="btn-group">
+                                @using (Html.BeginForm("ItemEditByUser", "Item", FormMethod.Get))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("itemId", item.id)
+                                    <button type="submit" class="btn btn-warning">Edit</button>
+                                }
+                            </div>
+                            <div class="btn-group">
+                                @using (Html.BeginForm("ItemDeleteByUser", "Item", FormMethod.Post, new { onsubmit = "return confirm('Are you sure you want to delete this item?');" }))
+                                {
+                                    @Html.AntiForgeryToken()
+                                    @Html.Hidden("itemId", item.id)
+                                    <button type="submit" class="btn btn-danger">Delete</button>
+                                }
+                            </div>
+                        </td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="9">No data available.</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+@section scripts{
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        jQuery.noConflict();
+        (function ($) {
+            $(document).ready(function () {
+                $('#myItemsTable').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": true,
+                });
+            });
+        })(jQuery);
+    </script>
+}

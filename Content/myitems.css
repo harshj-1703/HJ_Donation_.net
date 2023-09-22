@@ -1,0 +1,144 @@
+﻿.content-wrapper {
+    padding: 15px;
+    padding-top: 5px;
+    border-radius: 20px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    margin-bottom: 10px;
+    background-color: #fff;
+}
+
+.myitemsh {
+    text-align: center;
+    color: darkblue;
+    padding: 10px;
+    font-family: cursive, sans-serif;
+    letter-spacing: 2px;
+}
+
+.additems {
+    margin-bottom: 20px;
+}
+
+    .additems a {
+        display: inline-block;
+        padding: 5px 10px;
+        background-color: #007bff;
+        text-decoration: none;
+        border-radius: 4px;
+        cursor: pointer;
+        color: whitesmoke;
+        transition: background-color 0.3s ease;
+    }
+
+        .additems a:hover {
+            background-color: #0056b3;
+            color: whitesmoke;
+        }
+
+.dataTables_filter {
+    margin-bottom: 10px;
+}
+
+.table {
+    width: 100%;
+    margin-bottom: 20px;
+    border-collapse: collapse;
+    background-color: #fff;
+}
+
+    .table th {
+        text-align: center;
+        background-color: darkblue;
+        color: #fff;
+        padding: 8px;
+    }
+
+.text-center sorting {
+    color: white;
+}
+
+.table td {
+    padding: 8px;
+    text-align: left;
+    max-width: 150px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.table tr:hover {
+    box-shadow: inset 0 0 0 9999px rgba(var(--dt-row-stripe), 0.05);
+}
+
+a {
+    color: darkblue;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s ease;
+}
+
+    a:hover {
+        color: #0056b3;
+    }
+
+.alert.alert-success {
+    background-color: #28a745;
+    color: #fff;
+}
+
+@media (max-width: 767px) {
+    .table {
+        width: 100%;
+        margin-bottom: 20px;
+    }
+
+        .table thead {
+            display: none;
+        }
+
+        .table tbody tr {
+            display: block;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+        }
+
+        .table tbody td {
+            display: block;
+            text-align: left;
+        }
+
+            .table tbody td::before {
+                content: attr(data-label);
+                font-weight: bold;
+                display: inline-block;
+                margin-right: 10px;
+            }
+}
+
+.btn-group .btn {
+    padding: 5px 10px;
+    border-radius: 10px;
+    margin: 5px;
+}
+
+.btn.btn-warning {
+    background-color: #ffc107;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+    .btn.btn-warning:hover {
+        background-color: #f8b400;
+    }
+
+.btn.btn-danger {
+    background-color: #dc3545;
+    color: #fff;
+    border: none;
+    transition: background-color 0.3s ease;
+}
+
+    .btn.btn-danger:hover {
+        background-color: #c82333;
+    }
