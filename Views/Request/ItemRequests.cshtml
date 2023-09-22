@@ -5,87 +5,110 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>My Requests</h2>
+<head>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.13.6/css/dataTables.bootstrap4.min.css">
+    <style>
+        body {
+            display: block;
+        }
+    </style>
+</head>
 
-<table class="table" border="1">
-    <tr>
-        <th>
-            User Photo
-        </th>
-        <th>
-            User Name
-        </th>
-        <th>
-            Item Name
-        </th>
-        <th>
-            Item Category
-        </th>
-        <th>
-            Mobile
-        </th>
-        <th>
-            Email
-        </th>
-        <th>
-            Date & Time
-        </th>
-        <th>
-            Approve/Cancle
-        </th>
-    </tr>
-
-    @foreach (var item in Model)
-    {
-        <tr>
-            <td>
-                <img src="@item.User.profilephoto" height="50" width="50" />
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.fullname)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.name)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.Item.catagory)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.mobile_no)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.User.email)
-            </td>
-            <td>
-                @Html.DisplayFor(modelItem => item.RequestItem.updatedat)
-            </td>
-            <td>
-                @{
-                    if (item.RequestItem.approved_status == 2)
-                    {
-                        <button class="btn btn-success" data-id="@item.RequestItem.id" data-item_id="@item.RequestItem.item_id" data-sender_id="@item.RequestItem.sender_id" data-status="1">Approve</button>
-                        <button class="btn btn-danger" data-id="@item.RequestItem.id" data-item_id="@item.RequestItem.item_id" data-sender_id="@item.RequestItem.sender_id" data-status="0">Reject</button>
-                    }
-                    else
-                    {
-                        <input type="checkbox" data-id="@item.RequestItem.id" data-item_id="@item.RequestItem.item_id" data-sender_id="@item.RequestItem.sender_id" @(item.RequestItem.approved_status == 1 ? "checked" : "") />
-                        if (item.RequestItem.approved_status == 1)
-                        {
-                            <span>Approved</span>
+<div class="content-wrapper">
+    <h2 class="myitemsh">Item Requests</h2>
+    <table class="table" id="myItemsTable">
+        <thead>
+            <tr>
+                <th class="text-center">User Photo</th>
+                <th class="text-center">User Name</th>
+                <th class="text-center">Item Name</th>
+                <th class="text-center">Item Category</th>
+                <th class="text-center">Mobile</th>
+                <th class="text-center">Email</th>
+                <th class="text-center">Date & Time</th>
+                <th class="text-center">Approve/Cancle</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        <img src="@item.User.profilephoto" height="50" width="50" style="border-radius:50%;" />
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.fullname)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Item.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Item.catagory)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.mobile_no)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.User.email)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.RequestItem.updatedat)
+                    </td>
+                    <td style="text-align:center;">
+                        @{
+                            if (item.RequestItem.approved_status == 2)
+                            {
+                                <div class="btn-group">
+                                    <button class="btn btn-warning"
+                                            data-id="@item.RequestItem.id"
+                                            data-item_id="@item.RequestItem.item_id"
+                                            data-sender_id="@item.RequestItem.sender_id"
+                                            data-status="1">
+                                        Approve
+                                    </button>
+                                </div>
+                                <div class="btn-group">
+                                    <button class="btn btn-danger"
+                                            data-id="@item.RequestItem.id"
+                                            data-item_id="@item.RequestItem.item_id"
+                                            data-sender_id="@item.RequestItem.sender_id"
+                                            data-status="0">
+                                        Reject
+                                    </button>
+                                </div>
+                            }
+                            else
+                            {
+                                <label class="custom-checkbox" style=" display: flex; align-items: center; justify-content: center;">
+                                    <input type="checkbox" data-id="@item.RequestItem.id" data-item_id="@item.RequestItem.item_id" data-sender_id="@item.RequestItem.sender_id" @(item.RequestItem.approved_status == 1 ? "checked" : "") />
+                                    <div class="checkmark"></div>
+                                    <span style="color: @(item.RequestItem.approved_status == 1 ? "green" : "red"); margin-left: 5px; display: inline-block; vertical-align: middle;">@(item.RequestItem.approved_status == 1 ? "Approved" : "Rejected")</span>
+                                </label>
+                            }
                         }
-                        else if (item.RequestItem.approved_status == 0)
-                        {
-                            <span>Rejected</span>
-                        }
-                    }
-                }
-            </td>
-        </tr>
-    }
-</table>
-
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 
 @section scripts {
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.datatables.net/1.11.5/js/jquery.dataTables.min.js"></script>
+    <script>
+        jQuery.noConflict();
+        (function ($) {
+            $(document).ready(function () {
+                $('#myItemsTable').DataTable({
+                    "paging": true,
+                    "searching": true,
+                    "ordering": true,
+                });
+            });
+        })(jQuery);
+    </script>
     <script>
         $(document).ready(function () {
             // Handle button click event
