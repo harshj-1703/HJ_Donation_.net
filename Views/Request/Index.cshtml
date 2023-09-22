@@ -89,13 +89,11 @@
                             }
                             <span style="color: @statusColor">@statusText</span>
                         </td>
-                        <td>
-                            <div class="checkbox-wrapper">
-                                <input id="_checkbox-26" type="checkbox" data-id="@item.RequestItem.id" @(item.RequestItem.status == 1 ? "checked" : "") />
-                                <label for="_checkbox-26">
-                                    <div class="tick_mark"></div>
-                                </label>
-                            </div>
+                        <td style="text-align:center;">
+                            <label class="custom-checkbox">
+                                <input type="checkbox" data-id="@item.RequestItem.id" @(item.RequestItem.status == 1 ? "checked" : "") />
+                                <div class="checkmark"></div>
+                            </label>
                         </td>
                     </tr>
                 }
