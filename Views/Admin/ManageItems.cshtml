@@ -26,7 +26,6 @@
                 <th class="text-center">Image 3</th>
                 <th class="text-center">Image 4</th>
                 <th class="text-center">Created At</th>
-                <th class="text-center">User Photo</th>
                 <th class="text-center">User Name</th>
                 <th class="text-center">Status</th>
             </tr>
@@ -64,7 +63,6 @@
                         }
                     </td>
                     <td>@itemWithUser.Item.createdat</td>
-                    <td><img src="@itemWithUser.User.profilephoto" height="50" width="50" style="border-radius:50%;" /></td>
                     <td>
                         <a href="@Url.Action("UserDetails", "Users", new { userId = itemWithUser.User.id })">@itemWithUser.User.fullname</a>
                     </td>
