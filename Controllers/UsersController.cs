@@ -53,7 +53,7 @@ namespace RMC_Donation.Controllers
             {
                 TempData["SuccessMessage"] = "Reseted Password To Your Email Send Succesfully!";
             }
-            return RedirectToAction("ForgotPassword");
+            return View();
         }
 
         private bool IsValidEmail(string email)
