@@ -333,6 +333,7 @@
     <Content Include="Views\Users\ChangePassword.cshtml" />
     <Content Include="Views\Request\Index.cshtml" />
     <Content Include="Views\Request\ItemRequests.cshtml" />
+    <Content Include="Views\Users\ForgotPassword.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

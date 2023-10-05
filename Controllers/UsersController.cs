@@ -28,6 +28,55 @@ namespace RMC_Donation.Controllers
             return View();
         }
 
+        public ActionResult ForgotPassword()
+        { 
+            return View(); 
+        }
+
+        [HttpPost]
+        public ActionResult ForgotPassword(string email)
+        {
+            if (string.IsNullOrWhiteSpace(email))
+            {
+                ModelState.AddModelError("email", "Email is required.");
+            }
+            else if (!IsValidEmail(email))
+            {
+                ModelState.AddModelError("email", "Invalid email format.");
+            }
+            else if (!IsEmailInDatabase(email))
+            {
+                ModelState.AddModelError("email", "Email does not exist.");
+            }
+
+            if (ModelState.IsValid)
+            {
+                TempData["SuccessMessage"] = "Reseted Password To Your Email Send Succesfully!";
+            }
+            return RedirectToAction("ForgotPassword");
+        }
+
+        private bool IsValidEmail(string email)
+        {
+            try
+            {
+                var addr = new System.Net.Mail.MailAddress(email);
+                return addr.Address == email;
+            }
+            catch
+            {
+                return false;
+            }
+        }
+
+        private bool IsEmailInDatabase(string email)
+        {
+            var dbContext = new rmcdonateEntities();
+            var user = dbContext.users.SingleOrDefault(u => u.email == email);
+
+            return user != null;
+        }
+
         [HttpPost]
         public ActionResult Login(LoginViewModel credentials)
         {
