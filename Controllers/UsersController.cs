@@ -46,7 +46,7 @@ namespace RMC_Donation.Controllers
             }
             else if (!IsEmailInDatabase(email))
             {
-                ModelState.AddModelError("email", "Email does not exist.");
+                ModelState.AddModelError("email", "Email does not exist/registered.");
             }
 
             if (ModelState.IsValid)
