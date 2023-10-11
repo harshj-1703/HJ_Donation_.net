@@ -257,16 +257,46 @@ namespace RMC_Donation.Controllers
                 // Store the verification token in the user's model
                 userinfo.VerificationToken = verificationToken;
 
+                if (profilePhotoFile != null && profilePhotoFile.ContentLength > 0)
+                {
+                    string originalFileName = Path.GetFileName(profilePhotoFile.FileName);
+                    string fileExtension = Path.GetExtension(originalFileName);
+
+                    string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+
+                    if (!allowedExtensions.Contains(fileExtension.ToLower()))
+                    {
+                        ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                        return View();
+                    }
+
+                    string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
+
+                    string targetDirectory1 = Server.MapPath("~/Uploads/ProfilePhotos/");
+                    string targetDirectory = "/Uploads/ProfilePhotos/";
+
+                    if (!Directory.Exists(targetDirectory1))
+                    {
+                        Directory.CreateDirectory(targetDirectory1);
+                    }
+
+                    //string filePath = Path.Combine(targetDirectory, uniqueFileName);
+                    string filePath = targetDirectory + uniqueFileName;
+                    profilePhotoFile.SaveAs(targetDirectory1 + uniqueFileName);
+                    userinfo.profilephoto = filePath;
+                }
+                else
+                {
+                    string targetDirectory1 = Server.MapPath("~/Uploads/ProfilePhotos/NullImages/");
+                    if (!Directory.Exists(targetDirectory1))
+                    {
+                        Directory.CreateDirectory(targetDirectory1);
+                    }
+                    userinfo.profilephoto = "/Uploads/ProfilePhotos/NullImages/status1.png";
+                }
+
                 if (SendVerificationEmail(userinfo.email, verificationToken))
                 {
-                    if (profilePhotoFile != null && profilePhotoFile.ContentLength > 0)
-                    {
-                        userinfo.profilephoto = SaveProfilePhoto(profilePhotoFile);
-                    }
-                    else
-                    {
-                        userinfo.profilephoto = "/Uploads/ProfilePhotos/NullImages/status1.png";
-                    }
 
                     userinfo.createdat = DateTime.Now;
                     userinfo.updatedat = DateTime.Now;

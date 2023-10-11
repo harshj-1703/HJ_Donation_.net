@@ -110,7 +110,7 @@
                     <div class="form-group">
                         @Html.LabelFor(model => model.profilephoto, "Profile Photo", htmlAttributes: new { @class = "control-label col-md-3 registration-label" })
                         <div class="col-md-9">
-                            <input type="file" name="registration-profilePhotoFile" class="form-control" onchange="previewImage(this, 'registration-profilePhotoPreview')" />
+                            <input type="file" name="profilePhotoFile" class="form-control" onchange="previewImage(this, 'registration-profilePhotoPreview')" />
                             <img id="registration-profilePhotoPreview" src="" alt="Profile Photo Preview" style="max-width: 150px; max-height: 150px; display: none; margin-bottom:15px;" />
                             @Html.ValidationMessageFor(model => model.profilephoto, "", new { @class = "text-danger" })
                         </div>
