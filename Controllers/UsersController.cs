@@ -12,6 +12,7 @@ using System.Security.Cryptography;
 using System.Text;
 using BCrypt.Net;
 using System.Data.Entity.Validation;
+using System.Net.Mail;
 
 namespace RMC_Donation.Controllers
 {
@@ -51,10 +52,51 @@ namespace RMC_Donation.Controllers
 
             if (ModelState.IsValid)
             {
+                string to = "phptest01072003@gmail.com";
+                string from = "harshj0107@gmail.com";
+                string newPassword = GenerateRandomPassword(15);
+                MailMessage message = new MailMessage(from, to);
 
-                TempData["SuccessMessage"] = "Reseted Password To Your Email Send Succesfully!";
+                string mailbody = "Your New Password is : "+newPassword;
+                message.Subject = "Forgot Password Reset";
+                message.Body = mailbody;
+                message.BodyEncoding = Encoding.UTF8;
+                message.IsBodyHtml = true;
+
+                SmtpClient client = new SmtpClient("smtp.gmail.com", 587);
+                client.EnableSsl = true;
+
+                System.Net.NetworkCredential basicCredential1 = new System.Net.NetworkCredential("harshj0107@gmail.com", "olex pmno fojy hvbc");
+
+                client.UseDefaultCredentials = false;
+                client.Credentials = basicCredential1;
+
+                try
+                {
+                    client.Send(message);
+                    //update password
+                    var rmcUsers = new rmcdonateEntities();
+                    var user = rmcUsers.users.FirstOrDefault(u => u.email == email);
+                    user.password = BCrypt.Net.BCrypt.HashPassword(newPassword);
+                    rmcUsers.SaveChanges();
+                    //message send
+                    TempData["SuccessMessage"] = "Reseted Password To Your Email Sent Successfully!";
+                }
+                catch (Exception ex)
+                {
+                    throw ex;
+                }
             }
             return View();
+        }
+
+        private string GenerateRandomPassword(int length)
+        {
+            string chars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789!@#$%^&*()";
+            Random random = new Random();
+            var password = new string(Enumerable.Repeat(chars, length)
+                .Select(s => s[random.Next(s.Length)]).ToArray());
+            return password;
         }
 
         private bool IsValidEmail(string email)
