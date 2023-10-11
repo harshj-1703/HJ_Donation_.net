@@ -38,7 +38,7 @@
                         <img src="@item.User.profilephoto" height="50" width="50" style="border-radius:50%;" />
                     </td>
                     <td>
-                        @Html.DisplayFor(modelItem => item.User.fullname)
+                        <a href="@Url.Action("UserDetails", "Users", new { userId = item.User.id })">@Html.DisplayFor(modelItem => item.User.fullname)</a>
                     </td>
                     <td>
                         @Html.DisplayFor(modelItem => item.Item.name)
