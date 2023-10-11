@@ -52,7 +52,7 @@ namespace RMC_Donation.Controllers
 
             if (ModelState.IsValid)
             {
-                string to = "phptest01072003@gmail.com";
+                string to = email;
                 string from = "harshj0107@gmail.com";
                 string newPassword = GenerateRandomPassword(15);
                 MailMessage message = new MailMessage(from, to);
@@ -164,7 +164,7 @@ namespace RMC_Donation.Controllers
         public ActionResult Signup(user userinfo, HttpPostedFileBase profilePhotoFile, string confirmPassword)
         {
             bool userExists = entity.users.Any(x => x.email == userinfo.email || x.mobile_no == userinfo.mobile_no);
-            if (!userExists)
+            if (!userExists && IsValidEmail(userinfo.email))
             {
                 if (userinfo.password.Length < 8 || userinfo.password.Length > 15)
                 {
@@ -221,7 +221,13 @@ namespace RMC_Donation.Controllers
                 userinfo.password = BCrypt.Net.BCrypt.HashPassword(userinfo.password);
                 entity.users.Add(userinfo);
                 entity.SaveChanges();
+                TempData["SuccessMessage"] = "User Created Verification Email Sent Successfully!";
                 return RedirectToAction("Login");
+            }
+            else if(!userExists && !IsValidEmail(userinfo.email))
+            {
+                ModelState.AddModelError("", "Email is not valid");
+                return View();
             }
             ModelState.AddModelError("", "User Exists");
             return View();
