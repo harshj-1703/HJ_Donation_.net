@@ -13,6 +13,15 @@
     </div>
 }
 
+@if (TempData["ErrorMessage"] != null)
+{
+    <div style="display: flex; justify-content: center; align-items: center; height: 50px;">
+        <div class="alert alert-success" style="background-color: orange; color: red; padding: 10px; text-align: center; font-size: 15px; font-weight: bold; border-radius: 8px; border: 2px solid #01de14; width: 400px;">
+            @TempData["SuccessMessage"]
+        </div>
+    </div>
+}
+
 <div class="container unique-container">
     <div class="unique-form-container">
         <h2 class="unique-heading">Login</h2>

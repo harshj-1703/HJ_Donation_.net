@@ -50,5 +50,6 @@ namespace RMC_Donation.Models
         public Nullable<System.DateTime> updatedat { get; set; }
         public Nullable<System.DateTime> lastlogin { get; set; }
         public Nullable<int> status { get; set; }
+        public string VerificationToken { get; set; }
     }
 }
