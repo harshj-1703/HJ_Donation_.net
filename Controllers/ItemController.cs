@@ -50,6 +50,13 @@ namespace RMC_Donation.Controllers
                     return View();
                 }
 
+                int maxFileSize = 4 * 1024 * 1024; // 4 MB
+                if (imageurl1.ContentLength > maxFileSize)
+                {
+                    ModelState.AddModelError("", "The profile photo size cannot exceed 4 MB.");
+                    return View();
+                }
+
                 string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
 
                 string targetDirectory1 = Server.MapPath("~/Uploads/ItemPhotos/");
@@ -73,6 +80,13 @@ namespace RMC_Donation.Controllers
                 if (!allowedExtensions.Contains(fileExtension.ToLower()))
                 {
                     ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                    return View();
+                }
+
+                int maxFileSize = 4 * 1024 * 1024; // 4 MB
+                if (imageurl2.ContentLength > maxFileSize)
+                {
+                    ModelState.AddModelError("", "The profile photo size cannot exceed 4 MB.");
                     return View();
                 }
 
@@ -102,6 +116,13 @@ namespace RMC_Donation.Controllers
                     return View();
                 }
 
+                int maxFileSize = 4 * 1024 * 1024; // 4 MB
+                if (imageurl3.ContentLength > maxFileSize)
+                {
+                    ModelState.AddModelError("", "The profile photo size cannot exceed 4 MB.");
+                    return View();
+                }
+
                 string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
 
                 string targetDirectory1 = Server.MapPath("~/Uploads/ItemPhotos/");
@@ -125,6 +146,13 @@ namespace RMC_Donation.Controllers
                 if (!allowedExtensions.Contains(fileExtension.ToLower()))
                 {
                     ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                    return View();
+                }
+
+                int maxFileSize = 4 * 1024 * 1024; // 4 MB
+                if (imageurl4.ContentLength > maxFileSize)
+                {
+                    ModelState.AddModelError("", "The profile photo size cannot exceed 4 MB.");
                     return View();
                 }
 
@@ -288,6 +316,12 @@ namespace RMC_Donation.Controllers
                         ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
                         return View(items);
                     }
+                    int maxFileSize = 4 * 1024 * 1024; // 4 MB
+                    if (imageurl1.ContentLength > maxFileSize)
+                    {
+                        ModelState.AddModelError("", "The profile photo size cannot exceed 4 MB.");
+                        return View(items);
+                    }
                     string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
                     string targetDirectory1 = Server.MapPath("~/Uploads/ItemPhotos/");
                     string targetDirectory = "/Uploads/ItemPhotos/";
@@ -308,6 +342,12 @@ namespace RMC_Donation.Controllers
                     if (!allowedExtensions.Contains(fileExtension.ToLower()))
                     {
                         ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                        return View(items);
+                    }
+                    int maxFileSize = 4 * 1024 * 1024; // 4 MB
+                    if (imageurl2.ContentLength > maxFileSize)
+                    {
+                        ModelState.AddModelError("", "The profile photo size cannot exceed 4 MB.");
                         return View(items);
                     }
 
@@ -336,7 +376,12 @@ namespace RMC_Donation.Controllers
                         ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
                         return View(items);
                     }
-
+                    int maxFileSize = 4 * 1024 * 1024; // 4 MB
+                    if (imageurl3.ContentLength > maxFileSize)
+                    {
+                        ModelState.AddModelError("", "The profile photo size cannot exceed 4 MB.");
+                        return View(items);
+                    }
                     string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
 
                     string targetDirectory1 = Server.MapPath("~/Uploads/ItemPhotos/");
@@ -360,6 +405,12 @@ namespace RMC_Donation.Controllers
                     if (!allowedExtensions.Contains(fileExtension.ToLower()))
                     {
                         ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                        return View(items);
+                    }
+                    int maxFileSize = 4 * 1024 * 1024; // 4 MB
+                    if (imageurl4.ContentLength > maxFileSize)
+                    {
+                        ModelState.AddModelError("", "The profile photo size cannot exceed 4 MB.");
                         return View(items);
                     }
 

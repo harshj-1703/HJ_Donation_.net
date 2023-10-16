@@ -263,10 +263,17 @@ namespace RMC_Donation.Controllers
                     string fileExtension = Path.GetExtension(originalFileName);
 
                     string[] allowedExtensions = { ".jpg", ".jpeg", ".png", ".gif" };
+                    int maxFileSize = 4 * 1024 * 1024; // 4 MB
 
                     if (!allowedExtensions.Contains(fileExtension.ToLower()))
                     {
-                        ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                        ModelState.AddModelError("profilePhotoFile", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                        return View();
+                    }
+
+                    if (profilePhotoFile.ContentLength > maxFileSize)
+                    {
+                        ModelState.AddModelError("profilePhotoFile", "The profile photo size cannot exceed 4 MB.");
                         return View();
                     }
 
@@ -280,10 +287,9 @@ namespace RMC_Donation.Controllers
                         Directory.CreateDirectory(targetDirectory1);
                     }
 
-                    //string filePath = Path.Combine(targetDirectory, uniqueFileName);
-                    string filePath = targetDirectory + uniqueFileName;
-                    profilePhotoFile.SaveAs(targetDirectory1 + uniqueFileName);
-                    userinfo.profilephoto = filePath;
+                    string filePath = Path.Combine(targetDirectory1, uniqueFileName);
+                    profilePhotoFile.SaveAs(filePath);
+                    userinfo.profilephoto = targetDirectory + uniqueFileName;
                 }
                 else
                 {
@@ -511,6 +517,12 @@ namespace RMC_Donation.Controllers
                     if (!allowedExtensions.Contains(fileExtension.ToLower()))
                     {
                         ModelState.AddModelError("", "Invalid file format. Only image files (jpg, jpeg, png, gif) are allowed.");
+                        return View(users);
+                    }
+                    int maxFileSize = 4 * 1024 * 1024; // 4 MB
+                    if (profileImage.ContentLength > maxFileSize)
+                    {
+                        ModelState.AddModelError("", "The profile photo size cannot exceed 4 MB.");
                         return View(users);
                     }
                     string uniqueFileName = Guid.NewGuid().ToString("N") + fileExtension;
