@@ -1,6 +1,2 @@
-﻿################################################################################
-# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
-################################################################################
-
-/Uploads/ProfilePhotos
-/Uploads/ItemPhotos
+Web.config
+/Uploads
