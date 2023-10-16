@@ -1,4 +1,5 @@
 ﻿@import url('signup.css');
+
 body {
     display: flex;
     justify-content: center;
@@ -8,13 +9,13 @@ body {
     background-color: #f0f0f0;
 }
 
-input{
-    font-size:18px;
-    letter-spacing:2px;
+input {
+    font-size: 18px;
+    letter-spacing: 2px;
 }
 
 .registration-container {
-    width: 700px;
+    width: 100%; /* Full width on small screens */
     border-radius: 0.75rem;
     background-color: rgba(17, 24, 39, 1);
     padding: 2rem;
@@ -161,3 +162,49 @@ input{
     .toggle-password.glow {
         color: white;
     }
+
+/* Responsive styles */
+@media screen and (min-width: 768px) {
+    /* For screens wider than 768px (tablets and desktops) */
+    .registration-container {
+        width: 500px; /* Adjust the width as needed */
+    }
+
+    .row {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    .col-md-6 {
+        flex: 0 0 calc(50% - 16px);
+    }
+
+    .col-md-9 input[type="file"] {
+        width: 100%;
+    }
+
+    #registration-profilePhotoPreview {
+        max-width: 200px;
+        max-height: 200px;
+    }
+}
+
+/* Additional styles for smaller screens (mobile devices) */
+@media screen and (max-width: 767px) {
+    .registration-heading {
+        font-size: 1.3rem; /* Adjust the font size as needed for smaller screens */
+    }
+
+    .registration-label {
+        font-size: 16px; /* Adjust the font size as needed for smaller screens */
+    }
+
+    .registration-input {
+        font-size: 16px; /* Adjust the font size as needed for smaller screens */
+    }
+
+    .registration-button {
+        font-size: 1rem; /* Adjust the font size as needed for smaller screens */
+    }
+}
