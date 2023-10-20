@@ -822,20 +822,6 @@ aside#right-aside div#linkedin-section footer > div {
     #right-aside {
         display: none;
     }
-}
-
-@media only screen and (max-width: 1024px) {
-    #left-aside-wrapper {
-        display: none;
-    }
-
-    #left-aside {
-        display: none;
-    }
-
-    #right-aside {
-        display: none;
-    }
 
     .container{
         display:block !important;
