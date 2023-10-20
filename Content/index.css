@@ -827,3 +827,30 @@ aside#right-aside div#linkedin-section footer > div {
         display:block !important;
     }
 }
+
+/* For screens with a width between 701px and 1024px (Tablet) */
+@media only screen and (min-width: 701px) and (max-width: 1024px) {
+    .item-article {
+        width: fit-content;
+    }
+
+    #main-section {
+        width: fit-content;
+    }
+
+    #left-aside-wrapper {
+        display: none;
+    }
+
+    #left-aside {
+        display: none;
+    }
+
+    #right-aside {
+        display: none;
+    }
+
+    .container {
+        display: block !important;
+    }
+}

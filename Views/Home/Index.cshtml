@@ -359,11 +359,9 @@ else
                 buttons: ["zoom", "slideShow", "thumbs", "close"]
             });
         });
-    </script>
-    <script>
-        $(document).ready(function () {
-            $(".details-text").each(function () {
-                var $text = $(this);
+        jQuery(document).ready(function () {
+            jQuery(".details-text").each(function () {
+                var $text = jQuery(this);
                 var $readMore = $text.find(".read-more");
                 var originalHeight = $text.innerHeight();
 
