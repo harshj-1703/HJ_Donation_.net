@@ -22,7 +22,7 @@
 @if (Session["user_id"] != null)
 {
     <!-- MAIN CONTAINER -->
-    <div class="container" style="display:grid; grid-template-rows:1fr;">
+    <div class="container" style="display: grid; grid-template-rows: 1fr;">
         <!-- LEFT ASIDE -->
         <div id="left-aside-wrapper">
             <aside id="left-aside">
@@ -51,15 +51,15 @@
                             </li>
                             <li>
                                 <span class="fas fa-birthday-cake"></span>
-                                <span class="indexuserdetails">@ViewBag.DateOfBirth</span>
+                                <span class="indexuserdetails" style="max-width: 100%; word-break:break-all;">@ViewBag.DateOfBirth</span>
                             </li>
                             <li>
                                 <span class="fas fa-briefcase"></span>
-                                <span class="indexuserdetails">@ViewBag.Profession</span>
+                                <span class="indexuserdetails" style="max-width: 100%; word-break:break-all;">@ViewBag.Profession</span>
                             </li>
                             <li>
                                 <span class="fas fa-home"></span>
-                                <span id="indexuserdetails">@ViewBag.Address</span>
+                                <span id="indexuserdetails" style="max-width: 100%; word-break:break-all;">@ViewBag.Address</span>
                             </li>
                         </ul>
                     </section>

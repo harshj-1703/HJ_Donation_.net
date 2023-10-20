@@ -836,4 +836,8 @@ aside#right-aside div#linkedin-section footer > div {
     #right-aside {
         display: none;
     }
+
+    .container{
+        display:block !important;
+    }
 }
