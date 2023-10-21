@@ -152,7 +152,7 @@ namespace RMC_Donation.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "You were removed by Admin");
+                    ModelState.AddModelError("", "You were removed by Admin/User Not Verified.");
                     return View();
                 }
             }
