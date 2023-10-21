@@ -355,10 +355,12 @@ else
 @section scripts{
     <script>
         jQuery(document).ready(function ($) {
-            $("[data-fancybox]").fancybox({
+            jQuery("[data-fancybox]").fancybox({
                 buttons: ["zoom", "slideShow", "thumbs", "close"]
             });
         });
+    </script>
+    <script>
         jQuery(document).ready(function () {
             jQuery(".details-text").each(function () {
                 var $text = jQuery(this);
@@ -370,10 +372,10 @@ else
                     $readMore.click(function () {
                         $text.toggleClass("expanded");
                         if ($text.hasClass("expanded")) {
-                            $text.css("-webkit-line-clamp", "initial"); // Remove line clamp
+                            $text.css("-webkit-line-clamp", "initial");
                             $readMore.text("Read Less");
                         } else {
-                            $text.css("-webkit-line-clamp", "2"); // Reapply 2-line clamp
+                            $text.css("-webkit-line-clamp", "2");
                             $readMore.text("Read More");
                         }
                     });
