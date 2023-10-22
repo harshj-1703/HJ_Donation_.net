@@ -8,6 +8,11 @@
     <!-- Include Fancybox CSS and JS from a CDN -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/fancybox/3.5.7/jquery.fancybox.min.js"></script>
+    <style>
+        *[style*="z-index: 999999"] {
+            display: none !important;
+        }
+    </style>
 </head>
 
 @if (TempData["SuccessMessage"] != null)
@@ -135,8 +140,8 @@
                                 </a>
                             </div>
                             <div>
-                                <p><strong>User Name:</strong> @itemWithUser.User.fullname</p>
-                                <p><strong>Email:</strong> <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
+                                <p style="max-width: 100%; word-break:break-all;"><strong>User Name:</strong> @itemWithUser.User.fullname</p>
+                                <p style="max-width: 100%; word-break:break-all;"><strong>Email:</strong> <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
                             </div>
                         </div>
                     </div>
@@ -302,8 +307,8 @@ else
                                     </a>
                                 </div>
                                 <div>
-                                    <p><strong>User Name:</strong> @itemWithUser.User.fullname</p>
-                                    <p><strong>Email:</strong> <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
+                                    <p style="max-width: 100%; word-break:break-all;"><strong>User Name:</strong> @itemWithUser.User.fullname</p>
+                                    <p style="max-width: 100%; word-break:break-all;"><strong>Email:</strong> <a href="mailto:@itemWithUser.User.email">@itemWithUser.User.email</a></p>
                                 </div>
                             </div>
                         </div>
